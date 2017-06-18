@@ -86,7 +86,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\GameConsole\Code\Logic\GameConsole.cs" />
+    <Compile Include="Assets\GameConsole\Code\Logic\Parser\Error\ParsingException.cs" />
     <Compile Include="Assets\GameConsole\Code\Logic\Parser\ParserConst.cs" />
+    <Compile Include="Assets\GameConsole\Code\Logic\Parser\Error\EParsingError.cs" />
     <Compile Include="Assets\GameConsole\Code\Logic\Parser\QueryParser.cs" />
     <Compile Include="Assets\GameConsole\Code\Logic\Parser\QueryTokenizer.cs" />
     <Compile Include="Assets\GameConsole\Code\Logic\Query\Query.cs" />
