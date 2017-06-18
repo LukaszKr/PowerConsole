@@ -36,6 +36,27 @@ namespace ProceduralLevel.GameConsole.Editor.Test
 			TestHelper.CheckToken(tokens[0], true, "\\");
 			TestHelper.CheckToken(tokens[1], false, "\" \\escaped");
 		}
+
+		[Test]
+		public void QuoteTest()
+		{
+			m_Tokenizer.Tokenize("\"quoted\"");
+			List<Token> tokens = m_Tokenizer.Flush();
+			Assert.AreEqual(3, tokens.Count);
+			TestHelper.CheckToken(tokens[0], true, "\"");
+			TestHelper.CheckToken(tokens[1], false, "quoted");
+			TestHelper.CheckToken(tokens[2], true, "\"");
+		}
+
+		[Test]
+		public void IncompleteQuoteTest()
+		{
+			m_Tokenizer.Tokenize("\"partially quoted");
+			List<Token> tokens = m_Tokenizer.Flush();
+			Assert.AreEqual(2, tokens.Count);
+			TestHelper.CheckToken(tokens[0], true, "\"");
+			TestHelper.CheckToken(tokens[1], false, "partially quoted");
+		}
 	}
 }
 

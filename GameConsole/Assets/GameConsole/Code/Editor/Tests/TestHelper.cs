@@ -17,5 +17,17 @@ namespace ProceduralLevel.GameConsole.Editor.Test
 			Assert.AreEqual(isSeparator, token.IsSeparator);
 			Assert.AreEqual(value, token.Value);
 		}
+
+		public static void CheckException(QueryParser parser, string query, EParsingError errorType)
+		{
+			try
+			{
+				parser.Parse(query);
+			}
+			catch(ParsingException e)
+			{
+				Assert.AreEqual(errorType, e.ErrorType);
+			}
+		}
 	}
 }

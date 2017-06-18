@@ -136,6 +136,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\GameConsole\Code\Editor\Tests\QueryParserErrorDetectionTest.cs" />
     <Compile Include="Assets\GameConsole\Code\Editor\Tests\QueryParserTest.cs" />
     <Compile Include="Assets\GameConsole\Code\Editor\Tests\QueryTokenizerTest.cs" />
     <Compile Include="Assets\GameConsole\Code\Editor\Tests\TestHelper.cs" />

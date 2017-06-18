@@ -41,12 +41,25 @@ namespace ProceduralLevel.GameConsole.Logic
 				switch(token.Value)
 				{
 					case ParserConst.SPACE:
+						if(param != null && param.Value == null)
+						{
+							throw new ParsingException(EParsingError.NamedParam_NoValue, token);
+						}
 						param = null;
 						break;
 					case ParserConst.SEPARATOR:
+						if(param != null && param.Value == null)
+						{
+							throw new ParsingException(EParsingError.NamedParam_NoValue, token);
+						}
 						return query;
 					case ParserConst.ASSIGN:
+						if(param == null)
+						{
+							throw new ParsingException(EParsingError.NamedParam_NoName, token);
+						}
 						param.Name = param.Value;
+						param.Value = null;
 						break;
 					default:
 						if(param == null)

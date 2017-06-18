@@ -5,12 +5,12 @@ namespace ProceduralLevel.GameConsole.Logic
 {
 	public class ParsingException: Exception
 	{
-		public readonly EParsingError Error;
+		public readonly EParsingError ErrorType;
 		public readonly Token Token;
 
 		public ParsingException(EParsingError error, Token token) : base()
 		{
-			Error = error;
+			ErrorType = error;
 			Token = token;
 		}
 	}
