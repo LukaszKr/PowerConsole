@@ -23,6 +23,8 @@ namespace ProceduralLevel.GameConsole.Editor.Test
 			try
 			{
 				parser.Parse(query);
+				parser.Flush();
+				Assert.Fail(string.Format("Exception of type {0} wasn't caught.", errorType.ToString()));
 			}
 			catch(ParsingException e)
 			{

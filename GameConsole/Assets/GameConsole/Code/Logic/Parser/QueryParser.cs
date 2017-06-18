@@ -33,25 +33,20 @@ namespace ProceduralLevel.GameConsole.Logic
 			Query query = new Query();
 
 			QueryParam param = null;
+			Token token = null;
 
 			//todo: error handling
 			while(HasTokens())
 			{
-				Token token = ConsumeToken();
+				token = ConsumeToken();
 				switch(token.Value)
 				{
 					case ParserConst.SPACE:
-						if(param != null && param.Value == null)
-						{
-							throw new ParsingException(EParsingError.NamedParam_NoValue, token);
-						}
+						AssertNamedParamValue(param, token);
 						param = null;
 						break;
 					case ParserConst.SEPARATOR:
-						if(param != null && param.Value == null)
-						{
-							throw new ParsingException(EParsingError.NamedParam_NoValue, token);
-						}
+						AssertNamedParamValue(param, token);
 						return query;
 					case ParserConst.ASSIGN:
 						if(param == null)
@@ -72,7 +67,17 @@ namespace ProceduralLevel.GameConsole.Logic
 				}
 			}
 
+			AssertNamedParamValue(param, token);
+
 			return query;
+		}
+
+		private void AssertNamedParamValue(QueryParam param, Token token)
+		{
+			if(param != null && param.Value == null)
+			{
+				throw new ParsingException(EParsingError.NamedParam_NoValue, token);
+			}
 		}
 	}
 }
