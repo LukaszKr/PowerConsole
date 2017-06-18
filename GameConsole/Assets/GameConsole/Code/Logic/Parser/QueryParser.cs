@@ -35,7 +35,6 @@ namespace ProceduralLevel.GameConsole.Logic
 			QueryParam param = null;
 			Token token = null;
 
-			//todo: error handling
 			while(HasTokens())
 			{
 				token = ConsumeToken();
