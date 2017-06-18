@@ -15,8 +15,9 @@ namespace ProceduralLevel.GameConsole.Logic
 			ParserConst.QUOTE
 		};
 
+		private readonly static string[] QUERY_ESCAPED = new string [] { };
+
 		private bool m_Quoted;
-		private bool m_Escaped;
 
 		public QueryTokenizer(bool autoTrim = false) : base(autoTrim)
 		{
@@ -26,24 +27,14 @@ namespace ProceduralLevel.GameConsole.Logic
 		{
 			base.Reset();
 			m_Quoted = false;
-			m_Escaped = false;
 		}
 
 		protected override string[] GetSeparators(Token token)
 		{
-			if(m_Escaped)
-			{
-				m_Escaped = false;
-				if(token.IsSeparator)
-				{
-					return GetDefaultSeparators();
-				}
-			}
 			switch(token.Value)
 			{
 				case ParserConst.ESCAPE:
-					m_Escaped = true;
-					return GetDefaultSeparators();
+					return QUERY_ESCAPED;
 				case ParserConst.QUOTE:
 					m_Quoted = !m_Quoted;
 					if(m_Quoted)
