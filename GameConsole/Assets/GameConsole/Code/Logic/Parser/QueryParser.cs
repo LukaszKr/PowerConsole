@@ -9,6 +9,11 @@ namespace ProceduralLevel.GameConsole.Logic
 		{
 		}
 
+		protected override void Reset()
+		{
+			base.Reset();
+		}
+
 		protected override List<Query> Parse()
 		{
 			List<Query> queries = new List<Query>();

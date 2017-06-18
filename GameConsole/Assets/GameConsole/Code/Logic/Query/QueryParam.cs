@@ -7,5 +7,7 @@ namespace ProceduralLevel.GameConsole.Logic
 {
 	public class QueryParam
 	{
+		public string Name;
+		public string Value;
 	}
 }
