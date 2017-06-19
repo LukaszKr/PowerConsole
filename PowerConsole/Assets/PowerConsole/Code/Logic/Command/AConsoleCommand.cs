@@ -13,7 +13,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 
 		public AConsoleCommand(string name, string description)
 		{
-			Name = name;
+			Name = name.ToLowerInvariant();
 			Description = description;
 		}
 

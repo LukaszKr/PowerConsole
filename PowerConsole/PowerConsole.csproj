@@ -89,6 +89,7 @@
     <Compile Include="Assets\PowerConsole\Code\Logic\Command\CommandMethod.cs" />
     <Compile Include="Assets\PowerConsole\Code\Logic\Command\CommandParameter.cs" />
     <Compile Include="Assets\PowerConsole\Code\Logic\Console.cs" />
+    <Compile Include="Assets\PowerConsole\Code\Logic\Error\Command\DuplicatedCommandException.cs" />
     <Compile Include="Assets\PowerConsole\Code\Logic\Error\Command\IncorrectReturnTypeException.cs" />
     <Compile Include="Assets\PowerConsole\Code\Logic\Error\Command\OptionalParameterOrderException.cs" />
     <Compile Include="Assets\PowerConsole\Code\Logic\Factory.cs" />
