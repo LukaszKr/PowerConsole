@@ -7,9 +7,25 @@ namespace ProceduralLevel.PowerConsole.Logic
 	{
 		public const string DEFAULT_COMMAND_NAME = "Command";
 
+		public readonly string Name;
+		public readonly string Description;
+		public CommandMethod Method { get; private set; }
+
+		public AConsoleCommand(string name, string description)
+		{
+			Name = name;
+			Description = description;
+		}
+
+		public void ParseMethod()
+		{
+			Method = Factory.CreateCommandMethod(GetCommandMethod());
+		}
+
 		public virtual MethodInfo GetCommandMethod()
 		{
-			return GetMethodInfo(DEFAULT_COMMAND_NAME);
+			MethodInfo info = GetMethodInfo(DEFAULT_COMMAND_NAME);
+			return info;
 		}
 
 		protected MethodInfo GetMethodInfo(string methodName)

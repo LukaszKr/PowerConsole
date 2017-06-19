@@ -136,10 +136,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\PowerConsole\Code\Editor\Tests\ConsoleTest.cs" />
-    <Compile Include="Assets\PowerConsole\Code\Editor\Tests\QueryParserErrorDetectionTest.cs" />
-    <Compile Include="Assets\PowerConsole\Code\Editor\Tests\QueryParserTest.cs" />
-    <Compile Include="Assets\PowerConsole\Code\Editor\Tests\QueryTokenizerTest.cs" />
+    <Compile Include="Assets\PowerConsole\Code\Editor\Tests\FactoryTest.cs" />
+    <Compile Include="Assets\PowerConsole\Code\Editor\Tests\Query\QueryParserErrorDetectionTest.cs" />
+    <Compile Include="Assets\PowerConsole\Code\Editor\Tests\Query\QueryParserTest.cs" />
+    <Compile Include="Assets\PowerConsole\Code\Editor\Tests\Query\QueryTokenizerTest.cs" />
     <Compile Include="Assets\PowerConsole\Code\Editor\Tests\TestHelper.cs" />
+    <Compile Include="Assets\PowerConsole\Code\Editor\Tests\TestImplementation\TestCommand.cs" />
     <Compile Include="Assets\PowerConsole\Code\Editor\Tests\ValueParserTest.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

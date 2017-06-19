@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using ProceduralLevel.Common.Parsing;
 using ProceduralLevel.PowerConsole.Logic;
+using System;
 
 namespace ProceduralLevel.PowerConsole.Editor.Test
 {
@@ -10,6 +11,13 @@ namespace ProceduralLevel.PowerConsole.Editor.Test
 		{
 			Assert.AreEqual(param.Name, name);
 			Assert.AreEqual(param.Value, value);
+		}
+
+		public static void CheckParam(CommandParameter param, string name, Type type, object defaultValue)
+		{
+			Assert.AreEqual(name, param.Name);
+			Assert.AreEqual(type, param.Type);
+			Assert.AreEqual(defaultValue, param.DefaultValue);
 		}
 
 		public static void CheckToken(Token token, bool isSeparator, string value)

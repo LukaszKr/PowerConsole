@@ -13,7 +13,8 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.6.1f1</UnityVersion>
@@ -88,12 +89,15 @@
     <Compile Include="Assets\PowerConsole\Code\Logic\Command\CommandMethod.cs" />
     <Compile Include="Assets\PowerConsole\Code\Logic\Command\CommandParameter.cs" />
     <Compile Include="Assets\PowerConsole\Code\Logic\Console.cs" />
+    <Compile Include="Assets\PowerConsole\Code\Logic\Error\Command\IncorrectReturnTypeException.cs" />
+    <Compile Include="Assets\PowerConsole\Code\Logic\Error\Command\OptionalParameterOrderException.cs" />
+    <Compile Include="Assets\PowerConsole\Code\Logic\Factory.cs" />
     <Compile Include="Assets\PowerConsole\Code\Logic\Message\EMessageType.cs" />
     <Compile Include="Assets\PowerConsole\Code\Logic\Message\Message.cs" />
-    <Compile Include="Assets\PowerConsole\Code\Logic\Parser\Error\Query\EQueryError.cs" />
-    <Compile Include="Assets\PowerConsole\Code\Logic\Parser\Error\Query\QueryParserException.cs" />
-    <Compile Include="Assets\PowerConsole\Code\Logic\Parser\Error\Value\MissingValueParserException.cs" />
-    <Compile Include="Assets\PowerConsole\Code\Logic\Parser\Error\Value\ValueParserException.cs" />
+    <Compile Include="Assets\PowerConsole\Code\Logic\Error\Query\EQueryError.cs" />
+    <Compile Include="Assets\PowerConsole\Code\Logic\Error\Query\QueryParserException.cs" />
+    <Compile Include="Assets\PowerConsole\Code\Logic\Error\Value\MissingValueParserException.cs" />
+    <Compile Include="Assets\PowerConsole\Code\Logic\Error\Value\ValueParserException.cs" />
     <Compile Include="Assets\PowerConsole\Code\Logic\Parser\ParserConst.cs" />
     <Compile Include="Assets\PowerConsole\Code\Logic\Parser\QueryParser.cs" />
     <Compile Include="Assets\PowerConsole\Code\Logic\Parser\QueryTokenizer.cs" />
@@ -101,6 +105,7 @@
     <Compile Include="Assets\PowerConsole\Code\Logic\Query\Query.cs" />
     <Compile Include="Assets\PowerConsole\Code\Logic\Query\QueryParam.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
 </Project>

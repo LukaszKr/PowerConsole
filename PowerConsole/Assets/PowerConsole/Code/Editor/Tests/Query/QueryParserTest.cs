@@ -2,7 +2,7 @@
 using ProceduralLevel.PowerConsole.Logic;
 using System.Collections.Generic;
 
-namespace ProceduralLevel.PowerConsole.Editor.Test
+namespace ProceduralLevel.PowerConsole.Editor.Test.Queries
 {
 	public class QueryParserTest
 	{
