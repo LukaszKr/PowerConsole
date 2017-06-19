@@ -20,12 +20,12 @@ namespace ProceduralLevel.PowerConsole.Logic
 			int requiredArguments = m_NonOptionalCount;
 			int realIndex = 0;
 			HashSet<string> mappedValues = new HashSet<string>();
-			for(int x = 0; x < query.Arguments.Count; x++)
+			for(int x = 1; x < query.Arguments.Count; x++)
 			{
 				Argument argument = query.Arguments[x];
 				if(argument.Name == null)
 				{
-					while(m_Parameters.Count < realIndex)
+					while(m_Parameters.Count > realIndex)
 					{
 						CommandParameter cmdParameter = m_Parameters[realIndex];
 						realIndex++;
@@ -40,7 +40,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 					}
 					if(argument.Name == null)
 					{
-						throw new TooManyArgumentsException(query.Arguments.Count, m_Parameters.Count);
+						throw new TooManyArgumentsException(query.Arguments.Count-1, m_Parameters.Count);
 					}
 				}
 				else
@@ -62,7 +62,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 				}
 			}
 
-			if(requiredArguments > 0)
+			if(requiredArguments > 1) //command name is in query
 			{
 				List<CommandParameter> missing = new List<CommandParameter>();
 				for(int x = 0; x < m_Parameters.Count; x++)

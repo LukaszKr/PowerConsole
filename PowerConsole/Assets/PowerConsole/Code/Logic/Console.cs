@@ -40,7 +40,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 
 		public void Execute(Query query)
 		{
-			OnMessage.Invoke(new Message(EMessageType.Error, query.RawQuery));
+			OnMessage.Invoke(new Message(EMessageType.Execution, query.RawQuery));
 			if(query.Arguments.Count > 0)
 			{
 				string commandName = query.Arguments[0].Value;
@@ -76,7 +76,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 		{
 			try
 			{
-				for(int x = 0; x < query.Arguments.Count; x++)
+				for(int x = 1; x < query.Arguments.Count; x++)
 				{
 					Argument argument = query.Arguments[x];
 					argument.Parsed = m_ValueParser.Parse(argument.Parameter.Type, argument.Value);

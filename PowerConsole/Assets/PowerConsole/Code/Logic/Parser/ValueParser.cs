@@ -20,6 +20,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 			AddParser<long>(LongParser);
 			AddParser<float>(FloatParser);
 			AddParser<double>(DoubleParser);
+			AddParser<string>(StringParser);
 		}
 
 		public void AddParser<T>(ValueParserDelegate parser)
@@ -110,6 +111,11 @@ namespace ProceduralLevel.PowerConsole.Logic
 		private static object DoubleParser(string rawValue)
 		{
 			return double.Parse(rawValue);
+		}
+
+		private static object StringParser(string rawValue)
+		{
+			return rawValue;
 		}
 		#endregion
 

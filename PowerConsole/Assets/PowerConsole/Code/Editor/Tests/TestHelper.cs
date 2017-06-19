@@ -26,6 +26,12 @@ namespace ProceduralLevel.PowerConsole.Editor.Test
 			Assert.AreEqual(value, token.Value);
 		}
 
+		public static void CheckMessage(Message message, EMessageType result, string value)
+		{
+			Assert.AreEqual(result, message.Result);
+			Assert.AreEqual(value, message.Value);
+		}
+
 		public static void CheckException(QueryParser parser, string query, EQueryError errorType)
 		{
 			try
