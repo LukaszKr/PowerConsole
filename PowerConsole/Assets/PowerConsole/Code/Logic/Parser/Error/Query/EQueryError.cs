@@ -1,6 +1,6 @@
 ﻿namespace ProceduralLevel.PowerConsole.Logic
 {
-	public enum EParsingError
+	public enum EQueryError
 	{
 		NamedParam_NoName = 0,
 		NamedParam_NoValue = 1,

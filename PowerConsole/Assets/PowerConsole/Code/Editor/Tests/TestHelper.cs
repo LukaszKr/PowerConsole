@@ -18,7 +18,7 @@ namespace ProceduralLevel.PowerConsole.Editor.Test
 			Assert.AreEqual(value, token.Value);
 		}
 
-		public static void CheckException(QueryParser parser, string query, EParsingError errorType)
+		public static void CheckException(QueryParser parser, string query, EQueryError errorType)
 		{
 			try
 			{
@@ -26,7 +26,7 @@ namespace ProceduralLevel.PowerConsole.Editor.Test
 				parser.Flush();
 				Assert.Fail(string.Format("Exception of type {0} wasn't caught.", errorType.ToString()));
 			}
-			catch(ParsingException e)
+			catch(QueryParserException e)
 			{
 				Assert.AreEqual(errorType, e.ErrorCode);
 			}

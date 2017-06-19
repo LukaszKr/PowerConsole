@@ -54,7 +54,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 					case ParserConst.ASSIGN:
 						if(param == null)
 						{
-							throw new ParsingException(EParsingError.NamedParam_NoName, token);
+							throw new QueryParserException(EQueryError.NamedParam_NoName, token);
 						}
 						param.Name = param.Value;
 						param.Value = null;
@@ -73,7 +73,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 			AssertNamedParamValue(param, token);
 			if(quoted)
 			{
-				throw new ParsingException(EParsingError.Quote_Mismatch, token);
+				throw new QueryParserException(EQueryError.Quote_Mismatch, token);
 			}
 			return query;
 		}
@@ -82,7 +82,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 		{
 			if(param != null && param.Value == null)
 			{
-				throw new ParsingException(EParsingError.NamedParam_NoValue, token);
+				throw new QueryParserException(EQueryError.NamedParam_NoValue, token);
 			}
 		}
 	}

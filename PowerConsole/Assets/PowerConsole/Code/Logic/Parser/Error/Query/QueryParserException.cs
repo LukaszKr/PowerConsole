@@ -3,12 +3,12 @@ using System;
 
 namespace ProceduralLevel.PowerConsole.Logic
 {
-	public class ParsingException: Exception
+	public class QueryParserException: Exception
 	{
-		public readonly EParsingError ErrorCode;
+		public readonly EQueryError ErrorCode;
 		public readonly Token Token;
 
-		public ParsingException(EParsingError errorCode, Token token) : base()
+		public QueryParserException(EQueryError errorCode, Token token) : base()
 		{
 			ErrorCode = errorCode;
 			Token = token;

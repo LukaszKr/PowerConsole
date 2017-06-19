@@ -10,22 +10,22 @@ namespace ProceduralLevel.PowerConsole.Editor.Test
 		[Test]
 		public void NamedWithoutName()
 		{
-			TestHelper.CheckException(m_Parser, "test =value", EParsingError.NamedParam_NoName);
+			TestHelper.CheckException(m_Parser, "test =value", EQueryError.NamedParam_NoName);
 		}
 
 
 		[Test]
 		public void NamedWithoutValue()
 		{
-			TestHelper.CheckException(m_Parser, "test key=", EParsingError.NamedParam_NoValue);
-			TestHelper.CheckException(m_Parser, "test key= value", EParsingError.NamedParam_NoValue);
-			TestHelper.CheckException(m_Parser, "test key=;value", EParsingError.NamedParam_NoValue);
+			TestHelper.CheckException(m_Parser, "test key=", EQueryError.NamedParam_NoValue);
+			TestHelper.CheckException(m_Parser, "test key= value", EQueryError.NamedParam_NoValue);
+			TestHelper.CheckException(m_Parser, "test key=;value", EQueryError.NamedParam_NoValue);
 		}
 
 		[Test]
 		public void MismatchedQuotes()
 		{
-			TestHelper.CheckException(m_Parser, "\"missing quote", EParsingError.Quote_Mismatch);
+			TestHelper.CheckException(m_Parser, "\"missing quote", EQueryError.Quote_Mismatch);
 		}
 	}
 }
