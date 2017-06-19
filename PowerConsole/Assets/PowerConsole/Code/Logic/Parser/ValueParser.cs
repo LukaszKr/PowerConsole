@@ -13,6 +13,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 		{
 			m_Parsers = new Dictionary<Type, ValueParserDelegate>();
 
+			AddParser<bool>(BoolParser);
 			AddParser<byte>(ByteParser);
 			AddParser<short>(ShortParser);
 			AddParser<int>(IntParser);
@@ -68,6 +69,19 @@ namespace ProceduralLevel.PowerConsole.Logic
 		}
 
 		#region Simple Types Parsers
+		private static object BoolParser(string rawValue)
+		{
+			if(rawValue == "1")
+			{
+				return true;
+			}
+			else if(rawValue == "0")
+			{
+				return false;
+			}
+			return bool.Parse(rawValue);
+		}
+
 		private static object ByteParser(string rawValue)
 		{
 			return byte.Parse(rawValue);

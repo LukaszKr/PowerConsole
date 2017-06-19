@@ -15,6 +15,30 @@ namespace ProceduralLevel.PowerConsole.Logic
 			
 		}
 
+		public List<Query> ParseQuery(string strQuery)
+		{
+			m_QueryParser.Parse(strQuery);
+			List<Query> queries = m_QueryParser.Flush();
+			return queries;
+		}
+
+		public Message Execute(Query query)
+		{
+			return null;
+		}
+
+		public Message[] Execute(string strQuery)
+		{
+			List<Query> queries = ParseQuery(strQuery);
+			Message[] messages = new Message[queries.Count];
+			for(int x = 0; x < queries.Count; x++)
+			{
+				Query query = queries[x];
+				messages[x] = Execute(query);
+			}
+			return messages;
+		}
+
 		#region Command Manipulation
 		public void AddCommand(AConsoleCommand command)
 		{
@@ -74,17 +98,5 @@ namespace ProceduralLevel.PowerConsole.Logic
 			return -1;
 		}
 		#endregion
-
-		public List<Query> ParseQuery(string strQuery)
-		{ 
-			m_QueryParser.Parse(strQuery);
-			List<Query> queries = m_QueryParser.Flush();
-			return queries;
-		}
-
-		public Message Execute(Query query)
-		{
-			return null;
-		}
 	}
 }
