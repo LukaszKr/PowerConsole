@@ -24,12 +24,22 @@ namespace ProceduralLevel.PowerConsole.Editor.Test
 			{
 				parser.Parse(query);
 				parser.Flush();
-				Assert.Fail(string.Format("Exception of type {0} wasn't caught.", errorType.ToString()));
+				ExpectException(errorType.ToString());
 			}
 			catch(QueryParserException e)
 			{
 				Assert.AreEqual(errorType, e.ErrorCode);
 			}
 		}
-	}
+
+		public static void ExpectException<T>()
+		{
+			ExpectException(typeof(T).Name);
+		}
+
+		public static void ExpectException(string name)
+		{
+			Assert.Fail(string.Format("Exception of type {0} wasn't caught.", name));
+		}
+}
 }

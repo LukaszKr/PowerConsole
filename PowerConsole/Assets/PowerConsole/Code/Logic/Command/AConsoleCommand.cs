@@ -18,6 +18,8 @@ namespace ProceduralLevel.PowerConsole.Logic
 			return type.GetMethod(methodName, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
 		}
 
+		public abstract bool IsValid();
+
 		public Message Execute()
 		{
 			return null;

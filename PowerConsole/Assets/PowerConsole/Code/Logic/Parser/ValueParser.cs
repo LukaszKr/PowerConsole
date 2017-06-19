@@ -9,12 +9,9 @@ namespace ProceduralLevel.PowerConsole.Logic
 
 		public delegate object ValueParserDelegate(string rawValue);
 
-		private bool m_CreateMissingEnumParsers;
-
-		public ValueParser(bool createMissingEnumParsers = false)
+		public ValueParser()
 		{
 			m_Parsers = new Dictionary<Type, ValueParserDelegate>();
-			m_CreateMissingEnumParsers = createMissingEnumParsers;
 
 			AddParser<byte>(ByteParser);
 			AddParser<short>(ShortParser);
@@ -71,39 +68,39 @@ namespace ProceduralLevel.PowerConsole.Logic
 		}
 
 		#region Simple Types Parsers
-		public object ByteParser(string rawValue)
+		private static object ByteParser(string rawValue)
 		{
 			return byte.Parse(rawValue);
 		}
 
-		public object ShortParser(string rawValue)
+		private static object ShortParser(string rawValue)
 		{
 			return short.Parse(rawValue);
 		}
 
-		public object IntParser(string rawValue)
+		private static object IntParser(string rawValue)
 		{
 			return int.Parse(rawValue);
 		}
 
-		public object LongParser(string rawValue)
+		private static object LongParser(string rawValue)
 		{
 			return long.Parse(rawValue);
 		}
 
-		public object FloatParser(string rawValue)
+		private static object FloatParser(string rawValue)
 		{
 			return float.Parse(rawValue);
 		}
 
-		public object DoubleParser(string rawValue)
+		private static object DoubleParser(string rawValue)
 		{
 			return double.Parse(rawValue);
 		}
 		#endregion
 
 		#region Parser Generator
-		private ValueParserDelegate GenerateEnumParser<T>() where T: struct, IConvertible
+		private static ValueParserDelegate GenerateEnumParser<T>() where T: struct, IConvertible
 		{
 			return (string rawValue) =>
 			{

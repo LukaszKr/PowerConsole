@@ -85,6 +85,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\PowerConsole\Code\Logic\Command\AConsoleCommand.cs" />
+    <Compile Include="Assets\PowerConsole\Code\Logic\Command\CommandMethod.cs" />
+    <Compile Include="Assets\PowerConsole\Code\Logic\Command\CommandParameter.cs" />
+    <Compile Include="Assets\PowerConsole\Code\Logic\Console.cs" />
     <Compile Include="Assets\PowerConsole\Code\Logic\Message\EMessageType.cs" />
     <Compile Include="Assets\PowerConsole\Code\Logic\Message\Message.cs" />
     <Compile Include="Assets\PowerConsole\Code\Logic\Parser\Error\Query\EQueryError.cs" />
@@ -95,7 +98,6 @@
     <Compile Include="Assets\PowerConsole\Code\Logic\Parser\QueryParser.cs" />
     <Compile Include="Assets\PowerConsole\Code\Logic\Parser\QueryTokenizer.cs" />
     <Compile Include="Assets\PowerConsole\Code\Logic\Parser\ValueParser.cs" />
-    <Compile Include="Assets\PowerConsole\Code\Logic\PowerConsole.cs" />
     <Compile Include="Assets\PowerConsole\Code\Logic\Query\Query.cs" />
     <Compile Include="Assets\PowerConsole\Code\Logic\Query\QueryParam.cs" />
   </ItemGroup>

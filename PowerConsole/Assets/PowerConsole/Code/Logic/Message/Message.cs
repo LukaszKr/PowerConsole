@@ -5,7 +5,6 @@
 		public readonly EMessageType Result;
 		public readonly string Value;
 
-
 		public Message(EMessageType type, string value)
 		{
 			Result = type;
