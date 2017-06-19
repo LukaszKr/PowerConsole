@@ -11,7 +11,7 @@ namespace ProceduralLevel.PowerConsole.Editor.Test
 
 		public Message Command(int numberValue, bool toggle, string defaultValue = "abc")
 		{
-			return new Message(EMessageType.Info, string.Format("{0}:{1}:{2}", numberValue.ToString(), toggle.ToString(), defaultValue.ToString());
+			return new Message(EMessageType.Info, string.Format("{0}:{1}:{2}", numberValue.ToString(), toggle.ToString(), defaultValue.ToString()));
 		}
 
 		#region Test only
