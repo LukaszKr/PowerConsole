@@ -7,13 +7,13 @@ namespace ProceduralLevel.PowerConsole.Editor.Test
 {
 	public static class TestHelper
 	{
-		public static void CheckParam(QueryParam param, string name, string value)
+		public static void CheckArgument(Argument param, string name, string value)
 		{
 			Assert.AreEqual(param.Name, name);
 			Assert.AreEqual(param.Value, value);
 		}
 
-		public static void CheckParam(CommandParameter param, string name, Type type, object defaultValue)
+		public static void CheckParameter(CommandParameter param, string name, Type type, object defaultValue)
 		{
 			Assert.AreEqual(name, param.Name);
 			Assert.AreEqual(type, param.Type);

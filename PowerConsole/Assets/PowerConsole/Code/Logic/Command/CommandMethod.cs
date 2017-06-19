@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace ProceduralLevel.PowerConsole.Logic
 {
@@ -21,7 +20,31 @@ namespace ProceduralLevel.PowerConsole.Logic
 
 		public void MapParameters(Query query)
 		{
-			
+			int realIndex = 0;
+			HashSet<string> mappedValues = new HashSet<string>();
+			for(int x = 0; x < query.Arguments.Count; x++)
+			{
+				Argument argument = query.Arguments[x];
+				if(argument.Name == null)
+				{
+					while(m_Parameters.Count < realIndex)
+					{
+						CommandParameter cmdParameter = m_Parameters[realIndex];
+						realIndex++;
+						if(mappedValues.Contains(cmdParameter.Name))
+						{
+							continue;
+						}
+						mappedValues.Add(cmdParameter.Name);
+						argument.Name = cmdParameter.Name;
+						break;
+					}
+					if(argument.Name == null)
+					{
+
+					}
+				}
+			}
 		}
 
 		public void ClearParameters()
@@ -50,12 +73,12 @@ namespace ProceduralLevel.PowerConsole.Logic
 			return new List<CommandParameter>(m_Parameters);
 		}
 
-		public CommandParameter FindParameter(string name)
+		private CommandParameter FindParameter(string name)
 		{
 			for(int x = 0; x < m_Parameters.Count; x++)
 			{
 				CommandParameter parameter = m_Parameters[x];
-				if(parameter.Name.Equals(name, StringComparison.OrdinalIgnoreCase))
+				if(name == parameter.Name)
 				{
 					return parameter;
 				}

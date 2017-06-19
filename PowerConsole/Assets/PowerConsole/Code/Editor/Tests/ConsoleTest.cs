@@ -24,9 +24,9 @@ namespace ProceduralLevel.PowerConsole.Editor.Test
 			List<CommandParameter> parameters = method.CopyParameters();
 			
 			Assert.AreEqual(3, method.ParameterCount);
-			TestHelper.CheckParam(parameters[0], "numberValue", typeof(int), null);
-			TestHelper.CheckParam(parameters[1], "toggle", typeof(bool), null);
-			TestHelper.CheckParam(parameters[2], "defaultValue", typeof(string), "abc");
+			TestHelper.CheckParameter(parameters[0], "numberValue", typeof(int), null);
+			TestHelper.CheckParameter(parameters[1], "toggle", typeof(bool), null);
+			TestHelper.CheckParameter(parameters[2], "defaultValue", typeof(string), "abc");
 		}
 	}
 }

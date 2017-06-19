@@ -10,16 +10,16 @@ namespace ProceduralLevel.PowerConsole.Editor.Test.Queries
 		[Test]
 		public void NamedWithoutName()
 		{
-			TestHelper.CheckException(m_Parser, "test =value", EQueryError.NamedParam_NoName);
+			TestHelper.CheckException(m_Parser, "test =value", EQueryError.NamedArgument_NoName);
 		}
 
 
 		[Test]
 		public void NamedWithoutValue()
 		{
-			TestHelper.CheckException(m_Parser, "test key=", EQueryError.NamedParam_NoValue);
-			TestHelper.CheckException(m_Parser, "test key= value", EQueryError.NamedParam_NoValue);
-			TestHelper.CheckException(m_Parser, "test key=;value", EQueryError.NamedParam_NoValue);
+			TestHelper.CheckException(m_Parser, "test key=", EQueryError.NamedArgument_NoValue);
+			TestHelper.CheckException(m_Parser, "test key= value", EQueryError.NamedArgument_NoValue);
+			TestHelper.CheckException(m_Parser, "test key=;value", EQueryError.NamedArgument_NoValue);
 		}
 
 		[Test]

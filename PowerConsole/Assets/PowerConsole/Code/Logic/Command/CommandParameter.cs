@@ -13,7 +13,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 
 		public CommandParameter(ParameterInfo parameterInfo)
 		{
-			Name = parameterInfo.Name;
+			Name = parameterInfo.Name.ToLowerInvariant();
 			Type = parameterInfo.ParameterType;
 			bool hasDefaultValue = (parameterInfo.Attributes & ParameterAttributes.HasDefault) != 0;
 			DefaultValue = (hasDefaultValue? parameterInfo.DefaultValue: null);

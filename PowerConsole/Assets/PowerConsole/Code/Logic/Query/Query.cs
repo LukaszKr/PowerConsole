@@ -5,7 +5,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 	public class Query
 	{
 		public string RawQuery = "";
-		public List<QueryParam> Params = new List<QueryParam>();
+		public List<Argument> Arguments = new List<Argument>();
 
 		public Query()
 		{

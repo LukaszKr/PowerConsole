@@ -107,7 +107,7 @@
     <Compile Include="Assets\PowerConsole\Code\Logic\Parser\QueryTokenizer.cs" />
     <Compile Include="Assets\PowerConsole\Code\Logic\Parser\ValueParser.cs" />
     <Compile Include="Assets\PowerConsole\Code\Logic\Query\Query.cs" />
-    <Compile Include="Assets\PowerConsole\Code\Logic\Query\QueryParam.cs" />
+    <Compile Include="Assets\PowerConsole\Code\Logic\Query\Argument.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

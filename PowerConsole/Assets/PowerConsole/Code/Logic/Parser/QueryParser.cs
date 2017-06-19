@@ -33,7 +33,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 			Query query = new Query();
 
 			bool quoted = false;
-			QueryParam param = null;
+			Argument argument = null;
 			Token token = null;
 
 			while(HasTokens())
@@ -42,36 +42,36 @@ namespace ProceduralLevel.PowerConsole.Logic
 				switch(token.Value)
 				{
 					case ParserConst.SPACE:
-						AssertNamedParamValue(param, token);
-						param = null;
+						AssertNamedArgumentValue(argument, token);
+						argument = null;
 						break;
 					case ParserConst.QUOTE:
 						quoted = !quoted;
 						break;
 					case ParserConst.SEPARATOR:
-						AssertNamedParamValue(param, token);
+						AssertNamedArgumentValue(argument, token);
 						return query;
 					case ParserConst.ASSIGN:
-						if(param == null)
+						if(argument == null)
 						{
-							throw new QueryParserException(EQueryError.NamedParam_NoName, token);
+							throw new QueryParserException(EQueryError.NamedArgument_NoName, token);
 						}
-						param.Name = param.Value;
-						param.Value = null;
+						argument.Name = argument.Value;
+						argument.Value = null;
 						break;
 					default:
-						if(param == null)
+						if(argument == null)
 						{
-							param = new QueryParam();
-							query.Params.Add(param);
+							argument = new Argument();
+							query.Arguments.Add(argument);
 						}
-						param.Value = token.Value;
+						argument.Value = token.Value;
 						break;
 				}
 				query.RawQuery += token.Value;
 			}
 
-			AssertNamedParamValue(param, token);
+			AssertNamedArgumentValue(argument, token);
 			if(quoted)
 			{
 				throw new QueryParserException(EQueryError.Quote_Mismatch, token);
@@ -79,11 +79,11 @@ namespace ProceduralLevel.PowerConsole.Logic
 			return query;
 		}
 
-		private void AssertNamedParamValue(QueryParam param, Token token)
+		private void AssertNamedArgumentValue(Argument param, Token token)
 		{
 			if(param != null && param.Value == null)
 			{
-				throw new QueryParserException(EQueryError.NamedParam_NoValue, token);
+				throw new QueryParserException(EQueryError.NamedArgument_NoValue, token);
 			}
 		}
 	}

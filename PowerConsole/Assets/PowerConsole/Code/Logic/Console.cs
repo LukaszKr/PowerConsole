@@ -30,9 +30,9 @@ namespace ProceduralLevel.PowerConsole.Logic
 		public void Execute(Query query)
 		{
 			OnMessage.Invoke(new Message(EMessageType.Error, query.RawQuery));
-			if(query.Params.Count > 0)
+			if(query.Arguments.Count > 0)
 			{
-				string commandName = query.Params[0].Value;
+				string commandName = query.Arguments[0].Value;
 				AConsoleCommand command = FindCommand(commandName);
 				if(command == null)
 				{
