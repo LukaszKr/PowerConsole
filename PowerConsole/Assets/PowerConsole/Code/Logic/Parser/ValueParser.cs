@@ -62,7 +62,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 				}
 				catch
 				{
-					throw new ValueParserException(type, rawValue);
+					throw new InvalidValueFormatException(type, rawValue);
 				}
 			}
 			throw new MissingValueParserException(type, rawValue);

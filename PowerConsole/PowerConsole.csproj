@@ -93,12 +93,15 @@
     <Compile Include="Assets\PowerConsole\Code\Logic\Error\Command\IncorrectReturnTypeException.cs" />
     <Compile Include="Assets\PowerConsole\Code\Logic\Error\Command\OptionalParameterOrderException.cs" />
     <Compile Include="Assets\PowerConsole\Code\Logic\Factory.cs" />
+    <Compile Include="Assets\PowerConsole\Code\Logic\Localization\ELocalizationKey.cs" />
+    <Compile Include="Assets\PowerConsole\Code\Logic\Localization\ALocalization.cs" />
+    <Compile Include="Assets\PowerConsole\Code\Logic\Localization\DefaultLocalization.cs" />
     <Compile Include="Assets\PowerConsole\Code\Logic\Message\EMessageType.cs" />
     <Compile Include="Assets\PowerConsole\Code\Logic\Message\Message.cs" />
     <Compile Include="Assets\PowerConsole\Code\Logic\Error\Query\EQueryError.cs" />
     <Compile Include="Assets\PowerConsole\Code\Logic\Error\Query\QueryParserException.cs" />
     <Compile Include="Assets\PowerConsole\Code\Logic\Error\Value\MissingValueParserException.cs" />
-    <Compile Include="Assets\PowerConsole\Code\Logic\Error\Value\ValueParserException.cs" />
+    <Compile Include="Assets\PowerConsole\Code\Logic\Error\Value\InvalidValueFormatException.cs" />
     <Compile Include="Assets\PowerConsole\Code\Logic\Parser\ParserConst.cs" />
     <Compile Include="Assets\PowerConsole\Code\Logic\Parser\QueryParser.cs" />
     <Compile Include="Assets\PowerConsole\Code\Logic\Parser\QueryTokenizer.cs" />

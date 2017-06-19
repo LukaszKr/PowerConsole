@@ -13,9 +13,11 @@ namespace ProceduralLevel.PowerConsole.Logic
 
 		public Event<Message> OnMessage = new Event<Message>();
 
-		public Console()
+		private ALocalization m_Localization;
+
+		public Console(ALocalization localizationProvider)
 		{
-			
+			m_Localization = localizationProvider;
 		}
 
 		public List<Query> ParseQuery(string strQuery)
@@ -28,6 +30,28 @@ namespace ProceduralLevel.PowerConsole.Logic
 		public void Execute(Query query)
 		{
 			OnMessage.Invoke(new Message(EMessageType.Error, query.RawQuery));
+			if(query.Params.Count > 0)
+			{
+				string commandName = query.Params[0].Value;
+				AConsoleCommand command = FindCommand(commandName);
+				if(command == null)
+				{
+					OnMessage.Invoke(new Message(EMessageType.Error, m_Localization.CommandNotFound(commandName)));
+				}
+				CommandMethod method = command.Method;
+				try
+				{
+					method.Parse(m_ValueParser, query);
+				}
+				catch(MissingValueParserException e)
+				{
+					OnMessage.Invoke(new Message(EMessageType.Error, m_Localization.MissingValueParser(e.RawValue, e.ExpectedType)));
+				}
+				catch(InvalidValueFormatException e)
+				{
+					OnMessage.Invoke(new Message(EMessageType.Error, m_Localization.InvalidValueFormat(e.RawValue, e.ExpectedType)));
+				}
+			}
 		}
 
 		public void Execute(string strQuery)

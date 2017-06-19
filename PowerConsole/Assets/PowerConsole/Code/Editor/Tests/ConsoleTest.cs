@@ -6,7 +6,7 @@ namespace ProceduralLevel.PowerConsole.Editor.Test
 {
 	public class ConsoleTest
 	{
-		private Console m_Console = new Console();
+		private Console m_Console = new Console(new DefaultLocalization());
 
 		[Test]
 		public void BasicParseQuery()

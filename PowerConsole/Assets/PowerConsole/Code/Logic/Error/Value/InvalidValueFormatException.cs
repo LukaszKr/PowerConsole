@@ -2,12 +2,12 @@
 
 namespace ProceduralLevel.PowerConsole.Logic
 {
-	public class ValueParserException: Exception
+	public class InvalidValueFormatException: Exception
 	{
 		public readonly Type ExpectedType;
 		public readonly string RawValue;
 
-		public ValueParserException(Type expectedType, string rawValue)
+		public InvalidValueFormatException(Type expectedType, string rawValue)
 		{
 			ExpectedType  = expectedType;
 			RawValue = rawValue;

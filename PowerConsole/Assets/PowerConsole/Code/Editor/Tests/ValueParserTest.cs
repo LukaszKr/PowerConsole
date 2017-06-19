@@ -15,7 +15,7 @@ namespace ProceduralLevel.PowerConsole.Editor.Test
 				m_Parser.Parse<int>("a123");
 				TestHelper.ExpectException<MissingValueParserException>();
 			}
-			catch(ValueParserException e)
+			catch(InvalidValueFormatException e)
 			{
 				Assert.AreEqual(typeof(int), e.ExpectedType);
 				Assert.AreEqual("a123", e.RawValue);
