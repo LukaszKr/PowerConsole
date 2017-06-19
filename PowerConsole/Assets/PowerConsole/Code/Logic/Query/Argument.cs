@@ -12,6 +12,9 @@
 
 		public string Value;
 		public object Parsed;
+		public CommandParameter Parameter;
+
+		public bool IsMapped { get { return Parameter != null; } }
 
 		public Argument()
 		{

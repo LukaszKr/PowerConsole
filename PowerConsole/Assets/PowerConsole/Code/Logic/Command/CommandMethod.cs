@@ -8,18 +8,16 @@ namespace ProceduralLevel.PowerConsole.Logic
 
 		public int ParameterCount { get { return m_Parameters.Count; } }
 
+		private int m_NonOptionalCount = 0;
+
 		public CommandMethod()
 		{
 			m_Parameters = new List<CommandParameter>();
 		}
 
-		public void Parse(ValueParser parser, Query query)
+		public void MapArguments(Query query)
 		{
-
-		}
-
-		public void MapParameters(Query query)
-		{
+			int requiredArguments = m_NonOptionalCount;
 			int realIndex = 0;
 			HashSet<string> mappedValues = new HashSet<string>();
 			for(int x = 0; x < query.Arguments.Count; x++)
@@ -37,18 +35,51 @@ namespace ProceduralLevel.PowerConsole.Logic
 						}
 						mappedValues.Add(cmdParameter.Name);
 						argument.Name = cmdParameter.Name;
+						argument.Parameter = cmdParameter;
 						break;
 					}
 					if(argument.Name == null)
 					{
-
+						throw new TooManyArgumentsException(query.Arguments.Count, m_Parameters.Count);
 					}
 				}
+				else
+				{
+					argument.Parameter = FindParameter(argument.Name);
+					if(argument.IsMapped)
+					{
+						mappedValues.Add(argument.Name);
+					}
+					else
+					{
+						throw new NamedArgumentNotFoundException(argument.Name, argument.Value);
+					}
+				}
+
+				if(!argument.Parameter.HasDefault)
+				{
+					requiredArguments --;
+				}
+			}
+
+			if(requiredArguments > 0)
+			{
+				List<CommandParameter> missing = new List<CommandParameter>();
+				for(int x = 0; x < m_Parameters.Count; x++)
+				{
+					CommandParameter parameter = m_Parameters[x];
+					if(!parameter.HasDefault && !mappedValues.Contains(parameter.Name))
+					{
+						missing.Add(parameter);
+					}
+				}
+				throw new NotEnoughtArgumentsException(missing);
 			}
 		}
 
 		public void ClearParameters()
 		{
+			m_NonOptionalCount = 0;
 			m_Parameters.Clear();
 		}
 
@@ -64,6 +95,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 						throw new OptionalParameterOrderException(this, existingParameter, parameter);
 					}
 				}
+				m_NonOptionalCount ++;
 			}
 			m_Parameters.Add(parameter);
 		}

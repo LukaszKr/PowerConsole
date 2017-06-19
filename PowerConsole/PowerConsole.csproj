@@ -92,6 +92,9 @@
     <Compile Include="Assets\PowerConsole\Code\Logic\Error\Command\DuplicatedCommandException.cs" />
     <Compile Include="Assets\PowerConsole\Code\Logic\Error\Command\IncorrectReturnTypeException.cs" />
     <Compile Include="Assets\PowerConsole\Code\Logic\Error\Command\OptionalParameterOrderException.cs" />
+    <Compile Include="Assets\PowerConsole\Code\Logic\Error\Query\NamedArgumentNotFoundException.cs" />
+    <Compile Include="Assets\PowerConsole\Code\Logic\Error\Query\NotEnoughtArgumentsException.cs" />
+    <Compile Include="Assets\PowerConsole\Code\Logic\Error\Query\TooManyArgumentsException.cs" />
     <Compile Include="Assets\PowerConsole\Code\Logic\Factory.cs" />
     <Compile Include="Assets\PowerConsole\Code\Logic\Localization\ELocalizationKey.cs" />
     <Compile Include="Assets\PowerConsole\Code\Logic\Localization\ALocalization.cs" />

@@ -27,6 +27,17 @@ namespace ProceduralLevel.PowerConsole.Logic
 			return queries;
 		}
 
+		#region Execution
+		public void Execute(string strQuery)
+		{
+			List<Query> queries = ParseQuery(strQuery);
+			for(int x = 0; x < queries.Count; x++)
+			{
+				Query query = queries[x];
+				Execute(query);
+			}
+		}
+
 		public void Execute(Query query)
 		{
 			OnMessage.Invoke(new Message(EMessageType.Error, query.RawQuery));
@@ -39,30 +50,48 @@ namespace ProceduralLevel.PowerConsole.Logic
 					OnMessage.Invoke(new Message(EMessageType.Error, m_Localization.CommandNotFound(commandName)));
 				}
 				CommandMethod method = command.Method;
-				try
-				{
-					method.Parse(m_ValueParser, query);
-				}
-				catch(MissingValueParserException e)
-				{
-					OnMessage.Invoke(new Message(EMessageType.Error, m_Localization.MissingValueParser(e.RawValue, e.ExpectedType)));
-				}
-				catch(InvalidValueFormatException e)
-				{
-					OnMessage.Invoke(new Message(EMessageType.Error, m_Localization.InvalidValueFormat(e.RawValue, e.ExpectedType)));
-				}
+				MapQuery(method, query);
+				ParseQueryValues(query);
+
 			}
 		}
 
-		public void Execute(string strQuery)
+		private void MapQuery(CommandMethod method, Query query)
 		{
-			List<Query> queries = ParseQuery(strQuery);
-			for(int x = 0; x < queries.Count; x++)
+			try
 			{
-				Query query = queries[x];
-				Execute(query);
+				method.MapArguments(query);
+			}
+			catch(NamedArgumentNotFoundException e)
+			{
+				OnMessage.Invoke(new Message(EMessageType.Error, m_Localization.NamedArgumentNotFound(e.Name, e.Value)));
+			}
+			catch(TooManyArgumentsException e)
+			{
+				OnMessage.Invoke(new Message(EMessageType.Error, m_Localization.TooManyArguments(e.Received, e.Expected)));
 			}
 		}
+
+		private void ParseQueryValues(Query query)
+		{
+			try
+			{
+				for(int x = 0; x < query.Arguments.Count; x++)
+				{
+					Argument argument = query.Arguments[x];
+					argument.Parsed = m_ValueParser.Parse(argument.Parameter.Type, argument.Value);
+				}
+			}
+			catch(MissingValueParserException e)
+			{
+				OnMessage.Invoke(new Message(EMessageType.Error, m_Localization.MissingValueParser(e.RawValue, e.ExpectedType)));
+			}
+			catch(InvalidValueFormatException e)
+			{
+				OnMessage.Invoke(new Message(EMessageType.Error, m_Localization.InvalidValueFormat(e.RawValue, e.ExpectedType)));
+			}
+		}
+		#endregion
 
 		#region Command Manipulation
 		public void AddCommand(AConsoleCommand command)
