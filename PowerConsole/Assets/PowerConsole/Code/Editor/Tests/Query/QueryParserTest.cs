@@ -21,6 +21,16 @@ namespace ProceduralLevel.PowerConsole.Editor.Test.Queries
 		}
 
 		[Test]
+		public void RawQuery()
+		{
+			string expectedQuery = "test 123 ";
+			string rawQuery = expectedQuery+"; yup";
+			m_Parser.Parse(rawQuery);
+			List<Query> queries = m_Parser.Flush();
+			Assert.AreEqual(expectedQuery, queries[0].RawQuery);
+		}
+
+		[Test]
 		public void MultipleSpaces()
 		{
 			m_Parser.Parse("test   param");

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProceduralLevel.Common.Event;
+using System;
 using System.Collections.Generic;
 
 namespace ProceduralLevel.PowerConsole.Logic
@@ -9,6 +10,8 @@ namespace ProceduralLevel.PowerConsole.Logic
 		private QueryParser m_QueryParser = new QueryParser();
 
 		private List<AConsoleCommand> m_Commands = new List<AConsoleCommand>();
+
+		public Event<Message> OnMessage = new Event<Message>();
 
 		public Console()
 		{
@@ -22,21 +25,19 @@ namespace ProceduralLevel.PowerConsole.Logic
 			return queries;
 		}
 
-		public Message Execute(Query query)
+		public void Execute(Query query)
 		{
-			return null;
+			OnMessage.Invoke(new Message(EMessageType.Error, query.RawQuery));
 		}
 
-		public Message[] Execute(string strQuery)
+		public void Execute(string strQuery)
 		{
 			List<Query> queries = ParseQuery(strQuery);
-			Message[] messages = new Message[queries.Count];
 			for(int x = 0; x < queries.Count; x++)
 			{
 				Query query = queries[x];
-				messages[x] = Execute(query);
+				Execute(query);
 			}
-			return messages;
 		}
 
 		#region Command Manipulation

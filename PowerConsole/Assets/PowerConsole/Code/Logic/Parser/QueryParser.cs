@@ -68,6 +68,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 						param.Value = token.Value;
 						break;
 				}
+				query.RawQuery += token.Value;
 			}
 
 			AssertNamedParamValue(param, token);
