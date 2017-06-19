@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ProceduralLevel.GameConsole.Logic
+namespace ProceduralLevel.PowerConsole.Logic
 {
 	public class Query
 	{

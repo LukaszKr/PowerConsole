@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ProceduralLevel.GameConsole.Logic
+namespace ProceduralLevel.PowerConsole.Logic
 {
 	public class QueryParam
 	{

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ProceduralLevel.GameConsole.Logic
+namespace ProceduralLevel.PowerConsole.Logic
 {
 	public class GameConsole
 	{

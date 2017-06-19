@@ -1,7 +1,7 @@
 ﻿using ProceduralLevel.Common.Parsing;
 using System;
 
-namespace ProceduralLevel.GameConsole.Logic
+namespace ProceduralLevel.PowerConsole.Logic
 {
 	public class ParsingException: Exception
 	{

@@ -1,8 +1,8 @@
 ﻿using NUnit.Framework;
 using ProceduralLevel.Common.Parsing;
-using ProceduralLevel.GameConsole.Logic;
+using ProceduralLevel.PowerConsole.Logic;
 
-namespace ProceduralLevel.GameConsole.Editor.Test
+namespace ProceduralLevel.PowerConsole.Editor.Test
 {
 	public static class TestHelper
 	{

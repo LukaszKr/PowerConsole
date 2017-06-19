@@ -1,7 +1,7 @@
 ﻿using ProceduralLevel.Common.Parsing;
 using System.Collections.Generic;
 
-namespace ProceduralLevel.GameConsole.Logic
+namespace ProceduralLevel.PowerConsole.Logic
 {
 	public class QueryParser: AParser<List<Query>>
 	{

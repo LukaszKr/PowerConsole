@@ -1,4 +1,4 @@
-﻿namespace ProceduralLevel.GameConsole.Logic
+﻿namespace ProceduralLevel.PowerConsole.Logic
 {
 	public enum EParsingError
 	{

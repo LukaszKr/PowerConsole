@@ -1,8 +1,8 @@
 ﻿using NUnit.Framework;
-using ProceduralLevel.GameConsole.Logic;
+using ProceduralLevel.PowerConsole.Logic;
 using System.Collections.Generic;
 
-namespace ProceduralLevel.GameConsole.Editor.Test
+namespace ProceduralLevel.PowerConsole.Editor.Test
 {
 	public class QueryParserTest
 	{

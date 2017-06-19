@@ -1,6 +1,6 @@
 ﻿using ProceduralLevel.Common.Parsing;
 
-namespace ProceduralLevel.GameConsole.Logic
+namespace ProceduralLevel.PowerConsole.Logic
 {
 	public class QueryTokenizer: ATokenizer
 	{
