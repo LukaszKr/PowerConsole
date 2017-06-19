@@ -5,13 +5,18 @@ namespace ProceduralLevel.GameConsole.Logic
 {
 	public class ParsingException: Exception
 	{
-		public readonly EParsingError ErrorType;
+		public readonly EParsingError ErrorCode;
 		public readonly Token Token;
 
-		public ParsingException(EParsingError error, Token token) : base()
+		public ParsingException(EParsingError errorCode, Token token) : base()
 		{
-			ErrorType = error;
+			ErrorCode = errorCode;
 			Token = token;
+		}
+
+		public override string ToString()
+		{
+			return string.Format("[ErrorCode: {0}, Token: {1}]", ErrorCode.ToString(), Token.ToString());
 		}
 	}
 }

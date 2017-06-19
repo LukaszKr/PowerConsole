@@ -20,7 +20,12 @@ namespace ProceduralLevel.GameConsole.Editor.Test
 			TestHelper.CheckException(m_Parser, "test key=", EParsingError.NamedParam_NoValue);
 			TestHelper.CheckException(m_Parser, "test key= value", EParsingError.NamedParam_NoValue);
 			TestHelper.CheckException(m_Parser, "test key=;value", EParsingError.NamedParam_NoValue);
+		}
 
+		[Test]
+		public void MismatchedQuotes()
+		{
+			TestHelper.CheckException(m_Parser, "\"missing quote", EParsingError.Quote_Mismatch);
 		}
 	}
 }

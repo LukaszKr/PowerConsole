@@ -28,7 +28,7 @@ namespace ProceduralLevel.GameConsole.Editor.Test
 			}
 			catch(ParsingException e)
 			{
-				Assert.AreEqual(errorType, e.ErrorType);
+				Assert.AreEqual(errorType, e.ErrorCode);
 			}
 		}
 	}

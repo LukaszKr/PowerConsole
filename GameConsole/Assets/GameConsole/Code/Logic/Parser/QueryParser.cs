@@ -32,6 +32,7 @@ namespace ProceduralLevel.GameConsole.Logic
 		{
 			Query query = new Query();
 
+			bool quoted = false;
 			QueryParam param = null;
 			Token token = null;
 
@@ -43,6 +44,9 @@ namespace ProceduralLevel.GameConsole.Logic
 					case ParserConst.SPACE:
 						AssertNamedParamValue(param, token);
 						param = null;
+						break;
+					case ParserConst.QUOTE:
+						quoted = !quoted;
 						break;
 					case ParserConst.SEPARATOR:
 						AssertNamedParamValue(param, token);
@@ -67,7 +71,10 @@ namespace ProceduralLevel.GameConsole.Logic
 			}
 
 			AssertNamedParamValue(param, token);
-
+			if(quoted)
+			{
+				throw new ParsingException(EParsingError.Quote_Mismatch, token);
+			}
 			return query;
 		}
 
