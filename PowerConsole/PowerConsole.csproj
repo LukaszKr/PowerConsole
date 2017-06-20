@@ -115,6 +115,7 @@
     <Compile Include="Assets\PowerConsole\Code\Logic\Query\Argument.cs" />
     <Compile Include="Assets\PowerConsole\Code\View\ConsoleView.cs" />
     <Compile Include="Assets\PowerConsole\Code\View\Message\AConsoleMessageView.cs" />
+    <Compile Include="Assets\PowerConsole\Code\View\Message\MessageViewDetails.cs" />
     <Compile Include="Assets\PowerConsole\Code\View\Panel\ConsoleInputPanel.cs" />
     <Compile Include="Assets\PowerConsole\Code\View\Message\DefaultMessageView.cs" />
     <Compile Include="Assets\PowerConsole\Code\View\Panel\ConsoleMessagesPanel.cs" />
