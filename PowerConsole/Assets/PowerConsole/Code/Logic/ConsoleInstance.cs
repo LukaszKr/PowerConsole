@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace ProceduralLevel.PowerConsole.Logic
 {
-	public class ConsoleInstace
+	public class ConsoleInstance
 	{
 		private ValueParser m_ValueParser = new ValueParser();
 		private QueryParser m_QueryParser = new QueryParser();
@@ -15,7 +15,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 
 		private ALocalization m_Localization;
 
-		public ConsoleInstace(ALocalization localizationProvider)
+		public ConsoleInstance(ALocalization localizationProvider)
 		{
 			m_Localization = localizationProvider;
 		}

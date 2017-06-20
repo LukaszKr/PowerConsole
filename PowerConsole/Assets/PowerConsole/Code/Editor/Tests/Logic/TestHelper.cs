@@ -32,7 +32,7 @@ namespace ProceduralLevel.PowerConsole.Editor.Test
 			Assert.AreEqual(value, token.Value);
 		}
 
-		public static void CheckCommand(ConsoleInstace console, Message expectedResult, string query)
+		public static void CheckCommand(ConsoleInstance console, Message expectedResult, string query)
 		{
 			Message[] expected = new Message[]
 			{

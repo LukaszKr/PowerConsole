@@ -134,5 +134,10 @@ namespace ProceduralLevel.PowerConsole.Logic
 			}
 			return null;
 		}
+
+		public CommandParameter GetParameter(int index)
+		{
+			return m_Parameters[index];
+		}
 	}
 }

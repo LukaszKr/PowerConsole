@@ -77,6 +77,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 							if(argument == null)
 							{
 								argument = new Argument();
+								argument.Offset = token.Position;
 								query.Arguments.Add(argument);
 							}
 							argument.Value = token.Value;

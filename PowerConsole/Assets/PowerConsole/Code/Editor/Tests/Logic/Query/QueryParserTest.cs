@@ -59,7 +59,7 @@ namespace ProceduralLevel.PowerConsole.Editor.Test.Logic.Queries
 			query = queries[2];
 			TestHelper.CheckQuery(query, "test3", 1);
 			TestHelper.CheckArgument(query.Arguments[0], null, "param");
-
+			Assert.AreEqual(20, query.Arguments[0].Offset);
 		}
 
 		[Test]

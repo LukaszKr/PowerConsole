@@ -9,7 +9,7 @@ namespace ProceduralLevel.PowerConsole.Editor.Test.Logic.Console
 		private const bool TEST_BOOL = true;
 		private const string TEST_STRING = "abcd";
 
-		private ConsoleInstace m_Console = new ConsoleInstace(new DefaultLocalization());
+		private ConsoleInstance m_Console = new ConsoleInstance(new DefaultLocalization());
 		private TestCommand m_Command;
 		private Message m_Message;
 

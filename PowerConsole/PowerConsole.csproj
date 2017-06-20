@@ -96,6 +96,8 @@
     <Compile Include="Assets\PowerConsole\Code\Logic\Error\Query\NotEnoughtArgumentsException.cs" />
     <Compile Include="Assets\PowerConsole\Code\Logic\Error\Query\TooManyArgumentsException.cs" />
     <Compile Include="Assets\PowerConsole\Code\Logic\Factory.cs" />
+    <Compile Include="Assets\PowerConsole\Code\Logic\Hint\AHint.cs" />
+    <Compile Include="Assets\PowerConsole\Code\Logic\Hint\HintManager.cs" />
     <Compile Include="Assets\PowerConsole\Code\Logic\Localization\ELocalizationKey.cs" />
     <Compile Include="Assets\PowerConsole\Code\Logic\Localization\ALocalization.cs" />
     <Compile Include="Assets\PowerConsole\Code\Logic\Localization\DefaultLocalization.cs" />
@@ -111,6 +113,12 @@
     <Compile Include="Assets\PowerConsole\Code\Logic\Parser\ValueParser.cs" />
     <Compile Include="Assets\PowerConsole\Code\Logic\Query\Query.cs" />
     <Compile Include="Assets\PowerConsole\Code\Logic\Query\Argument.cs" />
+    <Compile Include="Assets\PowerConsole\Code\View\ConsoleView.cs" />
+    <Compile Include="Assets\PowerConsole\Code\View\Message\AConsoleMessageView.cs" />
+    <Compile Include="Assets\PowerConsole\Code\View\Panel\ConsoleInputPanel.cs" />
+    <Compile Include="Assets\PowerConsole\Code\View\Message\DefaultMessageView.cs" />
+    <Compile Include="Assets\PowerConsole\Code\View\Panel\ConsoleMessagesPanel.cs" />
+    <Compile Include="Assets\PowerConsole\Code\View\Panel\AConsolePanel.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
