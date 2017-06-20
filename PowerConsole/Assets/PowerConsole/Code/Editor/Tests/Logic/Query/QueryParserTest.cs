@@ -75,4 +75,3 @@ namespace ProceduralLevel.PowerConsole.Editor.Test.Logic.Queries
 		}
 	}
 }
-
