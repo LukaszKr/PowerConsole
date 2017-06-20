@@ -10,7 +10,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 			{
 				throw new IncorrectReturnTypeException(info, info.ReturnType);
 			}
-			CommandMethod method = new CommandMethod();
+			CommandMethod method = new CommandMethod(info);
 			CommandParameter[] parameters = ParseParameters(info);
 			method.ClearParameters();
 			for(int x = 0; x < parameters.Length; x++)
@@ -26,7 +26,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 			CommandParameter[] parameters = new CommandParameter[info.Length];
 			for(int x = 0; x < info.Length; x++)
 			{
-				CommandParameter parameter = new CommandParameter(info[x]);
+				CommandParameter parameter = new CommandParameter(info[x], x);
 				parameters[x] = parameter;
 			}
 			return parameters;

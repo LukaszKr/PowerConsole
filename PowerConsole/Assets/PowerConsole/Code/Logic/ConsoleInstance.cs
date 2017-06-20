@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace ProceduralLevel.PowerConsole.Logic
 {
-	public class Console
+	public class ConsoleInstace
 	{
 		private ValueParser m_ValueParser = new ValueParser();
 		private QueryParser m_QueryParser = new QueryParser();
@@ -15,7 +15,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 
 		private ALocalization m_Localization;
 
-		public Console(ALocalization localizationProvider)
+		public ConsoleInstace(ALocalization localizationProvider)
 		{
 			m_Localization = localizationProvider;
 		}
@@ -43,16 +43,17 @@ namespace ProceduralLevel.PowerConsole.Logic
 			OnMessage.Invoke(new Message(EMessageType.Execution, query.RawQuery));
 			if(query.Arguments.Count > 0)
 			{
-				string commandName = query.Arguments[0].Value;
-				AConsoleCommand command = FindCommand(commandName);
+				AConsoleCommand command = FindCommand(query.CommandName);
 				if(command == null)
 				{
-					OnMessage.Invoke(new Message(EMessageType.Error, m_Localization.CommandNotFound(commandName)));
+					OnMessage.Invoke(new Message(EMessageType.Error, m_Localization.CommandNotFound(query.CommandName)));
 				}
 				CommandMethod method = command.Method;
 				MapQuery(method, query);
 				ParseQueryValues(query);
-
+				object[] parsed = query.GetParsedValues();
+				Message result = command.Execute(parsed);
+				OnMessage.Invoke(result);
 			}
 		}
 
@@ -76,7 +77,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 		{
 			try
 			{
-				for(int x = 1; x < query.Arguments.Count; x++)
+				for(int x = 0; x < query.Arguments.Count; x++)
 				{
 					Argument argument = query.Arguments[x];
 					argument.Parsed = m_ValueParser.Parse(argument.Parameter.Type, argument.Value);

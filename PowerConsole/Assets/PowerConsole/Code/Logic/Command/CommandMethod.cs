@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Reflection;
 
 namespace ProceduralLevel.PowerConsole.Logic
 {
@@ -6,12 +7,14 @@ namespace ProceduralLevel.PowerConsole.Logic
 	{
 		private List<CommandParameter> m_Parameters;
 
+		public MethodInfo Command;
 		public int ParameterCount { get { return m_Parameters.Count; } }
 
 		private int m_NonOptionalCount = 0;
 
-		public CommandMethod()
+		public CommandMethod(MethodInfo methodInfo)
 		{
+			Command = methodInfo;
 			m_Parameters = new List<CommandParameter>();
 		}
 
@@ -20,7 +23,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 			int requiredArguments = m_NonOptionalCount;
 			int realIndex = 0;
 			HashSet<string> mappedValues = new HashSet<string>();
-			for(int x = 1; x < query.Arguments.Count; x++)
+			for(int x = 0; x < query.Arguments.Count; x++)
 			{
 				Argument argument = query.Arguments[x];
 				if(argument.Name == null)
@@ -40,7 +43,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 					}
 					if(argument.Name == null)
 					{
-						throw new TooManyArgumentsException(query.Arguments.Count-1, m_Parameters.Count);
+						throw new TooManyArgumentsException(query.Arguments.Count, m_Parameters.Count);
 					}
 				}
 				else

@@ -7,10 +7,16 @@ namespace ProceduralLevel.PowerConsole.Editor.Test
 {
 	public static class TestHelper
 	{
+		public static void CheckQuery(Query query, string name, int argCount)
+		{
+			Assert.AreEqual(name, query.CommandName);
+			Assert.AreEqual(argCount, query.Arguments.Count);
+		}
+
 		public static void CheckArgument(Argument param, string name, string value)
 		{
-			Assert.AreEqual(param.Name, name);
-			Assert.AreEqual(param.Value, value);
+			Assert.AreEqual(name, param.Name);
+			Assert.AreEqual(value, param.Value);
 		}
 
 		public static void CheckParameter(CommandParameter param, string name, Type type, object defaultValue)
@@ -24,6 +30,26 @@ namespace ProceduralLevel.PowerConsole.Editor.Test
 		{
 			Assert.AreEqual(isSeparator, token.IsSeparator);
 			Assert.AreEqual(value, token.Value);
+		}
+
+		public static void CheckCommand(ConsoleInstace console, Message expectedResult, string query)
+		{
+			Message[] expected = new Message[]
+			{
+				new Message(EMessageType.Execution, query),
+				expectedResult
+			};
+
+			int current = 0;
+			Action<Message> onMessage = (Message message) =>
+			{
+				CheckMessage(message, expected[current].Result, expected[current].Value);
+				current += 1;
+			};
+			console.OnMessage.AddListener(onMessage);
+			console.Execute(query);
+			console.OnMessage.RemoveListener(onMessage);
+			Assert.AreEqual(expected.Length, current);
 		}
 
 		public static void CheckMessage(Message message, EMessageType result, string value)

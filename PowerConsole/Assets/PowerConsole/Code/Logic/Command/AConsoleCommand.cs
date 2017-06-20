@@ -36,9 +36,10 @@ namespace ProceduralLevel.PowerConsole.Logic
 
 		public abstract bool IsValid();
 
-		public Message Execute()
+		public Message Execute(object[] values)
 		{
-			return null;
+			object rawResult = Method.Command.Invoke(this, values);
+			return rawResult as Message;
 		}
 	}
 }

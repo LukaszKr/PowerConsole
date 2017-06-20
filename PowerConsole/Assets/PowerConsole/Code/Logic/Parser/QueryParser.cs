@@ -21,7 +21,10 @@ namespace ProceduralLevel.PowerConsole.Logic
 			while(HasTokens())
 			{
 				Query query = ParseQuery();
-				queries.Add(query);
+				if(query != null)
+				{
+					queries.Add(query);
+				}
 			}
 
 
@@ -30,11 +33,12 @@ namespace ProceduralLevel.PowerConsole.Logic
 
 		private Query ParseQuery()
 		{
-			Query query = new Query();
+			Query query = null;
 
 			bool quoted = false;
 			Argument argument = null;
 			Token token = null;
+			string rawValue = "";
 
 			while(HasTokens())
 			{
@@ -50,6 +54,10 @@ namespace ProceduralLevel.PowerConsole.Logic
 						break;
 					case ParserConst.SEPARATOR:
 						AssertNamedArgumentValue(argument, token);
+						if(query != null)
+						{
+							query.RawQuery = rawValue;
+						}
 						return query;
 					case ParserConst.ASSIGN:
 						if(argument == null)
@@ -60,17 +68,28 @@ namespace ProceduralLevel.PowerConsole.Logic
 						argument.Value = null;
 						break;
 					default:
-						if(argument == null)
+						if(query == null)
 						{
-							argument = new Argument();
-							query.Arguments.Add(argument);
+							query = new Query(token.Value);
 						}
-						argument.Value = token.Value;
+						else
+						{
+							if(argument == null)
+							{
+								argument = new Argument();
+								query.Arguments.Add(argument);
+							}
+							argument.Value = token.Value;
+						}
 						break;
 				}
-				query.RawQuery += token.Value;
+				rawValue += token.Value;
 			}
 
+			if(query != null)
+			{
+				query.RawQuery = rawValue;
+			}
 			AssertNamedArgumentValue(argument, token);
 			if(quoted)
 			{

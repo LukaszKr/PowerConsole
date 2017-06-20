@@ -6,7 +6,7 @@ namespace ProceduralLevel.PowerConsole.Editor.Test
 {
 	public class ConsoleTest
 	{
-		private Console m_Console = new Console(new DefaultLocalization());
+		private ConsoleInstace m_Console = new ConsoleInstace(new DefaultLocalization());
 		private TestCommand m_Command;
 
 		public ConsoleTest()
@@ -40,22 +40,7 @@ namespace ProceduralLevel.PowerConsole.Editor.Test
 		public void Execution()
 		{
 			string query = "test 123 true abcd";
-			Message[] expected = new Message[]
-			{
-				new Message(EMessageType.Execution, query),
-				m_Command.Command(123, true, "abcd")
-			};
-
-			int current = 0;
-			System.Action<Message> onMessage = (Message message) =>
-			{
-				TestHelper.CheckMessage(message, expected[current].Result, expected[current].Value);
-				current += 1;
-			};
-			m_Console.OnMessage.AddListener(onMessage);
-			m_Console.Execute(query);
-			m_Console.OnMessage.RemoveAllListeners();
+			TestHelper.CheckCommand(m_Console, m_Command.Command(123, true, "abcd"), query);
 		}
-
 	}
 }

@@ -16,8 +16,7 @@ namespace ProceduralLevel.PowerConsole.Editor.Test.Queries
 
 			Assert.AreEqual(1, queries.Count);
 			Query query = queries[0];
-			Assert.AreEqual(1, query.Arguments.Count);
-			TestHelper.CheckArgument(query.Arguments[0], null, "test");
+			TestHelper.CheckQuery(query, "test", 0);
 		}
 
 		[Test]
@@ -38,9 +37,8 @@ namespace ProceduralLevel.PowerConsole.Editor.Test.Queries
 
 			Assert.AreEqual(1, queries.Count);
 			Query query = queries[0];
-			Assert.AreEqual(2, query.Arguments.Count);
-			TestHelper.CheckArgument(query.Arguments[0], null, "test");
-			TestHelper.CheckArgument(query.Arguments[1], null, "param");
+			TestHelper.CheckQuery(query, "test", 1);
+			TestHelper.CheckArgument(query.Arguments[0], null, "param");
 		}
 
 		[Test]
@@ -53,17 +51,14 @@ namespace ProceduralLevel.PowerConsole.Editor.Test.Queries
 			Query query;
 
 			query = queries[0];
-			Assert.AreEqual(1, query.Arguments.Count);
-			TestHelper.CheckArgument(query.Arguments[0], null, "test");
+			TestHelper.CheckQuery(query, "test", 0);
 
 			query = queries[1];
-			Assert.AreEqual(1, query.Arguments.Count);
-			TestHelper.CheckArgument(query.Arguments[0], null, "test1");
+			TestHelper.CheckQuery(query, "test1", 0);
 
 			query = queries[2];
-			Assert.AreEqual(2, query.Arguments.Count);
-			TestHelper.CheckArgument(query.Arguments[0], null, "test3");
-			TestHelper.CheckArgument(query.Arguments[1], null, "param");
+			TestHelper.CheckQuery(query, "test3", 1);
+			TestHelper.CheckArgument(query.Arguments[0], null, "param");
 
 		}
 
@@ -75,9 +70,8 @@ namespace ProceduralLevel.PowerConsole.Editor.Test.Queries
 
 			Assert.AreEqual(1, queries.Count);
 			Query query = queries[0];
-			Assert.AreEqual(2, query.Arguments.Count);
-			TestHelper.CheckArgument(query.Arguments[0], null, "test");
-			TestHelper.CheckArgument(query.Arguments[1], "arg", "value");
+			TestHelper.CheckQuery(query, "test", 1);
+			TestHelper.CheckArgument(query.Arguments[0], "arg", "value");
 		}
 	}
 }

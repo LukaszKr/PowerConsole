@@ -8,22 +8,17 @@ namespace ProceduralLevel.PowerConsole.Logic
 		public readonly string Name;
 		public readonly Type Type;
 		public readonly object DefaultValue;
+		public readonly int Index;
 
 		public bool HasDefault { get { return DefaultValue != null; } }
 
-		public CommandParameter(ParameterInfo parameterInfo)
+		public CommandParameter(ParameterInfo parameterInfo, int index)
 		{
 			Name = parameterInfo.Name.ToLowerInvariant();
 			Type = parameterInfo.ParameterType;
 			bool hasDefaultValue = (parameterInfo.Attributes & ParameterAttributes.HasDefault) != 0;
 			DefaultValue = (hasDefaultValue? parameterInfo.DefaultValue: null);
-		}
-
-		public CommandParameter(string name, Type type, object defaultValue = null)
-		{
-			Name = name;
-			Type = type;
-			DefaultValue = defaultValue;
+			Index = index;
 		}
 
 		public override string ToString()
