@@ -46,6 +46,7 @@ namespace ProceduralLevel.PowerConsole.Editor.Test
 				CheckMessage(message, expected[current].Result, expected[current].Value);
 				current += 1;
 			};
+			console.OnMessage.RemoveAllListeners();
 			console.OnMessage.AddListener(onMessage);
 			console.Execute(query);
 			console.OnMessage.RemoveListener(onMessage);

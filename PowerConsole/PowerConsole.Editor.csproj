@@ -135,7 +135,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\PowerConsole\Code\Editor\Tests\ConsoleTest.cs" />
+    <Compile Include="Assets\PowerConsole\Code\Editor\Tests\Console\ConsoleExecutionTest.cs" />
+    <Compile Include="Assets\PowerConsole\Code\Editor\Tests\Console\ConsoleTest.cs" />
     <Compile Include="Assets\PowerConsole\Code\Editor\Tests\FactoryTest.cs" />
     <Compile Include="Assets\PowerConsole\Code\Editor\Tests\Query\QueryParserErrorDetectionTest.cs" />
     <Compile Include="Assets\PowerConsole\Code\Editor\Tests\Query\QueryParserTest.cs" />

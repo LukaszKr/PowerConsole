@@ -65,7 +65,21 @@ namespace ProceduralLevel.PowerConsole.Logic
 				}
 			}
 
-			if(requiredArguments > 1) //command name is in query
+			//add default optional values
+			for(int x = 0; x < m_Parameters.Count; x++)
+			{
+				CommandParameter parameter = m_Parameters[x];
+				if(!mappedValues.Contains(parameter.Name))
+				{
+					query.Arguments.Add(new Argument() 
+					{ 
+						Name = parameter.Name,
+						Parameter = parameter
+					});
+				}
+			}
+
+			if(requiredArguments > 0)
 			{
 				List<CommandParameter> missing = new List<CommandParameter>();
 				for(int x = 0; x < m_Parameters.Count; x++)

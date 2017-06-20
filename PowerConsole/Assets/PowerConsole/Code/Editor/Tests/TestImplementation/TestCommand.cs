@@ -9,9 +9,9 @@ namespace ProceduralLevel.PowerConsole.Editor.Test
 		{
 		}
 
-		public Message Command(int numberValue, bool toggle, string defaultValue = "abc")
+		public Message Command(int numberValue, bool toggle, string str = "abc")
 		{
-			return new Message(EMessageType.Success, string.Format("{0}:{1}:{2}", numberValue.ToString(), toggle.ToString(), defaultValue.ToString()));
+			return new Message(EMessageType.Success, string.Format("{0}:{1}:{2}", numberValue.ToString(), toggle.ToString(), str.ToString()));
 		}
 
 		#region Test only
