@@ -1,7 +1,7 @@
 ﻿using ProceduralLevel.PowerConsole.Logic;
 using System.Reflection;
 
-namespace ProceduralLevel.PowerConsole.Editor.Test
+namespace ProceduralLevel.PowerConsole.Editor.Test.Logic
 {
 	public class TestCommand: AConsoleCommand
 	{

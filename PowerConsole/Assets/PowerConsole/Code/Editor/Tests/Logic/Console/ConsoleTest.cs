@@ -2,7 +2,7 @@
 using ProceduralLevel.PowerConsole.Logic;
 using System.Collections.Generic;
 
-namespace ProceduralLevel.PowerConsole.Editor.Test.Console
+namespace ProceduralLevel.PowerConsole.Editor.Test.Logic.Console
 {
 	public class ConsoleTest
 	{

@@ -135,15 +135,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\PowerConsole\Code\Editor\Tests\Console\ConsoleExecutionTest.cs" />
-    <Compile Include="Assets\PowerConsole\Code\Editor\Tests\Console\ConsoleTest.cs" />
-    <Compile Include="Assets\PowerConsole\Code\Editor\Tests\FactoryTest.cs" />
-    <Compile Include="Assets\PowerConsole\Code\Editor\Tests\Query\QueryParserErrorDetectionTest.cs" />
-    <Compile Include="Assets\PowerConsole\Code\Editor\Tests\Query\QueryParserTest.cs" />
-    <Compile Include="Assets\PowerConsole\Code\Editor\Tests\Query\QueryTokenizerTest.cs" />
-    <Compile Include="Assets\PowerConsole\Code\Editor\Tests\TestHelper.cs" />
+    <Compile Include="Assets\PowerConsole\Code\Editor\Tests\Logic\Console\ConsoleExecutionTest.cs" />
+    <Compile Include="Assets\PowerConsole\Code\Editor\Tests\Logic\Console\ConsoleTest.cs" />
+    <Compile Include="Assets\PowerConsole\Code\Editor\Tests\Logic\FactoryTest.cs" />
+    <Compile Include="Assets\PowerConsole\Code\Editor\Tests\Logic\Query\QueryParserErrorDetectionTest.cs" />
+    <Compile Include="Assets\PowerConsole\Code\Editor\Tests\Logic\Query\QueryParserTest.cs" />
+    <Compile Include="Assets\PowerConsole\Code\Editor\Tests\Logic\Query\QueryTokenizerTest.cs" />
+    <Compile Include="Assets\PowerConsole\Code\Editor\Tests\Logic\TestHelper.cs" />
+    <Compile Include="Assets\PowerConsole\Code\Editor\Tests\Logic\ValueParserTest.cs" />
     <Compile Include="Assets\PowerConsole\Code\Editor\Tests\TestImplementation\TestCommand.cs" />
-    <Compile Include="Assets\PowerConsole\Code\Editor\Tests\ValueParserTest.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

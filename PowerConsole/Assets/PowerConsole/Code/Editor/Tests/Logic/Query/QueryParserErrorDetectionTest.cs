@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using ProceduralLevel.PowerConsole.Logic;
 
-namespace ProceduralLevel.PowerConsole.Editor.Test.Queries
+namespace ProceduralLevel.PowerConsole.Editor.Test.Logic.Queries
 {
 	public class QueryParserErrorDetectionTest
 	{

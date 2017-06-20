@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using ProceduralLevel.PowerConsole.Logic;
 
-namespace ProceduralLevel.PowerConsole.Editor.Test
+namespace ProceduralLevel.PowerConsole.Editor.Test.Logic
 {
 	public class FactoryTest
 	{

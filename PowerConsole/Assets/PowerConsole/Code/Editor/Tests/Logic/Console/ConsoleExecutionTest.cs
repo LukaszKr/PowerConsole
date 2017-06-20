@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using ProceduralLevel.PowerConsole.Logic;
 
-namespace ProceduralLevel.PowerConsole.Editor.Test.Console
+namespace ProceduralLevel.PowerConsole.Editor.Test.Logic.Console
 {
 	public class ConsoleExecutionTest
 	{
