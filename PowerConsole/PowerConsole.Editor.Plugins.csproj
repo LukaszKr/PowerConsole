@@ -5,16 +5,16 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{82043BA2-6E64-4655-65A6-333DE809932F}</ProjectGuid>
+    <ProjectGuid>{3943923B-427E-F302-ACE8-5837247062CA}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AssemblyName>Assembly-CSharp-Editor</AssemblyName>
+    <AssemblyName>Assembly-CSharp-Editor-firstpass</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Full v3.5</TargetFrameworkProfile>
     <CompilerResponseFile></CompilerResponseFile>
-    <UnityProjectType>Editor:5</UnityProjectType>
+    <UnityProjectType>EditorPlugins:7</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.6.1f1</UnityVersion>
     <RootNamespace>ProceduralLevel</RootNamespace>
@@ -129,21 +129,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="PowerConsole.csproj">
-      <Project>{4C0D7C52-B20C-BCF7-253E-5796D1B5BE11}</Project>
-      <Name>PowerConsole</Name>
+    <ProjectReference Include="PowerConsole.Plugins.csproj">
+      <Project>{502080AE-B82F-1048-7D30-7DB7263548DC}</Project>
+      <Name>PowerConsole.Plugins</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\PowerConsole\Code\Editor\Tests\Logic\Console\ConsoleExecutionTest.cs" />
-    <Compile Include="Assets\PowerConsole\Code\Editor\Tests\Logic\Console\ConsoleTest.cs" />
-    <Compile Include="Assets\PowerConsole\Code\Editor\Tests\Logic\FactoryTest.cs" />
-    <Compile Include="Assets\PowerConsole\Code\Editor\Tests\Logic\Query\QueryParserErrorDetectionTest.cs" />
-    <Compile Include="Assets\PowerConsole\Code\Editor\Tests\Logic\Query\QueryParserTest.cs" />
-    <Compile Include="Assets\PowerConsole\Code\Editor\Tests\Logic\Query\QueryTokenizerTest.cs" />
-    <Compile Include="Assets\PowerConsole\Code\Editor\Tests\Logic\TestHelper.cs" />
-    <Compile Include="Assets\PowerConsole\Code\Editor\Tests\Logic\ValueParserTest.cs" />
-    <Compile Include="Assets\PowerConsole\Code\Editor\Tests\TestImplementation\TestCommand.cs" />
+    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Editor\Tests\Logic\Console\ConsoleExecutionTest.cs" />
+    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Editor\Tests\Logic\Console\ConsoleTest.cs" />
+    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Editor\Tests\Logic\FactoryTest.cs" />
+    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Editor\Tests\Logic\Query\QueryParserErrorDetectionTest.cs" />
+    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Editor\Tests\Logic\Query\QueryParserTest.cs" />
+    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Editor\Tests\Logic\Query\QueryTokenizerTest.cs" />
+    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Editor\Tests\Logic\TestHelper.cs" />
+    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Editor\Tests\Logic\ValueParserTest.cs" />
+    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Editor\Tests\TestImplementation\TestCommand.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
