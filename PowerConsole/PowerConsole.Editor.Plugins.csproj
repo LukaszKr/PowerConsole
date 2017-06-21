@@ -124,8 +124,8 @@
     <Reference Include="Mono.Cecil">
       <HintPath>Library\UnityAssemblies\Mono.Cecil.dll</HintPath>
     </Reference>
-    <Reference Include="UnityCommon">
-      <HintPath>Assets\Plugins\ProceduralLevel\Common\UnityCommon.dll</HintPath>
+    <Reference Include="Common">
+      <HintPath>Assets\Plugins\ProceduralLevel\Common\Common.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
