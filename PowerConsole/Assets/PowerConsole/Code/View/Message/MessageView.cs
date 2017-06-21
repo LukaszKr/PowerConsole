@@ -2,12 +2,12 @@
 
 namespace ProceduralLevel.PowerConsole.View
 {
-	public class MessageViewDetails
+	public class MessageView
 	{
 		public readonly Message Message;
 		public float Height;
 
-		public MessageViewDetails(Message message, float height)
+		public MessageView(Message message, float height)
 		{
 			Message = message;
 			Height = height;

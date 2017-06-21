@@ -5,16 +5,17 @@ namespace ProceduralLevel.PowerConsole.View
 {
 	public class ConsoleView: MonoBehaviour
 	{
-		public ConsoleInputPanel Input;
-		public ConsoleMessagesPanel Messages;
-		
+		public ConsoleInputPanel Input { get; private set; }
+		public ConsoleMessagesPanel Messages { get; private set; }
+
 		private ConsoleInstance m_Console;
 
 		public void Awake()
 		{
 			m_Console = new ConsoleInstance(new DefaultLocalization());
-			Input.Initialize(m_Console);
-			Messages.Initialize(m_Console);
+
+			Input = new ConsoleInputPanel(m_Console);
+			Messages = new ConsoleMessagesPanel(m_Console);
 
 			m_Console.OnMessage.Invoke(new Message(EMessageType.Info, "PowerConsole by Procedural Level"));
 			m_Console.OnMessage.Invoke(new Message(EMessageType.Info, "Very long message has to go here, to test if multiline is properly supported." +
@@ -24,6 +25,11 @@ namespace ProceduralLevel.PowerConsole.View
 			{
 				m_Console.OnMessage.Invoke(new Message(EMessageType.Warning, x.ToString()));
 			}
+		}
+
+		public void OnGUI()
+		{
+			GUI.Button(new Rect(0, 0, 100, 20), "Test");
 		}
 	}
 }
