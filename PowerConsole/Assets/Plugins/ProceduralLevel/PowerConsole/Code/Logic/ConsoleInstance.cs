@@ -13,11 +13,11 @@ namespace ProceduralLevel.PowerConsole.Logic
 
 		public Event<Message> OnMessage = new Event<Message>();
 
-		private ALocalization m_Localization;
+		public readonly ALocalization Localization;
 
 		public ConsoleInstance(ALocalization localizationProvider)
 		{
-			m_Localization = localizationProvider;
+			Localization = localizationProvider;
 		}
 
 		public List<Query> ParseQuery(string strQuery)
@@ -46,7 +46,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 				AConsoleCommand command = FindCommand(query.CommandName);
 				if(command == null)
 				{
-					OnMessage.Invoke(new Message(EMessageType.Error, m_Localization.CommandNotFound(query.CommandName)));
+					OnMessage.Invoke(new Message(EMessageType.Error, Localization.CommandNotFound(query.CommandName)));
 				}
 				CommandMethod method = command.Method;
 				MapQuery(method, query);
@@ -65,11 +65,11 @@ namespace ProceduralLevel.PowerConsole.Logic
 			}
 			catch(NamedArgumentNotFoundException e)
 			{
-				OnMessage.Invoke(new Message(EMessageType.Error, m_Localization.NamedArgumentNotFound(e.Name, e.Value)));
+				OnMessage.Invoke(new Message(EMessageType.Error, Localization.NamedArgumentNotFound(e.Name, e.Value)));
 			}
 			catch(TooManyArgumentsException e)
 			{
-				OnMessage.Invoke(new Message(EMessageType.Error, m_Localization.TooManyArguments(e.Received, e.Expected)));
+				OnMessage.Invoke(new Message(EMessageType.Error, Localization.TooManyArguments(e.Received, e.Expected)));
 			}
 		}
 
@@ -85,11 +85,11 @@ namespace ProceduralLevel.PowerConsole.Logic
 			}
 			catch(MissingValueParserException e)
 			{
-				OnMessage.Invoke(new Message(EMessageType.Error, m_Localization.MissingValueParser(e.RawValue, e.ExpectedType)));
+				OnMessage.Invoke(new Message(EMessageType.Error, Localization.MissingValueParser(e.RawValue, e.ExpectedType)));
 			}
 			catch(InvalidValueFormatException e)
 			{
-				OnMessage.Invoke(new Message(EMessageType.Error, m_Localization.InvalidValueFormat(e.RawValue, e.ExpectedType)));
+				OnMessage.Invoke(new Message(EMessageType.Error, Localization.InvalidValueFormat(e.RawValue, e.ExpectedType)));
 			}
 		}
 		#endregion

@@ -10,5 +10,7 @@
 		Query_NamedArgumentNotFound = 20,
 		Query_TooManyArguments = 21,
 		Query_NotEnoughtArguments = 22,
+
+		Input_Submit = 30
 	}
 }

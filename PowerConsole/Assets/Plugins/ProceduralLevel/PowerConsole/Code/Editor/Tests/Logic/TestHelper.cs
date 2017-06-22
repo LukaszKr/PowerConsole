@@ -43,7 +43,7 @@ namespace ProceduralLevel.PowerConsole.Editor.Test
 			int current = 0;
 			Action<Message> onMessage = (Message message) =>
 			{
-				CheckMessage(message, expected[current].Result, expected[current].Value);
+				CheckMessage(message, expected[current].Type, expected[current].Value);
 				current += 1;
 			};
 			console.OnMessage.RemoveAllListeners();
@@ -55,7 +55,7 @@ namespace ProceduralLevel.PowerConsole.Editor.Test
 
 		public static void CheckMessage(Message message, EMessageType result, string value)
 		{
-			Assert.AreEqual(result, message.Result);
+			Assert.AreEqual(result, message.Type);
 			Assert.AreEqual(value, message.Value);
 		}
 

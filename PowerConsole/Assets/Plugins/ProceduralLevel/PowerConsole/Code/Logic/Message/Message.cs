@@ -2,18 +2,18 @@
 {
 	public class Message
 	{
-		public readonly EMessageType Result;
+		public readonly EMessageType Type;
 		public readonly string Value;
 
 		public Message(EMessageType type, string value)
 		{
-			Result = type;
+			Type = type;
 			Value = value;
 		}
 
 		public override string ToString()
 		{
-			return string.Format("[{0}] {1}", Result.ToString(), Value.ToString());
+			return string.Format("[{0}] {1}", Type.ToString(), Value.ToString());
 		}
 	}
 }

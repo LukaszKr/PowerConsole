@@ -7,29 +7,46 @@ namespace ProceduralLevel.PowerConsole.View
 	{
 		public ConsoleInputPanel Input { get; private set; }
 		public ConsoleMessagesPanel Messages { get; private set; }
+		public ConsoleStyles Styles { get; private set; }
+		public ConsoleInstance Console { get; private set; }
 
-		private ConsoleInstance m_Console;
+		public float Height = 400;
+
+		private bool m_Setup;
 
 		public void Awake()
 		{
-			m_Console = new ConsoleInstance(new DefaultLocalization());
+			Styles = new ConsoleStyles();
+			Console = new ConsoleInstance(new DefaultLocalization());
 
-			Input = new ConsoleInputPanel(m_Console);
-			Messages = new ConsoleMessagesPanel(m_Console);
+			Input = new ConsoleInputPanel(this);
+			Messages = new ConsoleMessagesPanel(this);
 
-			m_Console.OnMessage.Invoke(new Message(EMessageType.Info, "PowerConsole by Procedural Level"));
-			m_Console.OnMessage.Invoke(new Message(EMessageType.Info, "Very long message has to go here, to test if multiline is properly supported." +
+			m_Setup = true;
+
+			Messages.AddMessage(new Message(EMessageType.Info, "PowerConsole by Procedural Level"));
+			Messages.AddMessage(new Message(EMessageType.Info, "Very long message has to go here, to test if multiline is properly supported." +
 				"Event thou this might be a tricky task to do, it has to be supported. Lorem ipsum could also be here, but come on, let's be creative!"));
-			m_Console.OnMessage.Invoke(new Message(EMessageType.Info, "Hello World!"));
+			Messages.AddMessage(new Message(EMessageType.Info, "Hello World!"));
 			for(int x = 0; x < 30; x++)
 			{
-				m_Console.OnMessage.Invoke(new Message(EMessageType.Warning, x.ToString()));
+				Messages.AddMessage(new Message(EMessageType.Warning, x.ToString()));
 			}
 		}
 
 		public void OnGUI()
 		{
-			GUI.Button(new Rect(0, 0, 100, 20), "Test");
+			if(m_Setup)
+			{
+				//hs to be done in OnGUI
+				Styles.TryInitialize(false);
+
+				float inputHeight = 25;
+				Rect messagesRect = new Rect(0, 0, Screen.width, Height-inputHeight);
+				Rect inputRect = new Rect(0, messagesRect.height, Screen.width, inputHeight);
+				Messages.Render(messagesRect);
+				Input.Render(inputRect);
+			}
 		}
 	}
 }

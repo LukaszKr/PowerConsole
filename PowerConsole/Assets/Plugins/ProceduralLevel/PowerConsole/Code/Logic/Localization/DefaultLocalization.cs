@@ -4,7 +4,7 @@
 	{
 		public override string GetLocalizedKey(ELocalizationKey key)
 		{
-			return string.Empty;
+			return key.ToString();
 		}
 	}
 }
