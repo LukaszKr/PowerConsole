@@ -17,31 +17,40 @@ namespace ProceduralLevel.PowerConsole.View
 
 		public ConsoleMessagesPanel(ConsoleView consoleView) : base(consoleView)
 		{
+			Console.OnMessage.AddListener(AddMessage);
 		}
 
 		public void AddMessage(Message message)
 		{
 			m_MessageBuffer.Add(new MessageView(message));
+			m_ScrollPosition = m_TotalHeight+100;
 		}
 
 		protected override void OnRender(Vector2 size)
 		{
+			for(int x = 0; x < m_MessageBuffer.Count; x++)
+			{
+				MessageView messagaView = m_MessageBuffer[x];
+				messagaView.UpdateSize(size.x, Styles[messagaView.Message.Type]);
+			}
+
 			m_TotalHeight = TotalHeight();
 			HandleMouse(size);
 
 			m_ScrollPosition = GUI.VerticalScrollbar(m_ScrollRect, m_ScrollPosition, size.y, 0f, m_TotalHeight);
+
 			
 			float hOffset = 0;
 			float minOffset = m_ScrollPosition;
 			float maxOffset = minOffset+size.y;
 			for(int x = 0; x < m_MessageBuffer.Count; x++)
 			{
-				MessageView message = m_MessageBuffer[x];
-				float newHOffset = hOffset+message.Height;
+				MessageView messageView = m_MessageBuffer[x];
+				float newHOffset = hOffset+messageView.Height;
 				if(newHOffset >= minOffset && hOffset < maxOffset)
 				{
 					Rect renderRect = new Rect(0f, hOffset-m_ScrollPosition, size.x, size.y);
-					message.Render(renderRect, Styles);
+					messageView.Render(renderRect, Styles);
 				}
 				hOffset = newHOffset;
 			}

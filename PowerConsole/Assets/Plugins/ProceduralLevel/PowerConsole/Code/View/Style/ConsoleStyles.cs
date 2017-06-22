@@ -10,11 +10,6 @@ namespace ProceduralLevel.PowerConsole.View
 		//enum key allocates lots of memory
 
 		private GUIStyle[] m_TextStyle = new GUIStyle[5];
-		private GUIStyle m_TextError;
-		private GUIStyle m_TextExecution;
-		private GUIStyle m_TextInfo;
-		private GUIStyle m_TextSuccess;
-		private GUIStyle m_TextWarning;
 
 		public GUIStyle this[EMessageType type]
 		{

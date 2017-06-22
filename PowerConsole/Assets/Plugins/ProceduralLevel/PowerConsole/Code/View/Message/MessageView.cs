@@ -25,17 +25,21 @@ namespace ProceduralLevel.PowerConsole.View
 		public void Render(Rect rect, ConsoleStyles style)
 		{
 			GUIStyle textStyle = style[Message.Type];
-			UpdateSize(rect.width, textStyle);
 			GUI.Label(rect, m_Content, textStyle);
 		}
 
-		private void UpdateSize(float maxWidth, GUIStyle textStyle)
+		public void UpdateSize(float maxWidth, GUIStyle textStyle)
 		{
 			if(IsDirty)
 			{
 				Height = textStyle.CalcHeight(m_Content, maxWidth);
 				IsDirty = false;
 			}
+		}
+
+		public override string ToString()
+		{
+			return string.Format("[IsDirty: {0}, Height: {1}, Message: {2}]", IsDirty.ToString(), Height.ToString(), Message.ToString());
 		}
 	}
 }

@@ -12,8 +12,6 @@ namespace ProceduralLevel.PowerConsole.View
 
 		public float Height = 400;
 
-		private bool m_Setup;
-
 		public void Awake()
 		{
 			Styles = new ConsoleStyles();
@@ -21,8 +19,6 @@ namespace ProceduralLevel.PowerConsole.View
 
 			Input = new ConsoleInputPanel(this);
 			Messages = new ConsoleMessagesPanel(this);
-
-			m_Setup = true;
 
 			Messages.AddMessage(new Message(EMessageType.Info, "PowerConsole by Procedural Level"));
 			Messages.AddMessage(new Message(EMessageType.Info, "Very long message has to go here, to test if multiline is properly supported." +
@@ -32,20 +28,18 @@ namespace ProceduralLevel.PowerConsole.View
 			{
 				Messages.AddMessage(new Message(EMessageType.Warning, x.ToString()));
 			}
+
 		}
 
 		public void OnGUI()
 		{
-			if(m_Setup)
-			{
-				//hs to be done in OnGUI
-				Styles.TryInitialize(false);
-				float inputHeight = 25;
-				Rect messagesRect = new Rect(0, 0, Screen.width, Height-inputHeight);
-				Rect inputRect = new Rect(0, messagesRect.height, Screen.width, inputHeight);
-				Messages.Render(messagesRect);
-				Input.Render(inputRect);
-			}
+			//hs to be done in OnGUI
+			Styles.TryInitialize(false);
+			float inputHeight = 25;
+			Rect messagesRect = new Rect(0, 0, Screen.width, Height-inputHeight);
+			Rect inputRect = new Rect(0, messagesRect.height, Screen.width, inputHeight);
+			Messages.Render(messagesRect);
+			Input.Render(inputRect);
 		}
 	}
 }

@@ -41,20 +41,18 @@ namespace ProceduralLevel.PowerConsole.Logic
 		public void Execute(Query query)
 		{
 			OnMessage.Invoke(new Message(EMessageType.Execution, query.RawQuery));
-			if(query.Arguments.Count > 0)
+			AConsoleCommand command = FindCommand(query.CommandName);
+			if(command == null)
 			{
-				AConsoleCommand command = FindCommand(query.CommandName);
-				if(command == null)
-				{
-					OnMessage.Invoke(new Message(EMessageType.Error, Localization.CommandNotFound(query.CommandName)));
-				}
-				CommandMethod method = command.Method;
-				MapQuery(method, query);
-				ParseQueryValues(query);
-				object[] parsed = query.GetParsedValues();
-				Message result = command.Execute(parsed);
-				OnMessage.Invoke(result);
+				OnMessage.Invoke(new Message(EMessageType.Error, Localization.CommandNotFound(query.CommandName)));
+				return;
 			}
+			CommandMethod method = command.Method;
+			MapQuery(method, query);
+			ParseQueryValues(query);
+			object[] parsed = query.GetParsedValues();
+			Message result = command.Execute(parsed);
+			OnMessage.Invoke(result);
 		}
 
 		private void MapQuery(CommandMethod method, Query query)

@@ -23,7 +23,8 @@ namespace ProceduralLevel.PowerConsole.View
 			UserInput = GUI.TextField(m_InputRect, UserInput);
 			if(GUI.Button(m_SubmitRect, m_ButtonText))
 			{
-
+				Console.Execute(UserInput);
+				UserInput = "";
 			}
 		}
 
