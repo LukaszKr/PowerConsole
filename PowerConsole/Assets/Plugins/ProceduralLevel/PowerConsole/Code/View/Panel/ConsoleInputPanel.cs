@@ -1,5 +1,4 @@
 ﻿using ProceduralLevel.PowerConsole.Logic;
-using ProceduralLevel.UnityCommon.Ext;
 using UnityEngine;
 
 namespace ProceduralLevel.PowerConsole.View
@@ -10,7 +9,8 @@ namespace ProceduralLevel.PowerConsole.View
 
 		private GUIContent m_ButtonText;
 
-		private Rect[] m_Rects;
+		private Rect m_InputRect;
+		private Rect m_SubmitRect;
 
 		public ConsoleInputPanel(ConsoleView consoleView) : base(consoleView)
 		{
@@ -18,18 +18,20 @@ namespace ProceduralLevel.PowerConsole.View
 			m_ButtonText = new GUIContent(Localization.GetLocalizedKey(ELocalizationKey.Input_Submit));
 		}
 
-		protected override void OnRender(Rect rect)
+		protected override void OnRender(Vector2 size)
 		{
-			UserInput = GUI.TextField(m_Rects[0], UserInput);
-			if(GUI.Button(m_Rects[1], m_ButtonText))
+			UserInput = GUI.TextField(m_InputRect, UserInput);
+			if(GUI.Button(m_SubmitRect, m_ButtonText))
 			{
 
 			}
 		}
 
-		protected override void OnSizeChanged(Rect rect)
+		protected override void OnSizeChanged(Vector2 size)
 		{
-			m_Rects = rect.SplitHorizontal(0.8f, 0.2f);
+			float inputWidth = size.x*0.8f;
+			m_InputRect = new Rect(0, 0, inputWidth, size.y);
+			m_SubmitRect = new Rect(inputWidth, 0, size.x-inputWidth, size.y);
 		}
 	}
 }

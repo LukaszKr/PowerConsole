@@ -20,21 +20,22 @@ namespace ProceduralLevel.PowerConsole.View
 
 		public void Render(Rect rect)
 		{
-			GUI.Box(rect, string.Empty);
-			UpdateSizes(rect);
-			OnRender(rect);
+			GUI.BeginGroup(rect, Styles.Box);
+			UpdateSizes(rect.size);
+			OnRender(rect.size);
+			GUI.EndGroup();
 		}
 
-		protected abstract void OnRender(Rect rect);
-		protected abstract void OnSizeChanged(Rect rect);
+		protected abstract void OnRender(Vector2 size);
+		protected abstract void OnSizeChanged(Vector2 size);
 
-		private void UpdateSizes(Rect rect)
+		private void UpdateSizes(Vector2 size)
 		{
-			int width = (int)rect.width;
+			int width = (int)size.x;
 			if(width != m_LastWidth)
 			{
 				m_LastWidth = width;
-				OnSizeChanged(rect);
+				OnSizeChanged(size);
 			}
 		}
 	}

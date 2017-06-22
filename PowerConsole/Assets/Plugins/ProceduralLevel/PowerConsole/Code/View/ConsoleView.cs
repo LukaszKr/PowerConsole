@@ -40,7 +40,6 @@ namespace ProceduralLevel.PowerConsole.View
 			{
 				//hs to be done in OnGUI
 				Styles.TryInitialize(false);
-
 				float inputHeight = 25;
 				Rect messagesRect = new Rect(0, 0, Screen.width, Height-inputHeight);
 				Rect inputRect = new Rect(0, messagesRect.height, Screen.width, inputHeight);
