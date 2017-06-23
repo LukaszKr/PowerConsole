@@ -130,6 +130,9 @@
     <Reference Include="UnityCommon">
       <HintPath>Assets\Plugins\ProceduralLevel\UnityCommon\UnityCommon.dll</HintPath>
     </Reference>
+    <Reference Include="ExtendedEditor">
+      <HintPath>Assets\Plugins\ProceduralLevel\ExtendedEditor\ExtendedEditor.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="PowerConsole.Plugins.csproj">
@@ -138,6 +141,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Editor\ConsoleViewEditor.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Editor\Tests\Logic\Console\ConsoleExecutionTest.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Editor\Tests\Logic\Console\ConsoleTest.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Editor\Tests\Logic\FactoryTest.cs" />

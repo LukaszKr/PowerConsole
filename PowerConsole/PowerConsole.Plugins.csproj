@@ -13,7 +13,8 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>GamePlugins:3</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.6.1f1</UnityVersion>
@@ -85,6 +86,9 @@
     <Reference Include="UnityCommon">
       <HintPath>Assets\Plugins\ProceduralLevel\UnityCommon\UnityCommon.dll</HintPath>
     </Reference>
+    <Reference Include="ExtendedEditor">
+      <HintPath>Assets\Plugins\ProceduralLevel\ExtendedEditor\ExtendedEditor.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Command\AConsoleCommand.cs" />
@@ -104,8 +108,10 @@
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Factory.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Hint\AHint.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Hint\HintManager.cs" />
-    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Localization\ALocalization.cs" />
-    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Localization\DefaultLocalization.cs" />
+    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Implementation\ClearConsoleCommand.cs" />
+    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Implementation\Enum\EHelpCategory.cs" />
+    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Implementation\HelpConsoleCommand.cs" />
+    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Localization\LocalizationManager.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Localization\ELocalizationKey.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Message\EMessageType.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Message\Message.cs" />
@@ -115,6 +121,7 @@
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Parser\ValueParser.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Query\Argument.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Query\Query.cs" />
+    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\View\ConsoleInput.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\View\ConsoleView.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\View\Message\MessageView.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\View\Panel\AConsolePanel.cs" />

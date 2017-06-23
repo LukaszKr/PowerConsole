@@ -21,7 +21,7 @@ namespace ProceduralLevel.PowerConsole.View
 		protected override void OnRender(Vector2 size)
 		{
 			UserInput = GUI.TextField(m_InputRect, UserInput);
-			if(GUI.Button(m_SubmitRect, m_ButtonText))
+			if(GUI.Button(m_SubmitRect, m_ButtonText) || Input.ExecuteCommand())
 			{
 				Console.Execute(UserInput);
 				UserInput = "";

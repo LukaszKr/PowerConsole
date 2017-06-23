@@ -4,6 +4,14 @@ namespace ProceduralLevel.PowerConsole.Logic
 {
 	public static class Factory
 	{
+		public static void CreateDefaultCommands(ConsoleInstance console)
+		{
+			//console.AddCommand(new HelpConsoleCommand());
+			//console.AddCommand(new ClearConsoleCommand());
+
+			console.ValueParser.CreateEnumParser<EHelpCategory>();
+		}
+
 		public static CommandMethod CreateCommandMethod(MethodInfo info)
 		{
 			if(info.ReturnType != typeof(Message))

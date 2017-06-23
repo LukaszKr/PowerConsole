@@ -11,6 +11,11 @@
 		Query_TooManyArguments = 21,
 		Query_NotEnoughtArguments = 22,
 
-		Input_Submit = 30
+		Input_Submit = 30,
+
+		Cmd_Help_Name = 100,
+		Cmd_Help_Desc = 101,
+		Cmd_Clear_Name = 102,
+		Cmd_Clear_Desc = 103
 	}
 }

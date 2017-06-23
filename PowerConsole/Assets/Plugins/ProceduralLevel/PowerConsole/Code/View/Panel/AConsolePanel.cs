@@ -7,9 +7,10 @@ namespace ProceduralLevel.PowerConsole.View
 	{
 		protected ConsoleView m_ConsoleView;
 
-		public ALocalization Localization { get { return Console.Localization; } }
+		public LocalizationManager Localization { get { return Console.Localization; } }
 		public ConsoleInstance Console { get { return m_ConsoleView.Console; } }
 		public ConsoleStyles Styles { get { return m_ConsoleView.Styles; } }
+		public ConsoleInput Input { get { return m_ConsoleView.UserInput; } }
 
 		protected int m_LastWidth = 0;
 

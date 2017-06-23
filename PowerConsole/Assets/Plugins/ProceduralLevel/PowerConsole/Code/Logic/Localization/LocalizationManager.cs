@@ -2,9 +2,12 @@
 
 namespace ProceduralLevel.PowerConsole.Logic
 {
-	public abstract class ALocalization
+	public class LocalizationManager
 	{
-		public abstract string GetLocalizedKey(ELocalizationKey key);
+		public string GetLocalizedKey(ELocalizationKey key)
+		{
+			return key.ToString();
+		}
 
 		#region Command
 		public string CommandNotFound(string commandName)

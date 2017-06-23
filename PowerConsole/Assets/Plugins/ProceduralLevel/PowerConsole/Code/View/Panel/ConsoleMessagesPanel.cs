@@ -49,7 +49,7 @@ namespace ProceduralLevel.PowerConsole.View
 				float newHOffset = hOffset+messageView.Height;
 				if(newHOffset >= minOffset && hOffset < maxOffset)
 				{
-					Rect renderRect = new Rect(0f, hOffset-m_ScrollPosition, size.x, size.y);
+					Rect renderRect = new Rect(4f, hOffset-m_ScrollPosition, size.x-8f, size.y);
 					messageView.Render(renderRect, Styles);
 				}
 				hOffset = newHOffset;

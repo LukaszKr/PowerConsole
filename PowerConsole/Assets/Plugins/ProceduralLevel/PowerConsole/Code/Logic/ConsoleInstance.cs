@@ -6,18 +6,21 @@ namespace ProceduralLevel.PowerConsole.Logic
 {
 	public class ConsoleInstance
 	{
-		private ValueParser m_ValueParser = new ValueParser();
 		private QueryParser m_QueryParser = new QueryParser();
 
 		private List<AConsoleCommand> m_Commands = new List<AConsoleCommand>();
 
 		public Event<Message> OnMessage = new Event<Message>();
 
-		public readonly ALocalization Localization;
+		public readonly LocalizationManager Localization;
+		public readonly ValueParser ValueParser = new ValueParser();
 
-		public ConsoleInstance(ALocalization localizationProvider)
+
+		public ConsoleInstance(LocalizationManager localizationProvider)
 		{
 			Localization = localizationProvider;
+
+			Factory.CreateDefaultCommands(this);
 		}
 
 		public List<Query> ParseQuery(string strQuery)
@@ -61,6 +64,10 @@ namespace ProceduralLevel.PowerConsole.Logic
 			{
 				method.MapArguments(query);
 			}
+			catch(NotEnoughtArgumentsException e)
+			{
+				OnMessage.Invoke(new Message(EMessageType.Error, Localization.NotEnoughtArguments(method.ParameterCount-e.Parameters.Count)));
+			}
 			catch(NamedArgumentNotFoundException e)
 			{
 				OnMessage.Invoke(new Message(EMessageType.Error, Localization.NamedArgumentNotFound(e.Name, e.Value)));
@@ -78,7 +85,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 				for(int x = 0; x < query.Arguments.Count; x++)
 				{
 					Argument argument = query.Arguments[x];
-					argument.Parsed = m_ValueParser.Parse(argument.Parameter.Type, argument.Value);
+					argument.Parsed = ValueParser.Parse(argument.Parameter.Type, argument.Value);
 				}
 			}
 			catch(MissingValueParserException e)

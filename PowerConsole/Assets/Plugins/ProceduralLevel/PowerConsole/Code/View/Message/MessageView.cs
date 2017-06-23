@@ -13,7 +13,7 @@ namespace ProceduralLevel.PowerConsole.View
 		public MessageView(Message message)
 		{
 			Message = message;
-			m_Content = new GUIContent(message.ToString());
+			m_Content = new GUIContent(message.Value);
 			MarkAsDirty();
 		}
 

@@ -9,24 +9,25 @@ namespace ProceduralLevel.PowerConsole.View
 		public ConsoleMessagesPanel Messages { get; private set; }
 		public ConsoleStyles Styles { get; private set; }
 		public ConsoleInstance Console { get; private set; }
+		public ConsoleInput UserInput { get; private set; }
 
 		public float Height = 400;
+		public bool DisplayAuthor = true;
+
+		public TextAsset LocalizationCSV;
 
 		public void Awake()
 		{
 			Styles = new ConsoleStyles();
-			Console = new ConsoleInstance(new DefaultLocalization());
+			Console = new ConsoleInstance(new LocalizationManager());
 
+			UserInput = new ConsoleInput();
 			Input = new ConsoleInputPanel(this);
 			Messages = new ConsoleMessagesPanel(this);
 
-			Messages.AddMessage(new Message(EMessageType.Info, "PowerConsole by Procedural Level"));
-			Messages.AddMessage(new Message(EMessageType.Info, "Very long message has to go here, to test if multiline is properly supported." +
-				"Event thou this might be a tricky task to do, it has to be supported. Lorem ipsum could also be here, but come on, let's be creative!"));
-			Messages.AddMessage(new Message(EMessageType.Info, "Hello World!"));
-			for(int x = 0; x < 30; x++)
+			if(DisplayAuthor)
 			{
-				Messages.AddMessage(new Message(EMessageType.Warning, x.ToString()));
+				Messages.AddMessage(new Message(EMessageType.Info, "PowerConsole by Procedural Level"));
 			}
 
 		}
