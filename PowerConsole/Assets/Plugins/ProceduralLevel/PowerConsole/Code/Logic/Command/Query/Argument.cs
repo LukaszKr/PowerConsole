@@ -25,7 +25,7 @@
 
 		public void ParseValue(ValueParser parser)
 		{
-			if(Value != null)
+			if(!string.IsNullOrEmpty(Value))
 			{
 				Parsed = parser.Parse(Parameter.Type, Value);
 			}
