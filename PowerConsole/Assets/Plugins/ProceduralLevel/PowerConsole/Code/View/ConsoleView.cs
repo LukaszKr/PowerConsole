@@ -38,8 +38,9 @@ namespace ProceduralLevel.PowerConsole.View
 		{
 			//after recompiling, restart the console
 			TryInitialize();
+			UserInput.Update(this);
 
-			//hs to be done in OnGUI
+			//has to be done in OnGUI
 			Styles.TryInitialize(false);
 			float offset = 0;
 
@@ -72,6 +73,7 @@ namespace ProceduralLevel.PowerConsole.View
 			{
 				Hints.Render(hintRect);
 			}
+
 		}
 
 		private void TryInitialize()

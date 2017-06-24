@@ -11,7 +11,15 @@ namespace ProceduralLevel.PowerConsole.Logic
 
 		public HintManager()
 		{
+			RegisterHint(new ByteHint());
+			RegisterHint(new ShortHint());
+			RegisterHint(new IntHint());
+			RegisterHint(new LongHint());
 
+			RegisterHint(new SByteHint());
+			RegisterHint(new UShortHint());
+			RegisterHint(new UIntHint());
+			//RegisterHint(new ULongHint());
 		}
 
 		public AHint GetHint(Type type)

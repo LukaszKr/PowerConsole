@@ -37,10 +37,9 @@ namespace ProceduralLevel.PowerConsole.View
 		protected override void OnRender(Vector2 size)
 		{
 			UserInput = GUI.TextField(m_InputRect, UserInput, Styles.InputText);
-			if(GUI.Button(m_SubmitRect, m_ButtonText) || Input.ExecuteCommand())
+			if(GUI.Button(m_SubmitRect, m_ButtonText))
 			{
-				Console.Execute(UserInput);
-				UserInput = "";
+				Execute();
 			}
 			int newCursor = TextEditorHelper.GetCursor();
 			if(newCursor != m_Cursor)
@@ -107,5 +106,13 @@ namespace ProceduralLevel.PowerConsole.View
 			m_InputRect = new Rect(PADDING, 0, inputWidth-PADDING*2, size.y);
 			m_SubmitRect = new Rect(inputWidth, 0, size.x-inputWidth, size.y).AddMargin(SUBMIT_MARGIN, SUBMIT_MARGIN);
 		}
+
+		#region Control
+		public void Execute()
+		{
+			Console.Execute(UserInput);
+			UserInput = "";
+		}
+		#endregion
 	}
 }

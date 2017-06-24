@@ -95,7 +95,15 @@
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Command\CommandMethod.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Command\CommandParameter.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Command\Hint\Implementation\AGenericHint.cs" />
-    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Command\Hint\Implementation\Dynamic\ByteHint.cs" />
+    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Command\Hint\Implementation\Dynamic\Number\ANumberHint.cs" />
+    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Command\Hint\Implementation\Dynamic\Number\ByteHint.cs" />
+    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Command\Hint\Implementation\Dynamic\Number\IntHint.cs" />
+    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Command\Hint\Implementation\Dynamic\Number\LongHint.cs" />
+    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Command\Hint\Implementation\Dynamic\Number\SByteHint.cs" />
+    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Command\Hint\Implementation\Dynamic\Number\ShortHint.cs" />
+    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Command\Hint\Implementation\Dynamic\Number\UIntHint.cs" />
+    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Command\Hint\Implementation\Dynamic\Number\ULongHint.cs" />
+    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Command\Hint\Implementation\Dynamic\Number\UShortHint.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Command\Hint\Iterator\CollectionHintIterator.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Command\Hint\Implementation\ACollectionHint.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Command\Hint\Implementation\ADynamicHint.cs" />

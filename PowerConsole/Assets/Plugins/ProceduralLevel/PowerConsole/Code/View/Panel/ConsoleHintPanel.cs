@@ -15,7 +15,7 @@ namespace ProceduralLevel.PowerConsole.View
 
 		private AConsoleCommand m_Command;
 		private AHint m_Hint;
-		private AHintIterator m_Enumerator;
+		private AHintIterator m_Iterator;
 
 		private Rect m_CommandRect;
 		private Rect m_ParameterRect;
@@ -89,36 +89,28 @@ namespace ProceduralLevel.PowerConsole.View
 					if(m_Argument.Parameter != null)
 					{
 						m_Hint = command.GetHintFor(Console.Hints, m_Argument.Parameter.Index);
-						m_Enumerator = m_Hint.GetIterator(argument.Value);
+						m_Iterator = m_Hint.GetIterator(argument.Value);
 					}
 					else if(argument.IsCommandName)
 					{
 						m_Hint = Console.NameHint;
-						m_Enumerator = m_Hint.GetIterator(argument.Value);
-						m_Command = Console.FindCommand(m_Enumerator.Current);
+						m_Iterator = m_Hint.GetIterator(argument.Value);
+						m_Command = Console.FindCommand(m_Iterator.Current);
 					}
 				}
 				else
 				{
 					m_Hint = null;
-					m_Enumerator = null;
+					m_Iterator = null;
 				}
 				RefreshHint();
-			}
-		}
-
-		public void NextHint()
-		{
-			if(!m_Enumerator.MoveNext())
-			{
-				m_Enumerator.Restart();
 			}
 		}
 
 		private void RefreshHint()
 		{
 			if(m_Argument != null)
-			{ 
+			{
 				if(m_Command != null)
 				{
 					m_CommandLabel.text = string.Format(COMMAND_HINT, m_Command.ToString(), m_Command.Description);
@@ -131,9 +123,9 @@ namespace ProceduralLevel.PowerConsole.View
 				{
 					m_ParameterLabel.text = string.Format(PARAMETER_HINT, m_Argument.Name, m_Hint.HintedType.Name);
 
-					string hintText = m_Enumerator.Current;
+					string hintText = m_Iterator.Current;
 					string argText = m_Argument.Value;
-					int hitIndex =  hintText.IndexOf(argText, StringComparison.OrdinalIgnoreCase);
+					int hitIndex = Math.Max(0, hintText.IndexOf(argText, StringComparison.OrdinalIgnoreCase));
 
 					m_HintPrefixLabel.text = hintText.Substring(0, hitIndex);
 					m_HintHitLabel.text = argText;
@@ -152,5 +144,25 @@ namespace ProceduralLevel.PowerConsole.View
 		{
 			return (m_Hint != null);
 		}
+
+		#region Control
+		public void NextHint()
+		{
+			if(m_Iterator != null && !m_Iterator.MoveNext())
+			{
+				m_Iterator.Restart();
+			}
+			RefreshHint();
+		}
+
+		public void PrevHint()
+		{
+			if(m_Iterator != null && !m_Iterator.MovePrev())
+			{
+				m_Iterator.Restart();
+			}
+			RefreshHint();
+		}
+		#endregion
 	}
 }
