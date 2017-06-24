@@ -90,7 +90,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 						missing.Add(parameter);
 					}
 				}
-				throw new NotEnoughtArgumentsException(missing);
+				throw new NotEnoughtArgumentsException(query, m_NonOptionalCount, missing);
 			}
 		}
 
