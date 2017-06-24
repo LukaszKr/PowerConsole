@@ -30,6 +30,18 @@ namespace ProceduralLevel.PowerConsole.Logic
 			return queries;
 		}
 
+		public void ParseValues(Query query)
+		{
+			for(int x = 0; x < query.Arguments.Count; x++)
+			{
+				Argument argument = query.Arguments[x];
+				if(argument.Parameter != null)
+				{
+					argument.Parsed = ValueParser.Parse(argument.Parameter.Type, argument.Value);
+				}
+			}
+		}
+
 		#region Execution
 		public void Execute(string strQuery)
 		{
@@ -51,14 +63,16 @@ namespace ProceduralLevel.PowerConsole.Logic
 				return;
 			}
 			CommandMethod method = command.Method;
-			MapQuery(method, query);
-			ParseQueryValues(query);
-			object[] parsed = query.GetParsedValues();
-			Message result = command.Execute(parsed);
-			OnMessage.Invoke(result);
+			if(MapQuery(method, query) && ParseQueryValues(query))
+			{
+				object[] parsed = query.GetParsedValues();
+				Message result = command.Execute(parsed);
+				OnMessage.Invoke(result);
+			}
+
 		}
 
-		private void MapQuery(CommandMethod method, Query query)
+		private bool MapQuery(CommandMethod method, Query query)
 		{
 			try
 			{
@@ -67,35 +81,38 @@ namespace ProceduralLevel.PowerConsole.Logic
 			catch(NotEnoughtArgumentsException e)
 			{
 				OnMessage.Invoke(new Message(EMessageType.Error, Localization.NotEnoughtArguments(method.ParameterCount-e.Parameters.Count)));
+				return false;
 			}
 			catch(NamedArgumentNotFoundException e)
 			{
 				OnMessage.Invoke(new Message(EMessageType.Error, Localization.NamedArgumentNotFound(e.Name, e.Value)));
+				return false;
 			}
 			catch(TooManyArgumentsException e)
 			{
 				OnMessage.Invoke(new Message(EMessageType.Error, Localization.TooManyArguments(e.Received, e.Expected)));
+				return false;
 			}
+			return true;
 		}
 
-		private void ParseQueryValues(Query query)
+		private bool ParseQueryValues(Query query)
 		{
 			try
 			{
-				for(int x = 0; x < query.Arguments.Count; x++)
-				{
-					Argument argument = query.Arguments[x];
-					argument.Parsed = ValueParser.Parse(argument.Parameter.Type, argument.Value);
-				}
+				ParseValues(query);
 			}
 			catch(MissingValueParserException e)
 			{
 				OnMessage.Invoke(new Message(EMessageType.Error, Localization.MissingValueParser(e.RawValue, e.ExpectedType)));
+				return false;
 			}
 			catch(InvalidValueFormatException e)
 			{
 				OnMessage.Invoke(new Message(EMessageType.Error, Localization.InvalidValueFormat(e.RawValue, e.ExpectedType)));
+				return false;
 			}
+			return true;
 		}
 		#endregion
 

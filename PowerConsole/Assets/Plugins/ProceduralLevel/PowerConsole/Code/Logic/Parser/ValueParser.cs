@@ -124,7 +124,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 		{
 			return (string rawValue) =>
 			{
-				return Enum.Parse(typeof(T), rawValue);
+				return Enum.Parse(typeof(T), rawValue, true);
 			};
 		}
 		#endregion

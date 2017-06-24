@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using ProceduralLevel.PowerConsole.Logic;
+using System;
 
 namespace ProceduralLevel.PowerConsole.Editor.Test.Logic
 {
@@ -17,6 +18,20 @@ namespace ProceduralLevel.PowerConsole.Editor.Test.Logic
 			catch(IncorrectReturnTypeException e)
 			{
 				Assert.AreEqual(typeof(int), e.ReturnedType);
+			}
+		}
+
+		[Test]
+		public void NullMethodInfo()
+		{
+			try
+			{
+				Factory.CreateCommandMethod(null);
+				TestHelper.ExpectException<ArgumentNullException>();
+			}
+			catch(ArgumentNullException e)
+			{
+				Assert.NotNull(e);
 			}
 		}
 	}

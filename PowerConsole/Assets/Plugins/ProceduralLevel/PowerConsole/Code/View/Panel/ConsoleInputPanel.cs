@@ -1,4 +1,5 @@
 ﻿using ProceduralLevel.PowerConsole.Logic;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,6 +13,8 @@ namespace ProceduralLevel.PowerConsole.View
 
 		private Rect m_InputRect;
 		private Rect m_SubmitRect;
+
+		private List<Exception> m_InputErrors = new List<Exception>();
 
 		public ConsoleInputPanel(ConsoleView consoleView) : base(consoleView)
 		{
@@ -29,18 +32,49 @@ namespace ProceduralLevel.PowerConsole.View
 			}
 			if(GUI.changed)
 			{
+				m_InputErrors.Clear();
 				List<Query> queries = Console.ParseQuery(UserInput);
 				int cursor = TextEditorHelper.GetCursor();
 				Argument arg = null;
+				Query query = null;
 				for(int x = 0; x < queries.Count; x++)
 				{
-					arg = queries[x].GetArgumentAt(cursor);
+					query = queries[x];
+					arg = query.GetArgumentAt(cursor);
 					if(arg != null)
 					{
 						break;
 					}
 				}
+				if(query != null)
+				{
+					AConsoleCommand command = Console.FindCommand(query.Name.Value);
+					if(command != null)
+					{
+						try
+						{
+							command.Method.MapArguments(query);
+						}
+						catch(Exception e)
+						{
+							m_InputErrors.Add(e);
+						}
+						try
+						{
+							Console.ParseValues(query);
+						}
+						catch(Exception e)
+						{
+							m_InputErrors.Add(e);
+						}
+					}
+				}
+
 				Debug.Log(arg);
+				for(int x = 0; x < m_InputErrors.Count; x++)
+				{
+					Debug.LogError(m_InputErrors[x].ToString());
+				}
 			}
 		}
 

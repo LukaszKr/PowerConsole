@@ -1,4 +1,5 @@
 ﻿using ProceduralLevel.PowerConsole.Logic;
+using System;
 using UnityEngine;
 
 namespace ProceduralLevel.PowerConsole.View
@@ -17,19 +18,19 @@ namespace ProceduralLevel.PowerConsole.View
 
 		public TextAsset LocalizationCSV;
 
+		[NonSerialized]
+		private bool m_Initialized;
+
 		public void Awake()
 		{
-			Styles = new ConsoleStyles();
-			Console = new ConsoleInstance(new LocalizationManager());
-
-			UserInput = new ConsoleInput();
-			Details = new ConsoleDetailsPanel(this);
-			Input = new ConsoleInputPanel(this);
-			Messages = new ConsoleMessagesPanel(this);
+			TryInitialize();
 		}
 
 		public void OnGUI()
 		{
+			//after recompiling, restart the console
+			TryInitialize();
+
 			//hs to be done in OnGUI
 			Styles.TryInitialize(false);
 			float inputHeight = Styles.InputHeight;
@@ -49,6 +50,22 @@ namespace ProceduralLevel.PowerConsole.View
 			Rect inputRect = new Rect(0, offset, Screen.width, inputHeight);
 			Input.Render(inputRect);
 			offset += inputHeight;
+		}
+
+		private void TryInitialize()
+		{
+			if(!m_Initialized)
+			{
+				m_Initialized = true;
+
+				Styles = new ConsoleStyles();
+				Console = new ConsoleInstance(new LocalizationManager());
+
+				UserInput = new ConsoleInput();
+				Details = new ConsoleDetailsPanel(this);
+				Input = new ConsoleInputPanel(this);
+				Messages = new ConsoleMessagesPanel(this);
+			}
 		}
 	}
 }

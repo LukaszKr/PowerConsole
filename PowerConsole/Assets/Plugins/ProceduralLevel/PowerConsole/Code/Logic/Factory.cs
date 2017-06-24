@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 
 namespace ProceduralLevel.PowerConsole.Logic
 {
@@ -6,14 +7,18 @@ namespace ProceduralLevel.PowerConsole.Logic
 	{
 		public static void CreateDefaultCommands(ConsoleInstance console)
 		{
-			//console.AddCommand(new HelpConsoleCommand());
-			//console.AddCommand(new ClearConsoleCommand());
+			console.AddCommand(new HelpConsoleCommand("help", "help"));
+			console.AddCommand(new ClearConsoleCommand("clear", "clear"));
 
 			console.ValueParser.CreateEnumParser<EHelpCategory>();
 		}
 
 		public static CommandMethod CreateCommandMethod(MethodInfo info)
 		{
+			if(info == null)
+			{
+				throw new ArgumentNullException();
+			}
 			if(info.ReturnType != typeof(Message))
 			{
 				throw new IncorrectReturnTypeException(info, info.ReturnType);

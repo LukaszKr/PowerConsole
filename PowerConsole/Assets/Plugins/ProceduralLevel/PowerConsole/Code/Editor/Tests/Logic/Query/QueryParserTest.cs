@@ -20,6 +20,15 @@ namespace ProceduralLevel.PowerConsole.Editor.Test.Logic.Queries
 		}
 
 		[Test]
+		public void SpaceAtTheEnd()
+		{
+			m_Parser.Parse("test ");
+			Query query = m_Parser.Flush()[0];
+
+			Assert.AreEqual(0, query.Arguments.Count);
+		}
+
+		[Test]
 		public void RawQuery()
 		{
 			string expectedQuery = "test 123 ";
