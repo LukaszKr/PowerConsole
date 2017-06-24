@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace ProceduralLevel.PowerConsole.Logic
+﻿namespace ProceduralLevel.PowerConsole.Logic
 {
-	public class OptionalParameterOrderException: Exception
+	public class OptionalParameterOrderException: ConsoleException
 	{
 		public readonly CommandMethod Method;
 		public readonly CommandParameter Optional;

@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace ProceduralLevel.PowerConsole.Logic
+﻿namespace ProceduralLevel.PowerConsole.Logic
 {
-	public class TooManyArgumentsException: Exception
+	public class TooManyArgumentsException: ConsoleException
 	{
 		public readonly int Received;
 		public readonly int Expected;

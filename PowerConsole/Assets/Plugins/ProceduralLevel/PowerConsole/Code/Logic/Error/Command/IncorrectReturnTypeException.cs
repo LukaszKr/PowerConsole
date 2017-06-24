@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace ProceduralLevel.PowerConsole.Logic
 {
-	public class IncorrectReturnTypeException: Exception
+	public class IncorrectReturnTypeException: ConsoleException
 	{
 		public readonly MethodInfo Method;
 		public readonly Type ReturnedType;

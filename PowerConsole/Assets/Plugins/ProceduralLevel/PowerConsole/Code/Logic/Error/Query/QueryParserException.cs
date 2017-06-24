@@ -1,9 +1,8 @@
 ﻿using ProceduralLevel.Common.Parsing;
-using System;
 
 namespace ProceduralLevel.PowerConsole.Logic
 {
-	public class QueryParserException: Exception
+	public class QueryParserException: ConsoleException
 	{
 		public readonly EQueryError ErrorCode;
 		public readonly Token Token;

@@ -13,7 +13,8 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>GamePlugins:3</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.6.1f1</UnityVersion>
@@ -101,6 +102,7 @@
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Error\Command\DuplicatedCommandException.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Error\Command\IncorrectReturnTypeException.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Error\Command\OptionalParameterOrderException.cs" />
+    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Error\ConsoleException.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Error\Query\EQueryError.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Error\Query\NamedArgumentNotFoundException.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Error\Query\NotEnoughtArgumentsException.cs" />

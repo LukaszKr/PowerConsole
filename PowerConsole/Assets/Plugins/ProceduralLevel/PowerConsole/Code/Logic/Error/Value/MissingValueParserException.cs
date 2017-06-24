@@ -2,7 +2,7 @@
 
 namespace ProceduralLevel.PowerConsole.Logic
 {
-	public class MissingValueParserException: Exception
+	public class MissingValueParserException: ConsoleException
 	{
 		public readonly Type ExpectedType;
 		public readonly string RawValue;

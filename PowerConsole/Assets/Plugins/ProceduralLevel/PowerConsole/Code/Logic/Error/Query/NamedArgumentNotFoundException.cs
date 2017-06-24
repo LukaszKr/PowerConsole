@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace ProceduralLevel.PowerConsole.Logic
+﻿namespace ProceduralLevel.PowerConsole.Logic
 {
-	public class NamedArgumentNotFoundException: Exception
+	public class NamedArgumentNotFoundException: ConsoleException
 	{
 		public readonly string Name;
 		public readonly string Value;

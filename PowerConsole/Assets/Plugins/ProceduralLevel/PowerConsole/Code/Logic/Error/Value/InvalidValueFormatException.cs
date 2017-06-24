@@ -2,7 +2,7 @@
 
 namespace ProceduralLevel.PowerConsole.Logic
 {
-	public class InvalidValueFormatException: Exception
+	public class InvalidValueFormatException: ConsoleException
 	{
 		public readonly Type ExpectedType;
 		public readonly string RawValue;

@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace ProceduralLevel.PowerConsole.Logic
 {
-	public class NotEnoughtArgumentsException: Exception
+	public class NotEnoughtArgumentsException: ConsoleException
 	{
 		public readonly List<CommandParameter> Parameters;
 

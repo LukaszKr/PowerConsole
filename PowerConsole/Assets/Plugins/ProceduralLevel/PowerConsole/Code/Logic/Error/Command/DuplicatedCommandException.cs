@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace ProceduralLevel.PowerConsole.Logic
+﻿namespace ProceduralLevel.PowerConsole.Logic
 {
-	public class DuplicatedCommandException: Exception
+	public class DuplicatedCommandException: ConsoleException
 	{
 		public readonly AConsoleCommand Existing;
 		public readonly AConsoleCommand Duplicating;
