@@ -22,6 +22,18 @@
 
 		}
 
+		public void ParseValue(ValueParser parser)
+		{
+			if(Value != null)
+			{
+				Parsed = parser.Parse(Parameter.Type, Value);
+			}
+			else if(Parameter != null)
+			{
+				Parsed = Parameter.DefaultValue;
+			}
+		}
+
 		public bool ContainsCursor(int cursor)
 		{
 			return (Offset <= cursor && Offset+Value.Length >= cursor);

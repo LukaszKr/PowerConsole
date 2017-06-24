@@ -1,4 +1,5 @@
 ﻿using ProceduralLevel.PowerConsole.Logic;
+using ProceduralLevel.UnityCommon.Ext;
 using System;
 using UnityEngine;
 
@@ -6,9 +7,14 @@ namespace ProceduralLevel.PowerConsole.View
 {
 	public class ConsoleView: MonoBehaviour
 	{
+		private const int H_MARGIN = 2;
+		private const int V_MARGIN = 2;
+
 		public ConsoleDetailsPanel Details { get; private set; }
 		public ConsoleInputPanel Input { get; private set; }
 		public ConsoleMessagesPanel Messages { get; private set; }
+		public ConsoleHintPanel Hints { get; private set; }
+
 		public ConsoleStyles Styles { get; private set; }
 		public ConsoleInstance Console { get; private set; }
 		public ConsoleInput UserInput { get; private set; }
@@ -33,23 +39,34 @@ namespace ProceduralLevel.PowerConsole.View
 
 			//hs to be done in OnGUI
 			Styles.TryInitialize(false);
-			float inputHeight = Styles.InputHeight;
 			float offset = 0;
+
+			float hDetails = (DisplayTitle? Details.PreferedHeight(Height) : 0);
+			float hMessages = Messages.PreferedHeight(Height);
+			float hInput = Input.PreferedHeight(Height);
+			float hHints = Hints.PreferedHeight(Height);
+
+			hMessages = hMessages-hDetails-hInput-hHints;
+
+			Rect detailsRect = new Rect(0, offset, Screen.width, hDetails).AddMargin(H_MARGIN, V_MARGIN);
+			offset += hDetails;
+
+			Rect messagesRect = new Rect(0, offset, Screen.width, hMessages).AddMargin(H_MARGIN, V_MARGIN);
+			offset += hMessages;
+
+			Rect inputRect = new Rect(0, offset, Screen.width, hInput).AddMargin(H_MARGIN, V_MARGIN);
+			offset += hInput;
+
+			Rect hintRect = new Rect(0, offset, Screen.width, hHints).AddMargin(H_MARGIN, V_MARGIN);
+			offset += hHints;
 
 			if(DisplayTitle)
 			{
-				Rect detailsRect = new Rect(0, offset, Screen.width, inputHeight);
 				Details.Render(detailsRect);
-				offset += inputHeight;
 			}
-
-			Rect messagesRect = new Rect(0, offset, Screen.width, Height-inputHeight*2);
 			Messages.Render(messagesRect);
-			offset += messagesRect.height;
-
-			Rect inputRect = new Rect(0, offset, Screen.width, inputHeight);
 			Input.Render(inputRect);
-			offset += inputHeight;
+			Hints.Render(hintRect);
 		}
 
 		private void TryInitialize()
@@ -60,11 +77,12 @@ namespace ProceduralLevel.PowerConsole.View
 
 				Styles = new ConsoleStyles();
 				Console = new ConsoleInstance(new LocalizationManager());
-
 				UserInput = new ConsoleInput();
+				
 				Details = new ConsoleDetailsPanel(this);
 				Input = new ConsoleInputPanel(this);
 				Messages = new ConsoleMessagesPanel(this);
+				Hints = new ConsoleHintPanel(this);
 			}
 		}
 	}

@@ -37,7 +37,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 				Argument argument = query.Arguments[x];
 				if(argument.Parameter != null)
 				{
-					argument.Parsed = ValueParser.Parse(argument.Parameter.Type, argument.Value);
+					argument.ParseValue(ValueParser);
 				}
 			}
 		}

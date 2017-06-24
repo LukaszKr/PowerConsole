@@ -6,24 +6,33 @@ namespace ProceduralLevel.PowerConsole.View
 {
 	public  class ConsoleMessagesPanel: AConsolePanel
 	{
+		private const int H_MARGIN = 4;
 		private const float SCROLL_POWER = 10;
 
 		private float m_ScrollPosition = 0;
 		private Rect m_ScrollRect;
+		private Rect m_RenderRect;
 
 		private float m_TotalHeight;
+		private bool m_ScrollToBottom;
 
 		private List<MessageView> m_MessageBuffer = new List<MessageView>();
 
 		public ConsoleMessagesPanel(ConsoleView consoleView) : base(consoleView)
 		{
 			Console.OnMessage.AddListener(AddMessage);
+			m_RenderRect = new Rect();
+		}
+
+		public override float PreferedHeight(float availableHeight)
+		{
+			return availableHeight;
 		}
 
 		public void AddMessage(Message message)
 		{
 			m_MessageBuffer.Add(new MessageView(message));
-			m_ScrollPosition = m_TotalHeight+100;
+			m_ScrollToBottom = true;
 		}
 
 		protected override void OnRender(Vector2 size)
@@ -35,6 +44,11 @@ namespace ProceduralLevel.PowerConsole.View
 			}
 
 			m_TotalHeight = TotalHeight();
+			if(m_ScrollToBottom)
+			{
+				m_ScrollToBottom = false;
+				m_ScrollPosition = m_TotalHeight;
+			}
 			HandleMouse(size);
 
 			m_ScrollPosition = GUI.VerticalScrollbar(m_ScrollRect, m_ScrollPosition, size.y, 0f, m_TotalHeight);
@@ -49,8 +63,8 @@ namespace ProceduralLevel.PowerConsole.View
 				float newHOffset = hOffset+messageView.Height;
 				if(newHOffset >= minOffset && hOffset < maxOffset)
 				{
-					Rect renderRect = new Rect(4f, hOffset-m_ScrollPosition, size.x-8f, size.y);
-					messageView.Render(renderRect, Styles);
+					m_RenderRect.Set(H_MARGIN, hOffset-m_ScrollPosition, size.x-Styles.ScrollbarWidth-H_MARGIN*2, size.y);
+					messageView.Render(m_RenderRect, Styles);
 				}
 				hOffset = newHOffset;
 			}

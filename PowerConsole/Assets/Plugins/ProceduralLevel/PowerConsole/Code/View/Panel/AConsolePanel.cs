@@ -29,6 +29,7 @@ namespace ProceduralLevel.PowerConsole.View
 
 		protected abstract void OnRender(Vector2 size);
 		protected abstract void OnSizeChanged(Vector2 size);
+		public abstract float PreferedHeight(float availableHeight);
 
 		private void UpdateSizes(Vector2 size)
 		{

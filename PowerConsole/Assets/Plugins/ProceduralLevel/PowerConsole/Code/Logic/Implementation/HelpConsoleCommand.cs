@@ -6,7 +6,7 @@
 		{
 		}
 
-		public Message Command(EHelpCategory category)
+		public Message Command(EHelpCategory category = EHelpCategory.Input)
 		{
 			return new Message(EMessageType.Info, category.ToString());
 		}

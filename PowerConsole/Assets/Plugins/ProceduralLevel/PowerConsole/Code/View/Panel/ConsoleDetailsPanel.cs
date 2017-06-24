@@ -14,6 +14,11 @@ namespace ProceduralLevel.PowerConsole.View
 			m_Title = new GUIContent(TITLE);
 		}
 
+		public override float PreferedHeight(float availableHeight)
+		{
+			return Styles.InputHeight;
+		}
+
 		protected override void OnRender(Vector2 size)
 		{
 			GUI.Label(m_DisplayRect, m_Title, Styles.TitleText);
