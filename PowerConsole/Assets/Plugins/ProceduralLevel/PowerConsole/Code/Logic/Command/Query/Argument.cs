@@ -24,8 +24,8 @@
 
 		public override string ToString()
 		{
-			return string.Format("[Name: {0}, Value: {1}, Parsed: {2}, Parameter: {3}]",
-				Name, Value, (Parsed != null? Parsed.ToString(): ""), (IsMapped? Parameter.ToString(): ""));
+			return string.Format("[Name: {0}, Value: {1}, Parsed: {2}, Parameter: {3}, Offset: {4}]",
+				Name, Value, (Parsed != null? Parsed.ToString(): ""), (IsMapped? Parameter.ToString(): ""), Offset.ToString());
 		}
 	}
 }

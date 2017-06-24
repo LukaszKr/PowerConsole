@@ -7,5 +7,7 @@
 		public const string SEPARATOR = ";";
 		public const string ASSIGN = "=";
 		public const string SPACE = " ";
+
+		public const string NAME_ARGUMENT = "name";
 	}
 }

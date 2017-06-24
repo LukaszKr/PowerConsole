@@ -70,14 +70,22 @@ namespace ProceduralLevel.PowerConsole.Logic
 					default:
 						if(query == null)
 						{
-							query = new Query(token.Value);
+							Argument commandName = new Argument()
+							{
+								Name = ParserConst.NAME_ARGUMENT,
+								Offset = token.Position,
+								Value = token.Value
+							};
+							query = new Query(commandName);
 						}
 						else
 						{
 							if(argument == null)
 							{
-								argument = new Argument();
-								argument.Offset = token.Position;
+								argument = new Argument()
+								{
+									Offset = token.Position
+								};
 								query.Arguments.Add(argument);
 							}
 							argument.Value = token.Value;

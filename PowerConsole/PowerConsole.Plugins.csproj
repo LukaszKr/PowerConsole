@@ -124,6 +124,7 @@
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Parser\ValueParser.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\View\ConsoleInput.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\View\ConsoleView.cs" />
+    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\View\Helper\TextEditorHelper.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\View\Message\MessageView.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\View\Panel\AConsolePanel.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\View\Panel\ConsoleDetailsPanel.cs" />

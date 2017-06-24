@@ -1,4 +1,5 @@
 ﻿using ProceduralLevel.PowerConsole.Logic;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace ProceduralLevel.PowerConsole.View
@@ -25,6 +26,21 @@ namespace ProceduralLevel.PowerConsole.View
 			{
 				Console.Execute(UserInput);
 				UserInput = "";
+			}
+			if(GUI.changed)
+			{
+				List<Query> queries = Console.ParseQuery(UserInput);
+				int cursor = TextEditorHelper.GetCursor();
+				Argument arg = null;
+				for(int x = 0; x < queries.Count; x++)
+				{
+					arg = queries[x].GetArgumentAt(cursor);
+					if(arg != null)
+					{
+						break;
+					}
+				}
+				Debug.Log(arg);
 			}
 		}
 

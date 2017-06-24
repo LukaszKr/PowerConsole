@@ -9,7 +9,7 @@ namespace ProceduralLevel.PowerConsole.Editor.Test
 	{
 		public static void CheckQuery(Query query, string name, int argCount)
 		{
-			Assert.AreEqual(name, query.CommandName);
+			Assert.AreEqual(name, query.Name.Value);
 			Assert.AreEqual(argCount, query.Arguments.Count);
 		}
 

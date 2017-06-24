@@ -5,12 +5,12 @@ namespace ProceduralLevel.PowerConsole.Logic
 	public class Query
 	{
 		public string RawQuery = "";
-		public readonly string CommandName;
+		public readonly Argument Name;
 		public List<Argument> Arguments = new List<Argument>();
 
-		public Query(string commandName)
+		public Query(Argument commandName)
 		{
-			CommandName = commandName;
+			Name = commandName;
 		}
 
 		public object[] GetParsedValues()
@@ -23,6 +23,23 @@ namespace ProceduralLevel.PowerConsole.Logic
 				parsed[index] = (argument.Parsed != null? argument.Parsed: argument.Parameter.DefaultValue);
 			}
 			return parsed;
+		}
+
+		public Argument GetArgumentAt(int cursorPosition)
+		{
+			for(int x = 0; x < Arguments.Count; x++)
+			{
+				Argument arg = Arguments[x];
+				if(arg.Offset > cursorPosition)
+				{
+					return null;	
+				}
+				if(arg.Offset+arg.Value.Length < cursorPosition)
+				{
+					return arg;
+				}
+			}
+			return null;
 		}
 
 		public override string ToString()

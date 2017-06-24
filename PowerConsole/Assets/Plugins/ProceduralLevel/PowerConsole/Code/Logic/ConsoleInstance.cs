@@ -44,10 +44,10 @@ namespace ProceduralLevel.PowerConsole.Logic
 		public void Execute(Query query)
 		{
 			OnMessage.Invoke(new Message(EMessageType.Execution, query.RawQuery));
-			AConsoleCommand command = FindCommand(query.CommandName);
+			AConsoleCommand command = FindCommand(query.Name.Value);
 			if(command == null)
 			{
-				OnMessage.Invoke(new Message(EMessageType.Error, Localization.CommandNotFound(query.CommandName)));
+				OnMessage.Invoke(new Message(EMessageType.Error, Localization.CommandNotFound(query.Name.Value)));
 				return;
 			}
 			CommandMethod method = command.Method;
