@@ -18,8 +18,13 @@ namespace ProceduralLevel.PowerConsole.View
 		}
 
 		public GUIStyle Box { get; private set; }
+
+
+		public GUIStyle DefaultText { get; private set; }
 		public GUIStyle TitleText { get; private set; }
 		public GUIStyle InputText { get; private set; }
+		public GUIStyle HintText { get; private set; }
+		public GUIStyle HintHitText { get; private set; }
 
 
 		public float ScrollbarWidth { get; private set; }
@@ -47,10 +52,21 @@ namespace ProceduralLevel.PowerConsole.View
 
 			Box = new GUIStyle("box");
 
+			GenerateTextStyles();
+		}
+
+		private void GenerateTextStyles()
+		{
+			float offset = 0.2f;
+
+			DefaultText = new GUIStyle("label");
+
+			HintHitText = StyleFactory.TextStyle(0f, 0f, 0f, FontStyle.Bold);
+			HintText = StyleFactory.TextStyle(-offset, -offset, -offset);
+
 			TitleText = StyleFactory.TextStyle(0f, 0f, 0f, FontStyle.Bold, TextAnchor.MiddleCenter);
 			InputText = StyleFactory.TextStyle(0f, 0f, 0f, FontStyle.Normal, TextAnchor.MiddleLeft);
 
-			float offset = 0.2f;
 			m_TextStyle[(int)EMessageType.Error] = StyleFactory.TextStyle(0f, -offset, -offset, FontStyle.Bold);
 			m_TextStyle[(int)EMessageType.Execution] = StyleFactory.TextStyle(-offset, 0f, 0f, FontStyle.BoldAndItalic);
 			m_TextStyle[(int)EMessageType.Info] = StyleFactory.TextStyle(-offset, -offset, 0f, FontStyle.Normal);

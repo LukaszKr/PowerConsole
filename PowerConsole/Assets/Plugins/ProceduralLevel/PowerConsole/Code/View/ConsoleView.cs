@@ -48,7 +48,7 @@ namespace ProceduralLevel.PowerConsole.View
 			float hInput = GetHeight(Input);
 			float hHints = GetHeight(Hints, DisplayHints);
 
-			hMessages = hMessages-hDetails-hInput-hHints;
+			hMessages = hMessages-hDetails-hInput;
 
 			Rect detailsRect = CreateRect(offset, hDetails);
 			offset += hDetails;
@@ -68,7 +68,7 @@ namespace ProceduralLevel.PowerConsole.View
 			}
 			Messages.Render(messagesRect);
 			Input.Render(inputRect);
-			if(DisplayHints)
+			if(DisplayHints && hHints > 1)
 			{
 				Hints.Render(hintRect);
 			}
@@ -85,9 +85,9 @@ namespace ProceduralLevel.PowerConsole.View
 				UserInput = new ConsoleInput();
 				
 				Details = new ConsoleDetailsPanel(this);
-				Input = new ConsoleInputPanel(this);
 				Messages = new ConsoleMessagesPanel(this);
 				Hints = new ConsoleHintPanel(this);
+				Input = new ConsoleInputPanel(this);
 			}
 		}
 

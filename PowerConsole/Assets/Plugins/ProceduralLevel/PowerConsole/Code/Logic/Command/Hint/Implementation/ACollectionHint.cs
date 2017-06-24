@@ -3,12 +3,12 @@ using System.Collections.Generic;
 
 namespace ProceduralLevel.PowerConsole.Logic
 {
-	public abstract class ACollectionHint: AHint
+	public abstract class ACollectionHint<HintType>: AGenericHint<HintType>
 	{
 		private string[] m_Cache;
 		private bool m_IsValid;
 
-		protected override List<string> GetHints(string value)
+		private List<string> GetHints(string value)
 		{
 			if(!m_IsValid)
 			{
@@ -55,6 +55,11 @@ namespace ProceduralLevel.PowerConsole.Logic
 				compare = a.Length.CompareTo(b.Length);
 			}
 			return compare;
+		}
+
+		public override AHintIterator GetIterator(string value)
+		{
+			return new CollectionHintIterator(GetHints(value));
 		}
 	}
 }

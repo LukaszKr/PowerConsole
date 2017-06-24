@@ -94,10 +94,16 @@
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Command\AConsoleCommand.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Command\CommandMethod.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Command\CommandParameter.cs" />
-    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Command\Hint\ACollectionHint.cs" />
-    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Command\Hint\Collection\CommandNameHint.cs" />
-    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Command\Hint\Collection\EnumHint.cs" />
-    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Command\Hint\HintEnumerator.cs" />
+    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Command\Hint\Implementation\AGenericHint.cs" />
+    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Command\Hint\Implementation\Dynamic\ByteHint.cs" />
+    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Command\Hint\Iterator\CollectionHintIterator.cs" />
+    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Command\Hint\Implementation\ACollectionHint.cs" />
+    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Command\Hint\Implementation\ADynamicHint.cs" />
+    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Command\Hint\Implementation\Collection\CommandNameHint.cs" />
+    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Command\Hint\Implementation\Collection\EnumHint.cs" />
+    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Command\Hint\Iterator\AHintIterator.cs" />
+    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Command\Hint\Implementation\Dynamic\NoHint.cs" />
+    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Command\Hint\Iterator\DynamicHintIterator.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Command\Message\EMessageType.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Command\Message\Message.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Command\Query\Argument.cs" />
@@ -115,7 +121,7 @@
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Error\Value\InvalidValueFormatException.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Error\Value\MissingValueParserException.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Factory.cs" />
-    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Command\Hint\AHint.cs" />
+    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Command\Hint\Implementation\AHint.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Command\Hint\HintManager.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Implementation\ClearConsoleCommand.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Implementation\Enum\EHelpCategory.cs" />
@@ -128,6 +134,8 @@
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Parser\ValueParser.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\View\ConsoleInput.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\View\ConsoleView.cs" />
+    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\View\Helper\ChainLabel\ChainLabelDrawer.cs" />
+    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\View\Helper\ChainLabel\ChainLabelEntry.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\View\Helper\TextEditorHelper.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\View\Message\MessageView.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\View\Panel\AConsolePanel.cs" />
@@ -138,6 +146,7 @@
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\View\Style\ConsoleStyles.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\View\Style\StyleFactory.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
 </Project>

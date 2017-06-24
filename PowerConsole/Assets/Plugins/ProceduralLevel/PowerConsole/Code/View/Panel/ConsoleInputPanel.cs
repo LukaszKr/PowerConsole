@@ -20,10 +20,13 @@ namespace ProceduralLevel.PowerConsole.View
 
 		private List<Exception> m_InputErrors = new List<Exception>();
 
+		private int m_Cursor;
+
 		public ConsoleInputPanel(ConsoleView consoleView) : base(consoleView)
 		{
 			UserInput = "";
 			m_ButtonText = new GUIContent(Localization.GetLocalizedKey(ELocalizationKey.Input_Submit));
+			UpdateInputText();
 		}
 
 		public override float PreferedHeight(float availableHeight)
@@ -39,56 +42,63 @@ namespace ProceduralLevel.PowerConsole.View
 				Console.Execute(UserInput);
 				UserInput = "";
 			}
-			if(GUI.changed)
+			int newCursor = TextEditorHelper.GetCursor();
+			if(newCursor != m_Cursor)
 			{
+				m_Cursor = newCursor;
 				m_InputErrors.Clear();
-				List<Query> queries = Console.ParseQuery(UserInput);
-				int cursor = TextEditorHelper.GetCursor();
-				
-				AConsoleCommand command = null;
-				Argument arg = null;
-				Query query = null;
-				
-				for(int x = 0; x < queries.Count; x++)
-				{
-					query = queries[x];
-					arg = query.GetArgumentAt(cursor);
-					if(arg != null)
-					{
-						break;
-					}
-				}
-				if(query != null)
-				{
-					command = Console.FindCommand(query.Name.Value);
-					if(command != null)
-					{
-						try
-						{
-							command.Method.MapArguments(query);
-						}
-						catch(Exception e)
-						{
-							m_InputErrors.Add(e);
-						}
-						try
-						{
-							Console.ParseValues(query);
-						}
-						catch(Exception e)
-						{
-							m_InputErrors.Add(e);
-						}
-					}
-				}
-
-				Debug.Log(arg);
-				for(int x = 0; x < m_InputErrors.Count; x++)
-				{
-					Debug.LogError(m_InputErrors[x].ToString());
-				}
-				m_ConsoleView.Hints.UpdateHint(command, arg);
+				UpdateInputText();
 			}
+		}
+
+		private void UpdateInputText()
+		{
+			List<Query> queries = Console.ParseQuery(UserInput);
+			int cursor = TextEditorHelper.GetCursor();
+
+			AConsoleCommand command = null;
+			Argument arg = null;
+			Query query = null;
+
+			for(int x = 0; x < queries.Count; x++)
+			{
+				query = queries[x];
+				arg = query.GetArgumentAt(cursor);
+				if(arg != null)
+				{
+					break;
+				}
+			}
+			if(query != null)
+			{
+				command = Console.FindCommand(query.Name.Value);
+				if(command != null)
+				{
+					try
+					{
+						command.Method.MapArguments(query);
+					}
+					catch(Exception e)
+					{
+						m_InputErrors.Add(e);
+					}
+					try
+					{
+						Console.ParseValues(query);
+					}
+					catch(Exception e)
+					{
+						m_InputErrors.Add(e);
+					}
+				}
+			}
+
+			Debug.Log(arg);
+			for(int x = 0; x < m_InputErrors.Count; x++)
+			{
+				Debug.LogError(m_InputErrors[x].ToString());
+			}
+			m_ConsoleView.Hints.UpdateHint(command, arg);
 		}
 
 		protected override void OnSizeChanged(Vector2 size)

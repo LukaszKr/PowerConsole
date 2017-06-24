@@ -2,11 +2,9 @@
 
 namespace ProceduralLevel.PowerConsole.Logic
 {
-	public class EnumHint: ACollectionHint
+	public class EnumHint: ACollectionHint<Enum>
 	{
 		private Type m_EnumType;
-
-		public override Type HintedType { get { return m_EnumType; } }
 
 		public EnumHint(Type enumType)
 		{

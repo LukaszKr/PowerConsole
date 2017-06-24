@@ -13,7 +13,8 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Full v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>EditorPlugins:7</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.6.1f1</UnityVersion>
@@ -145,6 +146,7 @@
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Editor\Tests\Logic\Console\ConsoleExecutionTest.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Editor\Tests\Logic\Console\ConsoleTest.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Editor\Tests\Logic\FactoryTest.cs" />
+    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Editor\Tests\Logic\Hint\HintTest.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Editor\Tests\Logic\Query\QueryParserErrorDetectionTest.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Editor\Tests\Logic\Query\QueryParserTest.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Editor\Tests\Logic\Query\QueryTokenizerTest.cs" />

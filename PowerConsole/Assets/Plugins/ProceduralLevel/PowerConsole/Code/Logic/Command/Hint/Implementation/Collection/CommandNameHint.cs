@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace ProceduralLevel.PowerConsole.Logic
 {
-	public class CommandNameHint: ACollectionHint
+	public class CommandNameHint: ACollectionHint<string>
 	{
-		public override Type HintedType { get { return typeof(string); } }
-
 		private List<AConsoleCommand> m_Commands;
 
 		public CommandNameHint(List<AConsoleCommand> commands)

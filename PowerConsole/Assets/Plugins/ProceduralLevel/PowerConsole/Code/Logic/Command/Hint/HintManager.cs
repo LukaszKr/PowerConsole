@@ -7,6 +7,8 @@ namespace ProceduralLevel.PowerConsole.Logic
 	{
 		private List<AHint> m_Hints = new List<AHint>();
 
+		private NoHint m_NoHint = new NoHint();
+
 		public HintManager()
 		{
 
@@ -25,7 +27,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 				RegisterHint(hint);
 				return hint;
 			}
-			return null;
+			return m_NoHint;
 		}
 
 		private int IndexOfTypeHint(Type type)
