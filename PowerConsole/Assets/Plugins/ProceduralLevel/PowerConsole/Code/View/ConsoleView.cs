@@ -20,7 +20,9 @@ namespace ProceduralLevel.PowerConsole.View
 		public ConsoleInput UserInput { get; private set; }
 
 		public float Height = 400;
+
 		public bool DisplayTitle = true;
+		public bool DisplayHints = true;
 
 		public TextAsset LocalizationCSV;
 
@@ -41,23 +43,23 @@ namespace ProceduralLevel.PowerConsole.View
 			Styles.TryInitialize(false);
 			float offset = 0;
 
-			float hDetails = (DisplayTitle? Details.PreferedHeight(Height) : 0);
-			float hMessages = Messages.PreferedHeight(Height);
-			float hInput = Input.PreferedHeight(Height);
-			float hHints = Hints.PreferedHeight(Height);
+			float hDetails = GetHeight(Details, DisplayTitle);
+			float hMessages = GetHeight(Messages);
+			float hInput = GetHeight(Input);
+			float hHints = GetHeight(Hints, DisplayHints);
 
 			hMessages = hMessages-hDetails-hInput-hHints;
 
-			Rect detailsRect = new Rect(0, offset, Screen.width, hDetails).AddMargin(H_MARGIN, V_MARGIN);
+			Rect detailsRect = CreateRect(offset, hDetails);
 			offset += hDetails;
 
-			Rect messagesRect = new Rect(0, offset, Screen.width, hMessages).AddMargin(H_MARGIN, V_MARGIN);
+			Rect messagesRect = CreateRect(offset, hMessages);
 			offset += hMessages;
 
-			Rect inputRect = new Rect(0, offset, Screen.width, hInput).AddMargin(H_MARGIN, V_MARGIN);
+			Rect inputRect = CreateRect(offset, hInput);
 			offset += hInput;
 
-			Rect hintRect = new Rect(0, offset, Screen.width, hHints).AddMargin(H_MARGIN, V_MARGIN);
+			Rect hintRect = CreateRect(offset, hHints);
 			offset += hHints;
 
 			if(DisplayTitle)
@@ -66,7 +68,10 @@ namespace ProceduralLevel.PowerConsole.View
 			}
 			Messages.Render(messagesRect);
 			Input.Render(inputRect);
-			Hints.Render(hintRect);
+			if(DisplayHints)
+			{
+				Hints.Render(hintRect);
+			}
 		}
 
 		private void TryInitialize()
@@ -84,6 +89,16 @@ namespace ProceduralLevel.PowerConsole.View
 				Messages = new ConsoleMessagesPanel(this);
 				Hints = new ConsoleHintPanel(this);
 			}
+		}
+
+		private float GetHeight(AConsolePanel panel, bool display = true)
+		{
+			return (display? panel.PreferedHeight(Height) : 0);
+		}
+
+		private Rect CreateRect(float offset, float height)
+		{
+			return new Rect(0, offset, Screen.width, height).AddMargin(H_MARGIN, V_MARGIN);
 		}
 	}
 }
