@@ -27,6 +27,10 @@ namespace ProceduralLevel.PowerConsole.Logic
 
 		public Argument GetArgumentAt(int cursorPosition)
 		{
+			if(Name.ContainsCursor(cursorPosition))
+			{
+				return Name;
+			}
 			for(int x = 0; x < Arguments.Count; x++)
 			{
 				Argument arg = Arguments[x];
@@ -34,7 +38,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 				{
 					return null;	
 				}
-				if(arg.Offset+arg.Value.Length < cursorPosition)
+				if(arg.ContainsCursor(cursorPosition))
 				{
 					return arg;
 				}

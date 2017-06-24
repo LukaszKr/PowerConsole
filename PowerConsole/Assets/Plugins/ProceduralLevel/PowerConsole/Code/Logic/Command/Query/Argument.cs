@@ -22,6 +22,11 @@
 
 		}
 
+		public bool ContainsCursor(int cursor)
+		{
+			return (Offset <= cursor && Offset+Value.Length >= cursor);
+		}
+
 		public override string ToString()
 		{
 			return string.Format("[Name: {0}, Value: {1}, Parsed: {2}, Parameter: {3}, Offset: {4}]",
