@@ -5,6 +5,7 @@ namespace ProceduralLevel.PowerConsole.View
 {
 	public class ConsoleView: MonoBehaviour
 	{
+		public ConsoleDetailsPanel Details { get; private set; }
 		public ConsoleInputPanel Input { get; private set; }
 		public ConsoleMessagesPanel Messages { get; private set; }
 		public ConsoleStyles Styles { get; private set; }
@@ -12,7 +13,7 @@ namespace ProceduralLevel.PowerConsole.View
 		public ConsoleInput UserInput { get; private set; }
 
 		public float Height = 400;
-		public bool DisplayAuthor = true;
+		public bool DisplayTitle = true;
 
 		public TextAsset LocalizationCSV;
 
@@ -22,25 +23,32 @@ namespace ProceduralLevel.PowerConsole.View
 			Console = new ConsoleInstance(new LocalizationManager());
 
 			UserInput = new ConsoleInput();
+			Details = new ConsoleDetailsPanel(this);
 			Input = new ConsoleInputPanel(this);
 			Messages = new ConsoleMessagesPanel(this);
-
-			if(DisplayAuthor)
-			{
-				Messages.AddMessage(new Message(EMessageType.Info, "PowerConsole by Procedural Level"));
-			}
-
 		}
 
 		public void OnGUI()
 		{
 			//hs to be done in OnGUI
 			Styles.TryInitialize(false);
-			float inputHeight = 25;
-			Rect messagesRect = new Rect(0, 0, Screen.width, Height-inputHeight);
-			Rect inputRect = new Rect(0, messagesRect.height, Screen.width, inputHeight);
+			float inputHeight = Styles.InputHeight;
+			float offset = 0;
+
+			if(DisplayTitle)
+			{
+				Rect detailsRect = new Rect(0, offset, Screen.width, inputHeight);
+				Details.Render(detailsRect);
+				offset += inputHeight;
+			}
+
+			Rect messagesRect = new Rect(0, offset, Screen.width, Height-inputHeight*2);
 			Messages.Render(messagesRect);
+			offset += messagesRect.height;
+
+			Rect inputRect = new Rect(0, offset, Screen.width, inputHeight);
 			Input.Render(inputRect);
+			offset += inputHeight;
 		}
 	}
 }

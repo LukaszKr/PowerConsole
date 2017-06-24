@@ -20,7 +20,7 @@ namespace ProceduralLevel.PowerConsole.View
 
 		protected override void OnRender(Vector2 size)
 		{
-			UserInput = GUI.TextField(m_InputRect, UserInput);
+			UserInput = GUI.TextField(m_InputRect, UserInput, Styles.InputText);
 			if(GUI.Button(m_SubmitRect, m_ButtonText) || Input.ExecuteCommand())
 			{
 				Console.Execute(UserInput);
@@ -31,7 +31,7 @@ namespace ProceduralLevel.PowerConsole.View
 		protected override void OnSizeChanged(Vector2 size)
 		{
 			float inputWidth = size.x*0.8f;
-			m_InputRect = new Rect(0, 0, inputWidth, size.y);
+			m_InputRect = new Rect(4, 0, inputWidth, size.y);
 			m_SubmitRect = new Rect(inputWidth, 0, size.x-inputWidth, size.y);
 		}
 	}
