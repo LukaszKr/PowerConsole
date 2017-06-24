@@ -8,6 +8,6 @@
 		public const string ASSIGN = "=";
 		public const string SPACE = " ";
 
-		public const string NAME_ARGUMENT = "name";
+		public const string NAME_ARGUMENT = "command";
 	}
 }

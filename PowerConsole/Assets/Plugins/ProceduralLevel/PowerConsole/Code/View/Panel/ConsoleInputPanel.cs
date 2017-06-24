@@ -44,8 +44,11 @@ namespace ProceduralLevel.PowerConsole.View
 				m_InputErrors.Clear();
 				List<Query> queries = Console.ParseQuery(UserInput);
 				int cursor = TextEditorHelper.GetCursor();
+				
+				AConsoleCommand command = null;
 				Argument arg = null;
 				Query query = null;
+				
 				for(int x = 0; x < queries.Count; x++)
 				{
 					query = queries[x];
@@ -57,7 +60,7 @@ namespace ProceduralLevel.PowerConsole.View
 				}
 				if(query != null)
 				{
-					AConsoleCommand command = Console.FindCommand(query.Name.Value);
+					command = Console.FindCommand(query.Name.Value);
 					if(command != null)
 					{
 						try
@@ -84,6 +87,7 @@ namespace ProceduralLevel.PowerConsole.View
 				{
 					Debug.LogError(m_InputErrors[x].ToString());
 				}
+				m_ConsoleView.Hints.UpdateHint(command, arg);
 			}
 		}
 

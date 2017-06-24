@@ -46,14 +46,12 @@ namespace ProceduralLevel.PowerConsole.Logic
 				switch(token.Value)
 				{
 					case ParserConst.SPACE:
-						AssertNamedArgumentValue(argument, token);
 						argument = null;
 						break;
 					case ParserConst.QUOTE:
 						quoted = !quoted;
 						break;
 					case ParserConst.SEPARATOR:
-						AssertNamedArgumentValue(argument, token);
 						if(query != null)
 						{
 							query.RawQuery = rawValue;
@@ -65,12 +63,13 @@ namespace ProceduralLevel.PowerConsole.Logic
 							throw new QueryParserException(EQueryError.NamedArgument_NoName, token);
 						}
 						argument.Name = argument.Value;
-						argument.Value = null;
+						argument.Value = string.Empty;
+						argument.Offset = token.Position+token.Value.Length;
 						break;
 					default:
 						if(query == null)
 						{
-							Argument commandName = new Argument()
+							Argument commandName = new Argument(true)
 							{
 								Name = ParserConst.NAME_ARGUMENT,
 								Offset = token.Position,
@@ -82,12 +81,10 @@ namespace ProceduralLevel.PowerConsole.Logic
 						{
 							if(argument == null)
 							{
-								argument = new Argument()
-								{
-									Offset = token.Position
-								};
+								argument = new Argument();
 								query.Arguments.Add(argument);
 							}
+							argument.Offset = token.Position;
 							argument.Value = token.Value;
 						}
 						break;
@@ -99,20 +96,18 @@ namespace ProceduralLevel.PowerConsole.Logic
 			{
 				query.RawQuery = rawValue;
 			}
-			AssertNamedArgumentValue(argument, token);
 			if(quoted)
 			{
 				throw new QueryParserException(EQueryError.Quote_Mismatch, token);
 			}
-			return query;
-		}
-
-		private void AssertNamedArgumentValue(Argument param, Token token)
-		{
-			if(param != null && param.Value == null)
+			if(token.IsSeparator && token.Value == ParserConst.SPACE)
 			{
-				throw new QueryParserException(EQueryError.NamedArgument_NoValue, token);
+				query.Arguments.Add(new Argument() 
+				{ 
+					Offset = token.Position+token.Value.Length
+				});
 			}
+			return query;
 		}
 	}
 }

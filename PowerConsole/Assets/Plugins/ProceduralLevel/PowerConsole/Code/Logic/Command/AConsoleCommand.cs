@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using System.Text;
 
 namespace ProceduralLevel.PowerConsole.Logic
 {
@@ -22,6 +23,16 @@ namespace ProceduralLevel.PowerConsole.Logic
 			Method = Factory.CreateCommandMethod(GetCommandMethod());
 		}
 
+		public virtual AHint GetHintFor(HintManager manager, int parameterIndex)
+		{
+			CommandParameter parameter = Method.GetParameter(parameterIndex);
+			if(parameter != null)
+			{
+				return manager.GetHint(parameter.Type);
+			}
+			return null;
+		}
+
 		public virtual MethodInfo GetCommandMethod()
 		{
 			MethodInfo info = GetMethodInfo(DEFAULT_COMMAND_NAME);
@@ -40,6 +51,30 @@ namespace ProceduralLevel.PowerConsole.Logic
 		{
 			object rawResult = Method.Command.Invoke(this, values);
 			return rawResult as Message;
+		}
+
+		public override string ToString()
+		{
+			StringBuilder sb = new StringBuilder();
+			sb.Append(Name).Append("(");
+			if(Method != null)
+			{
+				for(int x = 0; x < Method.ParameterCount; x++)
+				{
+					CommandParameter parameter = Method.GetParameter(x);
+					if(x > 0)
+					{
+						sb.Append(", ");
+					}
+					sb.Append(parameter.Name);
+					if(parameter.HasDefault)
+					{
+						sb.Append("=").Append(parameter.DefaultValue.ToString());
+					}
+				}
+			}
+			sb.Append(")");
+			return sb.ToString();
 		}
 	}
 }

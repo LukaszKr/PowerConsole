@@ -13,15 +13,6 @@ namespace ProceduralLevel.PowerConsole.Editor.Test.Logic.Queries
 			TestHelper.CheckException(m_Parser, "test =value", EQueryError.NamedArgument_NoName);
 		}
 
-
-		[Test]
-		public void NamedWithoutValue()
-		{
-			TestHelper.CheckException(m_Parser, "test key=", EQueryError.NamedArgument_NoValue);
-			TestHelper.CheckException(m_Parser, "test key= value", EQueryError.NamedArgument_NoValue);
-			TestHelper.CheckException(m_Parser, "test key=;value", EQueryError.NamedArgument_NoValue);
-		}
-
 		[Test]
 		public void MismatchedQuotes()
 		{

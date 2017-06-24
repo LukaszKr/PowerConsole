@@ -25,7 +25,7 @@ namespace ProceduralLevel.PowerConsole.Editor.Test.Logic.Queries
 			m_Parser.Parse("test ");
 			Query query = m_Parser.Flush()[0];
 
-			Assert.AreEqual(0, query.Arguments.Count);
+			Assert.AreEqual(1, query.Arguments.Count);
 		}
 
 		[Test]

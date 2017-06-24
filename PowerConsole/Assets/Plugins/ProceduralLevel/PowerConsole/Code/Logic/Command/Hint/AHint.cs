@@ -1,14 +1,17 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ProceduralLevel.PowerConsole.Logic
 {
-	public abstract class AHint: IEnumerable
+	public abstract class AHint
 	{
-		public abstract string[] GetHints();
+		public abstract Type HintedType { get; }
 
-		public IEnumerator GetEnumerator()
+		protected abstract List<string> GetHints(string value);
+
+		public HintEnumerator GetEnumerator(string value)
 		{
-			return new HintEnumerator(GetHints());
+			return new HintEnumerator(GetHints(value));
 		}
 	}
 }

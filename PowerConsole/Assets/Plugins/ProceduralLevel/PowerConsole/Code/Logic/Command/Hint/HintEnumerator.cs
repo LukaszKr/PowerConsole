@@ -1,18 +1,25 @@
-﻿using System.Collections;
+﻿using System.Collections.Generic;
 
 namespace ProceduralLevel.PowerConsole.Logic
 {
-	public class HintEnumerator: IEnumerator
+	public class HintEnumerator
 	{
-		private string[] m_Hints;
+		private List<string> m_Hints;
 		private int m_Current;
 
-		public object Current
+		public string Current
 		{
-			get { return m_Hints[m_Current]; }
+			get 
+			{ 
+				if(m_Hints.Count > m_Current)
+				{
+					return m_Hints[m_Current];
+				}
+				return string.Empty;
+			}
 		}
 
-		public HintEnumerator(string[] hints)
+		public HintEnumerator(List<string> hints)
 		{
 			m_Hints = hints;
 		}
@@ -20,10 +27,10 @@ namespace ProceduralLevel.PowerConsole.Logic
 		public bool MoveNext()
 		{
 			m_Current ++;
-			return(m_Current < m_Hints.Length);
+			return(m_Current < m_Hints.Count);
 		}
 
-		public void Reset()
+		public void Restart()
 		{
 			m_Current = 0;
 		}

@@ -14,11 +14,14 @@ namespace ProceduralLevel.PowerConsole.Logic
 
 		public readonly LocalizationManager Localization;
 		public readonly ValueParser ValueParser = new ValueParser();
+		public readonly HintManager Hints = new HintManager();
+		public readonly CommandNameHint NameHint;
 
 
 		public ConsoleInstance(LocalizationManager localizationProvider)
 		{
 			Localization = localizationProvider;
+			NameHint = new CommandNameHint(m_Commands);
 
 			Factory.CreateDefaultCommands(this);
 		}
@@ -129,6 +132,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 				command.ParseMethod();
 			}
 			m_Commands.Add(command);
+			NameHint.InvalidateCache();
 		}
 
 		public bool RemoveCommand(AConsoleCommand command)
@@ -142,6 +146,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 			if(index >= 0)
 			{
 				m_Commands.RemoveAt(index);
+				NameHint.InvalidateCache();
 				return true;
 			}
 			return false;

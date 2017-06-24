@@ -25,6 +25,7 @@ namespace ProceduralLevel.PowerConsole.View
 		public float ScrollbarWidth { get; private set; }
 		public float LineHeight { get; private set; }
 		public float InputHeight { get; private set; }
+		public float LineMargin { get; private set; }
 
 		public void TryInitialize(bool force)
 		{
@@ -41,7 +42,8 @@ namespace ProceduralLevel.PowerConsole.View
 			LineHeight = GUI.skin.label.lineHeight;
 
 			GUIStyle style = GUI.skin.textField;
-			InputHeight = style.lineHeight+style.padding.vertical+style.margin.vertical;
+			LineMargin = style.margin.vertical+style.padding.vertical;
+			InputHeight = style.lineHeight+LineMargin;
 
 			Box = new GUIStyle("box");
 

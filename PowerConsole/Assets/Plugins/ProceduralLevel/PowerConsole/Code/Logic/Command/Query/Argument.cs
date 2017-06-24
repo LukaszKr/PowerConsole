@@ -10,16 +10,17 @@
 			set { _Name = value.ToLowerInvariant(); }
 		}
 
-		public string Value;
+		public string Value = "";
 		public object Parsed;
 		public int Offset = -1;
 		public CommandParameter Parameter;
+		public readonly bool IsCommandName;
 
 		public bool IsMapped { get { return Parameter != null; } }
 
-		public Argument()
+		public Argument(bool isCommandName = false)
 		{
-
+			IsCommandName = isCommandName;
 		}
 
 		public void ParseValue(ValueParser parser)
