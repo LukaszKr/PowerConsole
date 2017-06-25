@@ -30,9 +30,11 @@ namespace ProceduralLevel.PowerConsole.View
 
 		protected override void OnRender(Vector2 size)
 		{
-			string newInput = GUI.TextField(m_InputRect, GetDisplayText(), Styles.InputText);
+			bool isRepaint = (Event.current != null && Event.current.type == EventType.Repaint);
 
-			if(Event.current != null && Event.current.type == EventType.Repaint)
+			string newInput = GUI.TextField(m_InputRect, Console.InputState.CurrentInput, Styles.InputText);
+
+			if(isRepaint)
 			{
 				if(m_DesiredCursor >= 0)
 				{
@@ -46,6 +48,10 @@ namespace ProceduralLevel.PowerConsole.View
 				Console.InputState.Execute();
 			}
 			int newCursor = TextEditorHelper.GetCursor();
+			if(m_DesiredCursor >= 0)
+			{
+				newCursor = m_DesiredCursor;
+			}
 			if(!Console.HintState.IteratingHints)
 			{
 				Console.InputState.SetInput(newInput, newCursor);
@@ -60,18 +66,6 @@ namespace ProceduralLevel.PowerConsole.View
 				{
 					Console.InputState.SetInput(newInput, newCursor);
 				}
-			}
-		}
-
-		private string GetDisplayText()
-		{
-			if(Console.HintState.IteratingHints && Console.HintState.Current != null)
-			{
-				return Console.HintState.Current.Merged;
-			}
-			else
-			{
-				return Console.InputState.UserInput;
 			}
 		}
 

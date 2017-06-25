@@ -6,7 +6,6 @@ namespace ProceduralLevel.PowerConsole.Logic
 {
 	public class ConsoleInstance
 	{
-		public const int EXECUTION_HISTORY_LIMIT = 50;
 
 		private QueryParser m_QueryParser = new QueryParser();
 
@@ -21,8 +20,8 @@ namespace ProceduralLevel.PowerConsole.Logic
 
 		public readonly InputState InputState;
 		public readonly HintState HintState;
+		public readonly HistoryState HistoryState;
 
-		public List<string> ExecutionHistory = new List<string>(EXECUTION_HISTORY_LIMIT);
 
 		public ConsoleInstance(LocalizationManager localizationProvider)
 		{
@@ -31,6 +30,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 
 			InputState = new InputState(this);
 			HintState = new HintState(this);
+			HistoryState = new HistoryState(this);
 
 			InputState.BindEvents();
 			HintState.BindEvents();
@@ -60,7 +60,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 		#region Execution
 		public void Execute(string strQuery)
 		{
-			AddExecutionEntry(strQuery);
+			HistoryState.Add(strQuery);
 			List<Query> queries = ParseQuery(strQuery);
 			for(int x = 0; x < queries.Count; x++)
 			{
@@ -84,19 +84,6 @@ namespace ProceduralLevel.PowerConsole.Logic
 				object[] parsed = query.GetParsedValues();
 				Message result = command.Execute(parsed);
 				OnMessage.Invoke(result);
-			}
-		}
-
-		public void AddExecutionEntry(string entry)
-		{
-			int count = ExecutionHistory.Count;
-			if(count == 0 || ExecutionHistory[count-1] != entry)
-			{
-				while(count+1 > EXECUTION_HISTORY_LIMIT)
-				{
-					ExecutionHistory.RemoveAt(0);
-				}
-				ExecutionHistory.Add(entry);
 			}
 		}
 

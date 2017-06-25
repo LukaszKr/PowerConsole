@@ -6,7 +6,21 @@ namespace ProceduralLevel.PowerConsole.Logic
 {
 	public class InputState: AConsoleState
 	{
-		public string UserInput {  get; private set; }
+		public string CurrentInput 
+		{ 
+			get 
+			{
+				if(Console.HintState.IteratingHints && Console.HintState.Current != null)
+				{
+					return Console.HintState.Current.Merged;
+				}
+				else
+				{
+					return Console.InputState.UserInput;
+				}
+			}
+		}
+		public string UserInput { get; private set; }
 		public int Cursor { get; private set; }
 
 		public List<Exception> Issues = new List<Exception>();
@@ -40,8 +54,8 @@ namespace ProceduralLevel.PowerConsole.Logic
 				return;
 			}
 
-			UserInput = userInput;
 			SetCursor(cursor);
+			UserInput = userInput;
 
 			Command = null;
 			Query = null;
@@ -97,7 +111,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 
 		private void IterateHistory(int indexChange)
 		{
-			int executionCount = Console.ExecutionHistory.Count;
+			int executionCount = Console.HistoryState.Count;
 			m_HistoryIndex += indexChange;
 			if(m_HistoryIndex < -1)
 			{
@@ -109,7 +123,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 			}
 			if(m_HistoryIndex >= 0 && m_HistoryIndex < executionCount)
 			{
-				string input = Console.ExecutionHistory[m_HistoryIndex];
+				string input = Console.HistoryState.Get(m_HistoryIndex);
 				SetInput(input, input.Length);
 			}
 			else

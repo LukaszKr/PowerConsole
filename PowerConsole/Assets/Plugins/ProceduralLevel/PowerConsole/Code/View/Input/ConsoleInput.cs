@@ -22,8 +22,8 @@ namespace ProceduralLevel.PowerConsole.View
 
 			m_Actions.Add(new InputAction(m_Execute, console.InputState.Execute));
 			m_Actions.Add(new InputAction(m_NextHint, console.HintState.NextHint));
-			m_Actions.Add(new InputAction(m_NextHistory, console.InputState.NextHistory));
 			m_Actions.Add(new InputAction(m_PrevHistory, console.InputState.PrevHistory));
+			m_Actions.Add(new InputAction(m_NextHistory, console.InputState.NextHistory));
 		}
 
 		public void Update()
