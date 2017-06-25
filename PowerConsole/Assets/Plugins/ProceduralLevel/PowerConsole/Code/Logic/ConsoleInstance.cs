@@ -22,8 +22,11 @@ namespace ProceduralLevel.PowerConsole.Logic
 		public readonly HintState HintState;
 		public readonly HistoryState HistoryState;
 
+		private List<AConsoleState> m_States;
 
-		public ConsoleInstance(LocalizationManager localizationProvider)
+		public readonly IPersistence Persistence;
+
+		public ConsoleInstance(LocalizationManager localizationProvider, IPersistence persistence)
 		{
 			Localization = localizationProvider;
 			NameHint = new CommandNameHint(m_Commands);
@@ -32,9 +35,19 @@ namespace ProceduralLevel.PowerConsole.Logic
 			HintState = new HintState(this);
 			HistoryState = new HistoryState(this);
 
-			InputState.BindEvents();
-			HintState.BindEvents();
-			HistoryState.BindEvents();
+			Persistence = (persistence != null? persistence: new MockPersistence());
+
+			m_States = new List<AConsoleState>()
+			{
+				InputState, HintState, HistoryState
+			};
+
+			for(int x = 0; x < m_States.Count; x++)
+			{
+				AConsoleState state = m_States[x];
+				state.Read(Persistence);
+				state.BindEvents();
+			}
 
 			Factory.CreateDefaultCommands(this);
 		}

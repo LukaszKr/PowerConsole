@@ -83,7 +83,7 @@ namespace ProceduralLevel.PowerConsole.View
 				m_Initialized = true;
 
 				Styles = new ConsoleStyles();
-				Console = new ConsoleInstance(new LocalizationManager());
+				Console = new ConsoleInstance(new LocalizationManager(), new UnityPersistence());
 				UserInput = new ConsoleInput(Console);
 				
 				Details = new ConsoleDetailsPanel(this);

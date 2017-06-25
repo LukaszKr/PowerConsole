@@ -135,8 +135,10 @@
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Implementation\ClearConsoleCommand.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Implementation\Enum\EHelpCategory.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Implementation\HelpConsoleCommand.cs" />
+    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\IPersistence.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Localization\ELocalizationKey.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Localization\LocalizationManager.cs" />
+    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\MockPersistence.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Parser\ParserConst.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Parser\QueryParser.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Parser\QueryTokenizer.cs" />
@@ -159,6 +161,7 @@
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\View\Panel\ConsoleMessagesPanel.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\View\Style\ConsoleStyles.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\View\Style\StyleFactory.cs" />
+    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\View\UnityPersistence.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

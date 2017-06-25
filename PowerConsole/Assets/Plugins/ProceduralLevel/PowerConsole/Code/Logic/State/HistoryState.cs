@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using ProceduralLevel.Common.Serialization;
+using System.Collections.Generic;
 
 namespace ProceduralLevel.PowerConsole.Logic
 {
@@ -33,6 +34,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 				}
 				m_ExecutionHistory.Add(entry);
 			}
+			Write(Console.Persistence);
 		}
 
 		public string Get(int index)
@@ -47,6 +49,41 @@ namespace ProceduralLevel.PowerConsole.Logic
 		public void ClearExecutionHistory()
 		{
 			m_ExecutionHistory.Clear();
+			Write(Console.Persistence);
+		}
+		#endregion
+
+		#region Serialization
+		private string HISTORY_FILE = "HistoryState";
+
+
+		protected override string SavePath { get { return HISTORY_FILE; } }
+
+		private const string KEY_HISTORY = "history";
+
+		protected override void Serialize(IObjectSerializer serializer)
+		{
+			base.Serialize(serializer);
+
+			IArraySerializer entries = serializer.WriteArray(KEY_HISTORY);
+			for(int x = 0; x < m_ExecutionHistory.Count; x++)
+			{
+				entries.Write(m_ExecutionHistory[x]);
+			}
+		}
+
+		protected override void Deserialize(IObjectSerializer serializer)
+		{
+			base.Deserialize(serializer);
+
+			IArraySerializer entries = serializer.TryReadArray(KEY_HISTORY);
+			if(entries != null)
+			{
+				for(int x = 0; x < entries.Count; x++)
+				{
+					m_ExecutionHistory.Add(entries.ReadString());
+				}
+			}
 		}
 		#endregion
 	}

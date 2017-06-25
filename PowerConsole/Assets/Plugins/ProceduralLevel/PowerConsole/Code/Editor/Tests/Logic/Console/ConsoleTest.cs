@@ -6,7 +6,7 @@ namespace ProceduralLevel.PowerConsole.Editor.Test.Logic.Console
 {
 	public class ConsoleTest
 	{
-		private ConsoleInstance m_Console = new ConsoleInstance(new LocalizationManager());
+		private ConsoleInstance m_Console = new ConsoleInstance(new LocalizationManager(), null);
 
 
 		public ConsoleTest()
