@@ -23,7 +23,6 @@ namespace ProceduralLevel.PowerConsole.View
 		public GUIStyle DefaultText { get; private set; }
 		public GUIStyle TitleText { get; private set; }
 		public GUIStyle InputText { get; private set; }
-		public GUIStyle InvisibleText { get; private set; }
 		public GUIStyle HintText { get; private set; }
 		public GUIStyle HintHitText { get; private set; }
 
@@ -64,8 +63,6 @@ namespace ProceduralLevel.PowerConsole.View
 
 			HintHitText = StyleFactory.TextStyle(0f, 0f, 0f, 1f, FontStyle.Bold);
 			HintText = StyleFactory.TextStyle(-offset, -offset, -offset, 1f);
-
-			InvisibleText = StyleFactory.TextStyle(0f, 0f, 0f, 0f);
 
 			TitleText = StyleFactory.TextStyle(0f, 0f, 0f, 1f, FontStyle.Bold, TextAnchor.MiddleCenter);
 			InputText = StyleFactory.TextStyle(0f, 0f, 0f, 1f, FontStyle.Normal, TextAnchor.MiddleLeft);

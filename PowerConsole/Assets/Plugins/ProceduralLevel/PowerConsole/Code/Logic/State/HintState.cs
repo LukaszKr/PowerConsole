@@ -71,7 +71,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 		{
 			if(Query != null && Argument != null && m_Iterator != null)
 			{
-				Current = new HintHit(Query, Argument, m_Iterator.Current);
+				Current = new HintHit(Console.InputState.UserInput, Argument, m_Iterator.Current);
 			}
 			else
 			{

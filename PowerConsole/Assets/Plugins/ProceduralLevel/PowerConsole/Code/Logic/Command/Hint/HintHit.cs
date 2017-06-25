@@ -11,20 +11,20 @@ namespace ProceduralLevel.PowerConsole.Logic
 		public readonly string Sufix;
 		public readonly string Merged;
 
-		public HintHit(Query query, Argument argument, string hint)
+		public HintHit(string userInput, Argument argument, string hint)
 		{
 			int hitIndex = hint.IndexOf(argument.Value, StringComparison.OrdinalIgnoreCase);
 			hitIndex = Math.Max(0, hitIndex);
 
-			Prefix = query.RawQuery.Substring(0, argument.Offset);
+			Prefix = userInput.Substring(0, argument.Offset);
 			HitPrefix = hint.Substring(0, hitIndex);
 			Value = argument.Value;
 
 			int hitSufixOffset = Math.Min(hint.Length, hitIndex+Value.Length);
 			HitSufix = hint.Substring(hitSufixOffset);
 
-			int sufixOffset = Math.Min(query.RawQuery.Length, argument.Offset+HitPrefix.Length+Value.Length+HitSufix.Length);
-			Sufix = query.RawQuery.Substring(sufixOffset);
+			int sufixOffset = Math.Min(userInput.Length, userInput.Length+HitPrefix.Length+Value.Length+HitSufix.Length);
+			Sufix = userInput.Substring(sufixOffset);
 
 			Merged = Prefix+HitPrefix+Value+HitSufix+Sufix;
 		}
