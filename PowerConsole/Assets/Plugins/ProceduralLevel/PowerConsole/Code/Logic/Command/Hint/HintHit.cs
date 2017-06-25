@@ -16,7 +16,9 @@ namespace ProceduralLevel.PowerConsole.Logic
 			int hitIndex = hint.IndexOf(argument.Value, StringComparison.OrdinalIgnoreCase);
 			hitIndex = Math.Max(0, hitIndex);
 
-			Prefix = userInput.Substring(0, argument.Offset);
+			int argumentOffset = Math.Min(argument.Offset, userInput.Length);
+
+			Prefix = userInput.Substring(0, argumentOffset);
 			HitPrefix = hint.Substring(0, hitIndex);
 			Value = argument.Value;
 

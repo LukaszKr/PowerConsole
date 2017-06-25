@@ -41,7 +41,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 			}
 
 			UserInput = userInput;
-			SetCursor(Cursor);
+			SetCursor(cursor);
 
 			Command = null;
 			Query = null;
@@ -133,6 +133,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 		#region Control
 		public void Execute()
 		{
+			m_HistoryIndex = -1;
 			if(Console.HintState.IteratingHints)
 			{
 				Console.Execute(Console.HintState.Current.Merged);
