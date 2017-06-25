@@ -100,7 +100,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 			{
 				throw new QueryParserException(EQueryError.Quote_Mismatch, token);
 			}
-			if(token.IsSeparator && token.Value == ParserConst.SPACE)
+			if(query != null && token.IsSeparator && token.Value == ParserConst.SPACE)
 			{
 				query.Arguments.Add(new Argument() 
 				{ 

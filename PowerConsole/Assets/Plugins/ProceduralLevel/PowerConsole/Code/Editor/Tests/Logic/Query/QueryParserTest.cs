@@ -9,6 +9,15 @@ namespace ProceduralLevel.PowerConsole.Editor.Test.Logic.Queries
 		private QueryParser m_Parser = new QueryParser();
 
 		[Test]
+		public void WhiteSpaceOnly()
+		{
+			m_Parser.Parse(" ");
+			List<Query> queries = m_Parser.Flush();
+
+			Assert.AreEqual(0, queries.Count);
+		}
+
+		[Test]
 		public void NoParameter()
 		{
 			m_Parser.Parse("test");

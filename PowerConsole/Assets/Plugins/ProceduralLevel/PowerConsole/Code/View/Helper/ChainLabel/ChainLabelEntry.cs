@@ -5,21 +5,26 @@ namespace ProceduralLevel.PowerConsole.View
 {
 	public class ChainLabelEntry
 	{
-		private static readonly GUIContent SPACE = new GUIContent(".");
-
 		public readonly GUIContent Content;
 		public readonly GUIStyle Style;
 		public Rect Rect;
 		public bool IsDirty = true;
 
-		private float m_SpaceSize = 0f;
+		private int m_SpaceSize = 0;
 
 		public ChainLabelEntry(GUIContent content, GUIStyle style)
 		{
 			Content = content;
 			Style = style;
 
-			m_SpaceSize = style.CalcSize(SPACE).x;
+			CharacterInfo character;
+			Font font = style.font;
+			if(font == null)
+			{
+				font = GUI.skin.font;
+			}
+			font.GetCharacterInfo(' ', out character);
+			m_SpaceSize = character.glyphWidth;
 		}
 
 		public void Render(Rect rect, ChainLabelEntry prev)

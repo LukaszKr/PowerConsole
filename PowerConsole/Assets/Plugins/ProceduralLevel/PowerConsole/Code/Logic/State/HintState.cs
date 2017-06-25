@@ -13,10 +13,15 @@ namespace ProceduralLevel.PowerConsole.Logic
 
 		private AHintIterator m_Iterator;
 		public HintHit Current { get; private set; }
+		public string CurrentHint { get { return m_Iterator.Current; } }
 
 		public readonly Event<HintHit> OnHintChanged = new Event<HintHit>();
 
 		public HintState(ConsoleInstance console) : base(console)
+		{
+		}
+
+		public override void BindEvents()
 		{
 			Console.InputState.OnInputChanged.AddListener(InputChangedHandler);
 		}
@@ -30,38 +35,36 @@ namespace ProceduralLevel.PowerConsole.Logic
 
 		public void UpdateHint(AConsoleCommand command, Query query, Argument argument)
 		{
-			if(Argument != argument)
+			//find a way to limit call on this
+			Hint = null;
+			Command = command;
+			Query = query;
+			Argument = argument;
+			if(Argument != null)
 			{
-				Hint = null;
-				Command = command;
-				Query = query;
-				Argument = argument;
-				if(Argument != null)
+				if(Argument.Parameter != null)
 				{
-					if(Argument.Parameter != null)
-					{
-						Hint = command.GetHintFor(Console.Hints, Argument.Parameter.Index);
-						m_Iterator = Hint.GetIterator(argument.Value);
-					}
-					else if(argument.IsCommandName)
-					{
-						Hint = Console.NameHint;
-						m_Iterator = Hint.GetIterator(argument.Value);
-						Command = Console.FindCommand(m_Iterator.Current);
-					}
-					else
-					{
-						Clear();
-					}
+					Hint = command.GetHintFor(Console.Hints, Argument.Parameter.Index);
+					m_Iterator = Hint.GetIterator(argument.Value);
+				}
+				else if(argument.IsCommandName)
+				{
+					Hint = Console.NameHint;
+					m_Iterator = Hint.GetIterator(argument.Value);
+					Command = Console.FindCommand(m_Iterator.Current);
 				}
 				else
 				{
-					Hint = Console.NameHint;
-					m_Iterator = Hint.GetIterator(string.Empty);
 					Clear();
 				}
-				RefreshCurrent();
 			}
+			else
+			{
+				Hint = Console.NameHint;
+				m_Iterator = Hint.GetIterator(string.Empty);
+				Clear();
+			}
+			RefreshCurrent();
 		}
 
 		private void RefreshCurrent()
@@ -81,6 +84,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 		{
 			Command = null;
 			Query = null;
+			Current = null;
 			m_Iterator = null;
 		}
 
@@ -103,6 +107,14 @@ namespace ProceduralLevel.PowerConsole.Logic
 			}
 			IteratingHints = true;
 			RefreshCurrent();
+		}
+
+		public void CancelHint()
+		{
+			IteratingHints = false;
+			Clear();
+			RefreshCurrent();
+			InputChangedHandler(Console.InputState);
 		}
 		#endregion
 	}

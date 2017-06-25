@@ -12,6 +12,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 		public List<Exception> Issues = new List<Exception>();
 
 		public readonly Event<InputState> OnInputChanged = new Event<InputState>();
+		public readonly Event<int> OnCursorMoved = new Event<int>();
 
 		public AConsoleCommand Command { get; private set; }
 		public Query Query { get; private set; }
@@ -24,6 +25,11 @@ namespace ProceduralLevel.PowerConsole.Logic
 			Cursor = 0;
 		}
 
+		public override void BindEvents()
+		{
+			Console.HintState.OnHintChanged.AddListener(HintChangedListener);
+		}
+
 		public void SetInput(string userInput, int cursor)
 		{
 			if(UserInput == userInput && Cursor == cursor)
@@ -32,7 +38,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 			}
 
 			UserInput = userInput;
-			Cursor = cursor;
+			SetCursor(Cursor);
 
 			Command = null;
 			Query = null;
@@ -75,6 +81,27 @@ namespace ProceduralLevel.PowerConsole.Logic
 			}
 
 			OnInputChanged.Invoke(this);
+		}
+
+		public void SetCursor(int cursor)
+		{ 
+			if(Cursor != cursor)
+			{
+				Cursor = cursor;
+				OnCursorMoved.Invoke(Cursor);
+			}
+		}
+
+		private void HintChangedListener(HintHit hit)
+		{
+			if(hit != null && Console.HintState.IteratingHints)
+			{
+				SetCursor(Argument.Offset+Console.HintState.CurrentHint.Length);
+			}
+			else if(Argument != null)
+			{
+				SetCursor(Argument.Offset+Argument.Value.Length);
+			}
 		}
 
 		#region Control

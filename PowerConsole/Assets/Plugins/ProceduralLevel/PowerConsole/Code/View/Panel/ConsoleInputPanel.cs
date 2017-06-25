@@ -15,6 +15,8 @@ namespace ProceduralLevel.PowerConsole.View
 		private Rect m_SuggestedRect;
 		private Rect m_SubmitRect;
 
+		private int m_DesiredCursor = -1;
+
 		private ChainLabelDrawer m_Suggested = new ChainLabelDrawer();
 		private GUIContent m_Prefix = new GUIContent();
 		private GUIContent m_HintPrefix = new GUIContent();
@@ -27,6 +29,7 @@ namespace ProceduralLevel.PowerConsole.View
 			m_ButtonText = new GUIContent(Localization.GetLocalizedKey(ELocalizationKey.Input_Submit));
 
 			Console.HintState.OnHintChanged.AddListener(HintChangedHandler);
+			Console.InputState.OnCursorMoved.AddListener(CursorMovedHandler);
 		}
 
 		protected override void Initialize()
@@ -61,6 +64,15 @@ namespace ProceduralLevel.PowerConsole.View
 			{
 				m_Suggested.Draw(m_SuggestedRect);
 			}
+			if(Event.current != null && Event.current.type == EventType.Repaint)
+			{
+				if(m_DesiredCursor >= 0)
+				{
+					TextEditorHelper.SetCursor(m_DesiredCursor);
+					m_DesiredCursor = -1;
+				}
+			}
+
 			if(GUI.Button(m_SubmitRect, m_ButtonText))
 			{
 				Console.InputState.Execute();
@@ -69,6 +81,17 @@ namespace ProceduralLevel.PowerConsole.View
 			if(!Console.HintState.IteratingHints)
 			{
 				Console.InputState.SetInput(newInput, newCursor);
+			}
+			else if(m_DesiredCursor < 0)
+			{
+				if(newCursor < Console.InputState.Cursor)
+				{
+					Console.HintState.CancelHint();
+				}
+				else if(newCursor > Console.InputState.Cursor)
+				{
+					Console.InputState.SetInput(newInput, newCursor);
+				}
 			}
 		}
 
@@ -101,9 +124,13 @@ namespace ProceduralLevel.PowerConsole.View
 				m_HintHit.text = hit.Value;
 				m_HintSufix.text = hit.HitSufix;
 				m_Sufix.text = hit.Sufix;
-
 				m_Suggested.MarkAsDirty();
 			}
+		}
+
+		private void CursorMovedHandler(int cursor)
+		{
+			m_DesiredCursor = cursor;
 		}
 	}
 }

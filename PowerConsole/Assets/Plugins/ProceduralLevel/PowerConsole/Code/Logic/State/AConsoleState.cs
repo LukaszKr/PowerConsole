@@ -8,5 +8,7 @@
 		{
 			Console = console;
 		}
+
+		public abstract void BindEvents();
 	}
 }

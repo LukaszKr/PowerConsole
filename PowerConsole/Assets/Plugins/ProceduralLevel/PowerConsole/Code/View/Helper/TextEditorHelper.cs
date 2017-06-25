@@ -14,5 +14,12 @@ namespace ProceduralLevel.PowerConsole.View
 		{
 			return GetEditor().cursorIndex;
 		}
+
+		public static void SetCursor(int position)
+		{
+			TextEditor editor = GetEditor();
+			editor.cursorIndex = position;
+			editor.selectIndex = position;
+		}
 	}
 }

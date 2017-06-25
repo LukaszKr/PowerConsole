@@ -29,6 +29,9 @@ namespace ProceduralLevel.PowerConsole.Logic
 			InputState = new InputState(this);
 			HintState = new HintState(this);
 
+			InputState.BindEvents();
+			HintState.BindEvents();
+
 			Factory.CreateDefaultCommands(this);
 		}
 
