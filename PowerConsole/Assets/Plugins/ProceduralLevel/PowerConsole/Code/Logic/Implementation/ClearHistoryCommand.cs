@@ -10,7 +10,7 @@
 		{
 			int count = Console.HistoryState.Count;
 			Console.HistoryState.ClearExecutionHistory();
-			return new Message(EMessageType.Success, string.Format("Removed {0} entries from execution history"));
+			return new Message(EMessageType.Success, string.Format("Removed {0} entries from execution history", count));
 		}
 
 		public override bool IsValid()
