@@ -38,7 +38,7 @@ namespace ProceduralLevel.PowerConsole.View
 		{
 			//after recompiling, restart the console
 			TryInitialize();
-			UserInput.Update(this);
+			UserInput.Update(Console);
 
 			//has to be done in OnGUI
 			Styles.TryInitialize(false);

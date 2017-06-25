@@ -1,5 +1,5 @@
-﻿using ProceduralLevel.PowerConsole.Logic;
-using System;
+﻿using ProceduralLevel.Common.Event;
+using ProceduralLevel.PowerConsole.Logic;
 using UnityEngine;
 
 namespace ProceduralLevel.PowerConsole.View
@@ -10,12 +10,6 @@ namespace ProceduralLevel.PowerConsole.View
 		private float V_MARGIN = 2f;
 		private const string COMMAND_HINT = "{0} - {1}";
 		private const string PARAMETER_HINT = "{0}[{1}] - ";
-
-		private Argument m_Argument;
-
-		private AConsoleCommand m_Command;
-		private AHint m_Hint;
-		private AHintIterator m_Iterator;
 
 		private Rect m_CommandRect;
 		private Rect m_ParameterRect;
@@ -29,9 +23,11 @@ namespace ProceduralLevel.PowerConsole.View
 		private GUIContent m_HintHitLabel = new GUIContent();
 		private GUIContent m_HintSufixLabel = new GUIContent();
 
+		public Event<HintHit> OnHitChanged = new Event<HintHit>();
 
 		public ConsoleHintPanel(ConsoleView consoleView) : base(consoleView)
 		{
+			Hint.OnHintChanged.AddListener(HintChangedHandler);
 		}
 
 		protected override void Initialize()
@@ -47,13 +43,13 @@ namespace ProceduralLevel.PowerConsole.View
 		public override float PreferedHeight(float availableHeight)
 		{
 			float height = 0;
-			if(m_Command != null)
+			if(Hint.Command != null)
 			{
 				height += Styles.LineHeight;
-			}
-			if(DisplayParameter())
-			{
-				height += Styles.LineHeight;
+				if(Hint.Current != null)
+				{
+					height += Styles.LineHeight;
+				}
 			}
 			if(height > 0)
 			{
@@ -65,10 +61,10 @@ namespace ProceduralLevel.PowerConsole.View
 		protected override void OnRender(Vector2 size)
 		{
 			GUI.Label(m_CommandRect, m_CommandLabel);
-			if(DisplayParameter())
+			if(Hint.Current != null)
 			{
-				m_HintDrawer.Draw(m_ParameterRect);
 				GUI.Label(m_ParameterRect, m_ParameterLabel);
+				m_HintDrawer.Draw(m_ParameterRect);
 			}
 		}
 
@@ -79,90 +75,24 @@ namespace ProceduralLevel.PowerConsole.View
 			m_HintDrawer.MarkAsDirty();
 		}
 
-		public void UpdateHint(AConsoleCommand command, Argument argument)
+		private void HintChangedHandler(HintHit hit)
 		{
-			if(m_Argument != argument)
+			if(Hint.Command != null)
 			{
-				m_Argument = argument;
-				if(m_Argument != null)
-				{
-					if(m_Argument.Parameter != null)
-					{
-						m_Hint = command.GetHintFor(Console.Hints, m_Argument.Parameter.Index);
-						m_Iterator = m_Hint.GetIterator(argument.Value);
-					}
-					else if(argument.IsCommandName)
-					{
-						m_Hint = Console.NameHint;
-						m_Iterator = m_Hint.GetIterator(argument.Value);
-						m_Command = Console.FindCommand(m_Iterator.Current);
-					}
-				}
-				else
-				{
-					m_Hint = null;
-					m_Iterator = null;
-				}
-				RefreshHint();
+				m_CommandLabel.text = string.Format(COMMAND_HINT, Hint.Command.ToString(), Hint.Command.Description);
+			}
+			else
+			{
+				m_CommandLabel.text = (Hint.Argument != null ? Hint.Argument.Value : "");
+			}
+			if(Hint.Query != null && Hint.Argument != null && Hint.Current != null)
+			{
+				m_ParameterLabel.text = string.Format(PARAMETER_HINT, Hint.Argument.Name, Hint.Current.HintedType.Name);
+				m_HintPrefixLabel.text = hit.HitPrefix;
+				m_HintHitLabel.text = hit.Value;
+				m_HintSufixLabel.text = hit.HitSufix;
+				m_HintDrawer.MarkAsDirty();
 			}
 		}
-
-		private void RefreshHint()
-		{
-			if(m_Argument != null)
-			{
-				if(m_Command != null)
-				{
-					m_CommandLabel.text = string.Format(COMMAND_HINT, m_Command.ToString(), m_Command.Description);
-				}
-				else
-				{
-					m_CommandLabel.text = m_Argument.Value;
-				}
-				if(DisplayParameter())
-				{
-					m_ParameterLabel.text = string.Format(PARAMETER_HINT, m_Argument.Name, m_Hint.HintedType.Name);
-
-					string hintText = m_Iterator.Current;
-					string argText = m_Argument.Value;
-					int hitIndex = Math.Max(0, hintText.IndexOf(argText, StringComparison.OrdinalIgnoreCase));
-
-					m_HintPrefixLabel.text = hintText.Substring(0, hitIndex);
-					m_HintHitLabel.text = argText;
-					m_HintSufixLabel.text = hintText.Substring(hitIndex+argText.Length);
-					m_HintDrawer.MarkAsDirty();
-				}
-				else
-				{
-					m_ParameterLabel.text = "";
-					m_HintHitLabel.text = "";
-				}
-			}
-		}
-
-		private bool DisplayParameter()
-		{
-			return (m_Hint != null);
-		}
-
-		#region Control
-		public void NextHint()
-		{
-			if(m_Iterator != null && !m_Iterator.MoveNext())
-			{
-				m_Iterator.Restart();
-			}
-			RefreshHint();
-		}
-
-		public void PrevHint()
-		{
-			if(m_Iterator != null && !m_Iterator.MovePrev())
-			{
-				m_Iterator.Restart();
-			}
-			RefreshHint();
-		}
-		#endregion
 	}
 }

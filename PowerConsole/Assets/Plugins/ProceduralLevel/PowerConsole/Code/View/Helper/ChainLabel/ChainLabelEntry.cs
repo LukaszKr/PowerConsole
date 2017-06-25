@@ -83,5 +83,10 @@ namespace ProceduralLevel.PowerConsole.View
 
 			return Math.Min(text.Length, count);
 		}
+
+		public override string ToString()
+		{
+			return string.Format("[Content: {0}]", Content.text);
+		}
 	}
 }

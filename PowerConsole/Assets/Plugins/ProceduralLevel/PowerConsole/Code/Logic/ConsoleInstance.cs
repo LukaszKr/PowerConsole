@@ -17,11 +17,17 @@ namespace ProceduralLevel.PowerConsole.Logic
 		public readonly HintManager Hints = new HintManager();
 		public readonly CommandNameHint NameHint;
 
+		public readonly InputState InputState;
+		public readonly HintState HintState;
+
 
 		public ConsoleInstance(LocalizationManager localizationProvider)
 		{
 			Localization = localizationProvider;
 			NameHint = new CommandNameHint(m_Commands);
+
+			InputState = new InputState(this);
+			HintState = new HintState(this);
 
 			Factory.CreateDefaultCommands(this);
 		}

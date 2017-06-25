@@ -1,7 +1,5 @@
 ﻿using ProceduralLevel.PowerConsole.Logic;
 using ProceduralLevel.UnityCommon.Ext;
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace ProceduralLevel.PowerConsole.View
@@ -12,21 +10,36 @@ namespace ProceduralLevel.PowerConsole.View
 		private const int SUBMIT_MARGIN = 2;
 
 		public string UserInput { get; private set; }
+		public string HintedInput { get; private set; }
 
 		private GUIContent m_ButtonText;
 
 		private Rect m_InputRect;
 		private Rect m_SubmitRect;
 
-		private List<Exception> m_InputErrors = new List<Exception>();
-
-		private int m_Cursor;
+		private ChainLabelDrawer m_Suggested = new ChainLabelDrawer();
+		private GUIContent m_Prefix = new GUIContent();
+		private GUIContent m_HintPrefix = new GUIContent();
+		private GUIContent m_HintHit = new GUIContent();
+		private GUIContent m_HintSufix = new GUIContent();
+		private GUIContent m_Sufix = new GUIContent();
 
 		public ConsoleInputPanel(ConsoleView consoleView) : base(consoleView)
 		{
 			UserInput = "";
+			HintedInput = "";
 			m_ButtonText = new GUIContent(Localization.GetLocalizedKey(ELocalizationKey.Input_Submit));
-			UpdateInputText();
+		}
+
+		protected override void Initialize()
+		{
+			base.Initialize();
+
+			m_Suggested.AddEntry(new ChainLabelEntry(m_Prefix, Styles.InputText));
+			m_Suggested.AddEntry(new ChainLabelEntry(m_HintPrefix, Styles.HintText));
+			m_Suggested.AddEntry(new ChainLabelEntry(m_HintHit, Styles.InputText));
+			m_Suggested.AddEntry(new ChainLabelEntry(m_HintSufix, Styles.HintText));
+			m_Suggested.AddEntry(new ChainLabelEntry(m_Sufix, Styles.InputText));
 		}
 
 		public override float PreferedHeight(float availableHeight)
@@ -37,67 +50,16 @@ namespace ProceduralLevel.PowerConsole.View
 		protected override void OnRender(Vector2 size)
 		{
 			UserInput = GUI.TextField(m_InputRect, UserInput, Styles.InputText);
+			if(Console.HintState.IteratingHints)
+			{
+				m_Suggested.Draw(m_InputRect);
+			}
 			if(GUI.Button(m_SubmitRect, m_ButtonText))
 			{
-				Execute();
+				Console.InputState.Execute();
 			}
 			int newCursor = TextEditorHelper.GetCursor();
-			if(newCursor != m_Cursor)
-			{
-				m_Cursor = newCursor;
-				m_InputErrors.Clear();
-				UpdateInputText();
-			}
-		}
-
-		private void UpdateInputText()
-		{
-			List<Query> queries = Console.ParseQuery(UserInput);
-			int cursor = TextEditorHelper.GetCursor();
-
-			AConsoleCommand command = null;
-			Argument arg = null;
-			Query query = null;
-
-			for(int x = 0; x < queries.Count; x++)
-			{
-				query = queries[x];
-				arg = query.GetArgumentAt(cursor);
-				if(arg != null)
-				{
-					break;
-				}
-			}
-			if(query != null)
-			{
-				command = Console.FindCommand(query.Name.Value);
-				if(command != null)
-				{
-					try
-					{
-						command.Method.MapArguments(query);
-					}
-					catch(Exception e)
-					{
-						m_InputErrors.Add(e);
-					}
-					try
-					{
-						Console.ParseValues(query);
-					}
-					catch(Exception e)
-					{
-						m_InputErrors.Add(e);
-					}
-				}
-			}
-
-			Debug.Log(arg);
-			for(int x = 0; x < m_InputErrors.Count; x++)
-			{
-				Debug.LogError(m_InputErrors[x].ToString());
-			}
-			m_ConsoleView.Hints.UpdateHint(command, arg);
+			Console.InputState.SetInput(UserInput, newCursor);
 		}
 
 		protected override void OnSizeChanged(Vector2 size)
@@ -106,13 +68,5 @@ namespace ProceduralLevel.PowerConsole.View
 			m_InputRect = new Rect(PADDING, 0, inputWidth-PADDING*2, size.y);
 			m_SubmitRect = new Rect(inputWidth, 0, size.x-inputWidth, size.y).AddMargin(SUBMIT_MARGIN, SUBMIT_MARGIN);
 		}
-
-		#region Control
-		public void Execute()
-		{
-			Console.Execute(UserInput);
-			UserInput = "";
-		}
-		#endregion
 	}
 }
