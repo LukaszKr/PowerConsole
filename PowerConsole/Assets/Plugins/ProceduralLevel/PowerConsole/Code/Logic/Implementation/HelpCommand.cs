@@ -1,8 +1,8 @@
 ﻿namespace ProceduralLevel.PowerConsole.Logic
 {
-	public class HelpConsoleCommand: AConsoleCommand
+	public class HelpCommand: AConsoleCommand
 	{
-		public HelpConsoleCommand(string name, string description) : base(name, description)
+		public HelpCommand(ConsoleInstance console, string name, string description) : base(console, name, description)
 		{
 		}
 

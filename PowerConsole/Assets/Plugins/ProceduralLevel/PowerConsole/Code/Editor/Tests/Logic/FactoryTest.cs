@@ -9,7 +9,7 @@ namespace ProceduralLevel.PowerConsole.Editor.Test.Logic
 		[Test]
 		public void IncorrectReturnTypeDetection()
 		{
-			TestCommand command = new TestCommand();
+			TestCommand command = new TestCommand(null);
 			try
 			{
 				Factory.CreateCommandMethod(command.GetIncorrectReturnTypeMethod());

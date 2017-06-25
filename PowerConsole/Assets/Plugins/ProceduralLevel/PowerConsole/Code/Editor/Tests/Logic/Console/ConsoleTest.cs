@@ -23,7 +23,7 @@ namespace ProceduralLevel.PowerConsole.Editor.Test.Logic.Console
 		[Test]
 		public void MethodParsing()
 		{
-			TestCommand command = new TestCommand();
+			TestCommand command = new TestCommand(m_Console);
 			command.ParseMethod();
 			CommandMethod method = command.Method;
 			List<CommandParameter> parameters = method.CopyParameters();

@@ -15,7 +15,7 @@ namespace ProceduralLevel.PowerConsole.Editor.Test.Logic.Console
 
 		public ConsoleExecutionTest()
 		{
-			m_Command = new TestCommand();
+			m_Command = new TestCommand(m_Console);
 			m_Console.AddCommand(m_Command);
 			m_Message = m_Command.Command(TEST_INT, TEST_BOOL, TEST_STRING);
 		}

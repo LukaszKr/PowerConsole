@@ -5,7 +5,7 @@ namespace ProceduralLevel.PowerConsole.Editor.Test.Logic
 {
 	public class TestCommand: AConsoleCommand
 	{
-		public TestCommand() : base("Test", "For test purpose")
+		public TestCommand(ConsoleInstance console) : base(console, "Test", "For test purpose")
 		{
 		}
 
