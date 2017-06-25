@@ -1,5 +1,6 @@
 ﻿using ProceduralLevel.PowerConsole.Logic;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace ProceduralLevel.PowerConsole.View
@@ -9,11 +10,38 @@ namespace ProceduralLevel.PowerConsole.View
 		private KeyCode[] m_Execute = new KeyCode[] { KeyCode.Return };
 		private KeyCode[] m_NextHint = new KeyCode[] { KeyCode.Tab };
 
-		public void Update(ConsoleInstance console)
+		private List<InputAction> m_Actions = new List<InputAction>();
+
+		private ConsoleInstance m_Console;
+
+		public ConsoleInput(ConsoleInstance console)
 		{
-			TryInvoke(m_Execute, console.InputState.Execute);
-			TryInvoke(m_NextHint, console.HintState.NextHint);
+			m_Console = console;
+
+			m_Actions.Add(new InputAction(m_Execute, console.InputState.Execute));
+			m_Actions.Add(new InputAction(m_NextHint, console.HintState.NextHint));
 		}
+
+		public void Update()
+		{
+			for(int x = 0; x < m_Actions.Count; x++)
+			{ 
+				InputAction action = m_Actions[x];
+				TryInvoke(action.Keys, action.Callback);
+			}
+		}
+
+		#region Callback
+		private void Execute()
+		{
+			m_Console.InputState.Execute();
+		}
+
+		private void NextHint()
+		{
+			m_Console.HintState.NextHint();
+		}
+		#endregion
 
 		private void TryInvoke(KeyCode[] keys, Action action)
 		{

@@ -13,7 +13,8 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>GamePlugins:3</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.6.1f1</UnityVersion>
@@ -143,11 +144,12 @@
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\State\AConsoleState.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\State\HintState.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\State\InputState.cs" />
-    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\View\ConsoleInput.cs" />
+    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\View\Input\ConsoleInput.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\View\ConsoleView.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\View\Helper\ChainLabel\ChainLabelDrawer.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\View\Helper\ChainLabel\ChainLabelEntry.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\View\Helper\TextEditorHelper.cs" />
+    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\View\Input\InputAction.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\View\MessageView.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\View\Panel\AConsolePanel.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\View\Panel\ConsoleDetailsPanel.cs" />
@@ -157,6 +159,7 @@
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\View\Style\ConsoleStyles.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\View\Style\StyleFactory.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
 </Project>
