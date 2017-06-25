@@ -10,10 +10,5 @@
 		{
 			return new Message(EMessageType.Info, category.ToString());
 		}
-
-		public override bool IsValid()
-		{
-			return true;
-		}
 	}
 }

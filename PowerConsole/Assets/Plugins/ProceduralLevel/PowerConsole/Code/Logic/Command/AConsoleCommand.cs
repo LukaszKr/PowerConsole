@@ -12,12 +12,23 @@ namespace ProceduralLevel.PowerConsole.Logic
 		public readonly string Name;
 		public readonly string Description;
 		public CommandMethod Method { get; private set; }
+		public bool IsValid { get; private set; }
 
 		public AConsoleCommand(ConsoleInstance console, string name, string description)
 		{
+			IsValid = true;
 			Console = console;
 			Name = name.ToLowerInvariant();
 			Description = description;
+		}
+
+		public void SetValid(bool valid)
+		{
+			if(IsValid != valid)
+			{
+				IsValid = valid;
+				Console.NameHint.InvalidateCache();
+			}
 		}
 
 		public void ParseMethod()
@@ -47,10 +58,13 @@ namespace ProceduralLevel.PowerConsole.Logic
 			return type.GetMethod(methodName, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
 		}
 
-		public abstract bool IsValid();
 
 		public Message Execute(object[] values)
 		{
+			if(!IsValid)
+			{
+				return new Message(EMessageType.Error, "Command is marked as invalid for current state");
+			}
 			object rawResult = Method.Command.Invoke(this, values);
 			return rawResult as Message;
 		}

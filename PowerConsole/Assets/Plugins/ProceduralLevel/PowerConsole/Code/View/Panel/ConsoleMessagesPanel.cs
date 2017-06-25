@@ -35,6 +35,11 @@ namespace ProceduralLevel.PowerConsole.View
 			m_ScrollToBottom = true;
 		}
 
+		public void ClearMessages()
+		{
+			m_MessageBuffer.Clear();
+		}
+
 		protected override void OnRender(Vector2 size)
 		{
 			for(int x = 0; x < m_MessageBuffer.Count; x++)

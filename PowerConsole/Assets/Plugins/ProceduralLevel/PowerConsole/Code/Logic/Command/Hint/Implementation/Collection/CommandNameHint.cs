@@ -18,7 +18,10 @@ namespace ProceduralLevel.PowerConsole.Logic
 			for(int x = 0; x < m_Commands.Count; x++)
 			{
 				AConsoleCommand command = m_Commands[x];
-				options[x] = command.Name;
+				if(command.IsValid)
+				{
+					options[x] = command.Name;
+				}
 			}
 
 			return options;

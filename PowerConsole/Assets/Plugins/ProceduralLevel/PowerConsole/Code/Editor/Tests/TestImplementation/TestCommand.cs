@@ -25,10 +25,5 @@ namespace ProceduralLevel.PowerConsole.Editor.Test.Logic
 			return 0;
 		}
 		#endregion
-
-		public override bool IsValid()
-		{
-			return true;
-		}
 	}
 }
