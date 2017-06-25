@@ -97,7 +97,10 @@ namespace ProceduralLevel.PowerConsole.Logic
 			{
 				object[] parsed = query.GetParsedValues();
 				Message result = command.Execute(parsed);
-				OnMessage.Invoke(result);
+				if(result != null)
+				{
+					OnMessage.Invoke(result);
+				}
 			}
 		}
 

@@ -9,8 +9,8 @@ namespace ProceduralLevel.PowerConsole.View
 	{
 		private KeyCode[] m_Execute = new KeyCode[] { KeyCode.Return };
 		private KeyCode[] m_NextHint = new KeyCode[] { KeyCode.Tab };
-		private KeyCode[] m_NextHistory = new KeyCode[] { KeyCode.DownArrow };
-		private KeyCode[] m_PrevHistory = new KeyCode[] { KeyCode.UpArrow };
+		private KeyCode[] m_NextHistory = new KeyCode[] { KeyCode.UpArrow };
+		private KeyCode[] m_PrevHistory = new KeyCode[] { KeyCode.DownArrow };
 
 		private List<InputAction> m_Actions = new List<InputAction>();
 

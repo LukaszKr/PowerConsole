@@ -9,6 +9,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 		{
 			console.AddCommand(new HelpCommand(console, "help", "help"));
 			console.AddCommand(new ClearHistoryCommand(console, "clearhistory", "Clear history of executed commands"));
+			console.AddCommand(new PrintCommand(console, "print", "Print input string"));
 
 			console.ValueParser.CreateEnumParser<EHelpCategory>();
 		}

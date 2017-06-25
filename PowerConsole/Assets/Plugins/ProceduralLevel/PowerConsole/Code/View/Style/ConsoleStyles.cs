@@ -72,7 +72,7 @@ namespace ProceduralLevel.PowerConsole.View
 			m_TextStyle[(int)EMessageType.Info] = StyleFactory.TextStyle(-offset, -offset, 0f, 1f, FontStyle.Normal);
 			m_TextStyle[(int)EMessageType.Success] = StyleFactory.TextStyle(-offset, 0f, -offset, 1f, FontStyle.Normal);
 			m_TextStyle[(int)EMessageType.Warning] = StyleFactory.TextStyle(0f, 0, -offset, 1f, FontStyle.Italic);
-			m_TextStyle[(int)EMessageType.Announcement] = StyleFactory.TextStyle(0f, 0f, 0f, 1f, FontStyle.Bold, TextAnchor.UpperCenter);
+			m_TextStyle[(int)EMessageType.Normal] = StyleFactory.TextStyle(0f, 0f, 0f, 1f, FontStyle.Normal);
 		}
 
 		private GUIStyle GetTextStyle(EMessageType type)

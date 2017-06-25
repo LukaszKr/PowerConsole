@@ -43,7 +43,14 @@ namespace ProceduralLevel.PowerConsole.Logic
 		public ValueParserDelegate GetParser(Type type)
 		{
 			ValueParserDelegate parser;
-			m_Parsers.TryGetValue(type, out parser);
+			if(!m_Parsers.TryGetValue(type, out parser))
+			{
+				if(type.IsEnum)
+				{
+					parser = GenerateEnumParser(type);
+					m_Parsers[type] = parser;
+				}
+			}
 			return parser;
 		}
 
@@ -122,9 +129,14 @@ namespace ProceduralLevel.PowerConsole.Logic
 		#region Parser Generator
 		private static ValueParserDelegate GenerateEnumParser<T>() where T: struct, IConvertible
 		{
+			return GenerateEnumParser(typeof(T));
+		}
+
+		private static ValueParserDelegate GenerateEnumParser(Type type)
+		{
 			return (string rawValue) =>
 			{
-				return Enum.Parse(typeof(T), rawValue, true);
+				return Enum.Parse(type, rawValue, true);
 			};
 		}
 		#endregion

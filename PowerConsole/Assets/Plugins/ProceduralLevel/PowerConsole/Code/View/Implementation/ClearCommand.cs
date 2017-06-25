@@ -11,7 +11,7 @@ namespace ProceduralLevel.PowerConsole.View
 		public Message Command()
 		{
 			m_View.Messages.ClearMessages();
-			return new Message(EMessageType.Success, "");
+			return null;
 		}
 	}
 }
