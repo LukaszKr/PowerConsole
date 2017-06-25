@@ -90,6 +90,8 @@ namespace ProceduralLevel.PowerConsole.View
 				Messages = new ConsoleMessagesPanel(this);
 				Hints = new ConsoleHintPanel(this);
 				Input = new ConsoleInputPanel(this);
+
+				Console.AddCommand(new ClearCommand(this, "clear", "Clears console view"));
 			}
 		}
 

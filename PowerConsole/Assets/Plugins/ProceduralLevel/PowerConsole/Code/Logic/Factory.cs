@@ -8,7 +8,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 		public static void CreateDefaultCommands(ConsoleInstance console)
 		{
 			console.AddCommand(new HelpCommand(console, "help", "help"));
-			console.AddCommand(new ClearHistoryCommand(console, "clear", "clear"));
+			console.AddCommand(new ClearHistoryCommand(console, "clearhistory", "Clear history of executed commands"));
 
 			console.ValueParser.CreateEnumParser<EHelpCategory>();
 		}
