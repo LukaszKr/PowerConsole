@@ -45,10 +45,6 @@ namespace ProceduralLevel.PowerConsole.Logic
 						parser.Parse(data);
 						serializer = new JsonObjectSerializer(parser.Flush());
 					}
-					catch 
-					{ 
-						//if it fails, file is corrupted, can't do much about it so just use default state and continue
-					}
 					finally
 					{
 						if(serializer != null)

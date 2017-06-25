@@ -21,22 +21,5 @@ namespace ProceduralLevel.PowerConsole.Editor.Test.Logic
 				Assert.AreEqual("a123", e.RawValue);
 			}
 		}
-
-		private enum TestEnum { Value };
-
-		[Test]
-		public void MissingParserError()
-		{
-			try
-			{
-				m_Parser.Parse<TestEnum>("Value");
-				TestHelper.ExpectException<MissingValueParserException>();
-			}
-			catch(MissingValueParserException e)
-			{
-				Assert.AreEqual(typeof(TestEnum), e.ExpectedType);
-				Assert.AreEqual("Value", e.RawValue);
-			}
-		}
 	}
 }
