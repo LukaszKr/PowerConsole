@@ -85,7 +85,7 @@ namespace ProceduralLevel.PowerConsole.View
 			{
 				m_CommandLabel.text = (Hint.Argument != null ? Hint.Argument.Value : "");
 			}
-			if(Hint.Query != null && Hint.Argument != null && Hint.Hint != null)
+			if(hit != null && Hint.Query != null && Hint.Argument != null && Hint.Hint != null)
 			{
 				m_ParameterLabel.text = string.Format(PARAMETER_HINT, Hint.Argument.Name, Hint.Hint.HintedType.Name);
 				m_HintPrefixLabel.text = hit.HitPrefix;

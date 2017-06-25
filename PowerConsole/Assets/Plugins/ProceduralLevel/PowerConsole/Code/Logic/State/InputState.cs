@@ -96,7 +96,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 		{
 			if(hit != null && Console.HintState.IteratingHints)
 			{
-				SetCursor(Argument.Offset+Console.HintState.CurrentHint.Length);
+				SetCursor(Argument.Offset+hit.HitPrefix.Length+hit.Value.Length+hit.HitSufix.Length);
 			}
 			else if(Argument != null)
 			{

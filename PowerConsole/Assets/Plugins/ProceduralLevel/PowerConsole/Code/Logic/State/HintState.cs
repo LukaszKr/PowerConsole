@@ -13,7 +13,6 @@ namespace ProceduralLevel.PowerConsole.Logic
 
 		private AHintIterator m_Iterator;
 		public HintHit Current { get; private set; }
-		public string CurrentHint { get { return m_Iterator.Current; } }
 
 		public readonly Event<HintHit> OnHintChanged = new Event<HintHit>();
 
@@ -69,13 +68,14 @@ namespace ProceduralLevel.PowerConsole.Logic
 
 		private void RefreshCurrent()
 		{
-			if(Query != null && Argument != null && m_Iterator != null)
+			if(Query != null && Argument != null && m_Iterator != null && m_Iterator.Current.Length > 0)
 			{
 				Current = new HintHit(Console.InputState.UserInput, Argument, m_Iterator.Current);
 			}
 			else
 			{
 				Current = null;
+				IteratingHints = false;
 			}
 			OnHintChanged.Invoke(Current);
 		}
