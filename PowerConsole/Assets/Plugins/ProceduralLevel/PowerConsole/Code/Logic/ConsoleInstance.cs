@@ -34,6 +34,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 
 			InputState.BindEvents();
 			HintState.BindEvents();
+			HistoryState.BindEvents();
 
 			Factory.CreateDefaultCommands(this);
 		}

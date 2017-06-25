@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace ProceduralLevel.PowerConsole.Logic
 {
@@ -20,7 +19,6 @@ namespace ProceduralLevel.PowerConsole.Logic
 
 		public override void BindEvents()
 		{
-			throw new NotImplementedException();
 		}
 
 		#region Execution History
