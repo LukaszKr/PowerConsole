@@ -33,11 +33,11 @@ namespace ProceduralLevel.PowerConsole.View
 		{
 			base.Initialize();
 
-			m_Suggested.AddEntry(new ChainLabelEntry(m_Prefix, Styles.InvisibleText));
+			m_Suggested.AddEntry(new ChainLabelEntry(m_Prefix, Styles.InputText));
 			m_Suggested.AddEntry(new ChainLabelEntry(m_HintPrefix, Styles.HintText));
-			m_Suggested.AddEntry(new ChainLabelEntry(m_HintHit, Styles.InvisibleText));
+			m_Suggested.AddEntry(new ChainLabelEntry(m_HintHit, Styles.InputText));
 			m_Suggested.AddEntry(new ChainLabelEntry(m_HintSufix, Styles.HintText));
-			m_Suggested.AddEntry(new ChainLabelEntry(m_Sufix, Styles.InvisibleText));
+			m_Suggested.AddEntry(new ChainLabelEntry(m_Sufix, Styles.InputText));
 		}
 
 		public override float PreferedHeight(float availableHeight)
@@ -47,7 +47,16 @@ namespace ProceduralLevel.PowerConsole.View
 
 		protected override void OnRender(Vector2 size)
 		{
-			string newInput = GUI.TextField(m_InputRect, Console.InputState.UserInput, Styles.InputText);
+			GUIStyle inputTextStyle;
+			if(Console.HintState.IteratingHints)
+			{
+				inputTextStyle = Styles.InvisibleText;
+			}
+			else
+			{
+				inputTextStyle = Styles.InputText;
+			}
+			string newInput = GUI.TextField(m_InputRect, GetDisplayText(), inputTextStyle);
 			if(Console.HintState.IteratingHints)
 			{
 				m_Suggested.Draw(m_SuggestedRect);
@@ -57,7 +66,22 @@ namespace ProceduralLevel.PowerConsole.View
 				Console.InputState.Execute();
 			}
 			int newCursor = TextEditorHelper.GetCursor();
-			Console.InputState.SetInput(newInput, newCursor);
+			if(!Console.HintState.IteratingHints)
+			{
+				Console.InputState.SetInput(newInput, newCursor);
+			}
+		}
+
+		private string GetDisplayText()
+		{
+			if(Console.HintState.IteratingHints && Console.HintState.Current != null)
+			{
+				return Console.HintState.Current.Merged;
+			}
+			else
+			{
+				return Console.InputState.UserInput;
+			}
 		}
 
 		protected override void OnSizeChanged(Vector2 size)

@@ -46,7 +46,7 @@ namespace ProceduralLevel.PowerConsole.View
 			if(Hint.Command != null)
 			{
 				height += Styles.LineHeight;
-				if(Hint.Current != null)
+				if(Hint.Hint != null)
 				{
 					height += Styles.LineHeight;
 				}
@@ -61,7 +61,7 @@ namespace ProceduralLevel.PowerConsole.View
 		protected override void OnRender(Vector2 size)
 		{
 			GUI.Label(m_CommandRect, m_CommandLabel);
-			if(Hint.Current != null)
+			if(Hint.Hint != null)
 			{
 				GUI.Label(m_ParameterRect, m_ParameterLabel);
 				m_HintDrawer.Draw(m_ParameterRect);
@@ -85,9 +85,9 @@ namespace ProceduralLevel.PowerConsole.View
 			{
 				m_CommandLabel.text = (Hint.Argument != null ? Hint.Argument.Value : "");
 			}
-			if(Hint.Query != null && Hint.Argument != null && Hint.Current != null)
+			if(Hint.Query != null && Hint.Argument != null && Hint.Hint != null)
 			{
-				m_ParameterLabel.text = string.Format(PARAMETER_HINT, Hint.Argument.Name, Hint.Current.HintedType.Name);
+				m_ParameterLabel.text = string.Format(PARAMETER_HINT, Hint.Argument.Name, Hint.Hint.HintedType.Name);
 				m_HintPrefixLabel.text = hit.HitPrefix;
 				m_HintHitLabel.text = hit.Value;
 				m_HintSufixLabel.text = hit.HitSufix;

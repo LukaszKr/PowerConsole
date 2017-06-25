@@ -9,10 +9,10 @@ namespace ProceduralLevel.PowerConsole.Logic
 		public AConsoleCommand Command { get; private set; }
 		public Query Query { get; private set; }
 		public Argument Argument { get; private set; }
-		public AHint Current { get; private set; }
+		public AHint Hint { get; private set; }
 
 		private AHintIterator m_Iterator;
-		private HintHit m_CurrentHint;
+		public HintHit Current { get; private set; }
 
 		public readonly Event<HintHit> OnHintChanged = new Event<HintHit>();
 
@@ -32,7 +32,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 		{
 			if(Argument != argument)
 			{
-				Current = null;
+				Hint = null;
 				Command = command;
 				Query = query;
 				Argument = argument;
@@ -40,13 +40,13 @@ namespace ProceduralLevel.PowerConsole.Logic
 				{
 					if(Argument.Parameter != null)
 					{
-						Current = command.GetHintFor(Console.Hints, Argument.Parameter.Index);
-						m_Iterator = Current.GetIterator(argument.Value);
+						Hint = command.GetHintFor(Console.Hints, Argument.Parameter.Index);
+						m_Iterator = Hint.GetIterator(argument.Value);
 					}
 					else if(argument.IsCommandName)
 					{
-						Current = Console.NameHint;
-						m_Iterator = Current.GetIterator(argument.Value);
+						Hint = Console.NameHint;
+						m_Iterator = Hint.GetIterator(argument.Value);
 						Command = Console.FindCommand(m_Iterator.Current);
 					}
 					else
@@ -56,8 +56,8 @@ namespace ProceduralLevel.PowerConsole.Logic
 				}
 				else
 				{
-					Current = Console.NameHint;
-					m_Iterator = Current.GetIterator(string.Empty);
+					Hint = Console.NameHint;
+					m_Iterator = Hint.GetIterator(string.Empty);
 					Clear();
 				}
 				RefreshCurrent();
@@ -68,13 +68,13 @@ namespace ProceduralLevel.PowerConsole.Logic
 		{
 			if(Query != null && Argument != null && m_Iterator != null)
 			{
-				m_CurrentHint = new HintHit(Query, Argument, m_Iterator.Current);
+				Current = new HintHit(Query, Argument, m_Iterator.Current);
 			}
 			else
 			{
-				m_CurrentHint = null;
+				Current = null;
 			}
-			OnHintChanged.Invoke(m_CurrentHint);
+			OnHintChanged.Invoke(Current);
 		}
 
 		private void Clear()
