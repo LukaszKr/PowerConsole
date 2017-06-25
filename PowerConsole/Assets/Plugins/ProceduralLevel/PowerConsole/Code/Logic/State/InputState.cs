@@ -18,11 +18,14 @@ namespace ProceduralLevel.PowerConsole.Logic
 		public Query Query { get; private set; }
 		public Argument Argument { get; private set; }
 
+		private int m_HistoryIndex;
+
 		public InputState(ConsoleInstance console)
 			: base(console)
 		{
 			UserInput = "";
 			Cursor = 0;
+			m_HistoryIndex = -1;
 		}
 
 		public override void BindEvents()
@@ -92,6 +95,29 @@ namespace ProceduralLevel.PowerConsole.Logic
 			}
 		}
 
+		private void IterateHistory(int indexChange)
+		{
+			int executionCount = Console.ExecutionHistory.Count;
+			m_HistoryIndex += indexChange;
+			if(m_HistoryIndex < -1)
+			{
+				m_HistoryIndex = executionCount-1;
+			}
+			else if(m_HistoryIndex > executionCount)
+			{
+				m_HistoryIndex = 0;
+			}
+			if(m_HistoryIndex >= 0 && m_HistoryIndex < executionCount)
+			{
+				string input = Console.ExecutionHistory[m_HistoryIndex];
+				SetInput(input, input.Length);
+			}
+			else
+			{
+				SetInput("", 0);
+			}
+		}
+
 		private void HintChangedListener(HintHit hit)
 		{
 			if(hit != null && Console.HintState.IteratingHints)
@@ -107,9 +133,26 @@ namespace ProceduralLevel.PowerConsole.Logic
 		#region Control
 		public void Execute()
 		{
-			Console.Execute(UserInput);
+			if(Console.HintState.IteratingHints)
+			{
+				Console.Execute(Console.HintState.Current.Merged);
+			}
+			else
+			{
+				Console.Execute(UserInput);
+			}
 			UserInput = "";
 			OnInputChanged.Invoke(this);
+		}
+
+		public void NextHistory()
+		{
+			IterateHistory(-1);
+		}
+
+		public void PrevHistory()
+		{
+			IterateHistory(1);
 		}
 		#endregion
 	}
