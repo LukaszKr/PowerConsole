@@ -20,6 +20,8 @@ namespace ProceduralLevel.PowerConsole.Logic
 		public InputState(ConsoleInstance console)
 			: base(console)
 		{
+			UserInput = "";
+			Cursor = 0;
 		}
 
 		public void SetInput(string userInput, int cursor)

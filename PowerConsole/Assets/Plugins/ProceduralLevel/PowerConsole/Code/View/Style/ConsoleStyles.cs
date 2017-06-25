@@ -23,6 +23,7 @@ namespace ProceduralLevel.PowerConsole.View
 		public GUIStyle DefaultText { get; private set; }
 		public GUIStyle TitleText { get; private set; }
 		public GUIStyle InputText { get; private set; }
+		public GUIStyle InvisibleText { get; private set; }
 		public GUIStyle HintText { get; private set; }
 		public GUIStyle HintHitText { get; private set; }
 
@@ -61,18 +62,20 @@ namespace ProceduralLevel.PowerConsole.View
 
 			DefaultText = new GUIStyle("label");
 
-			HintHitText = StyleFactory.TextStyle(0f, 0f, 0f, FontStyle.Bold);
-			HintText = StyleFactory.TextStyle(-offset, -offset, -offset);
+			HintHitText = StyleFactory.TextStyle(0f, 0f, 0f, 1f, FontStyle.Bold);
+			HintText = StyleFactory.TextStyle(-offset, -offset, -offset, 1f);
 
-			TitleText = StyleFactory.TextStyle(0f, 0f, 0f, FontStyle.Bold, TextAnchor.MiddleCenter);
-			InputText = StyleFactory.TextStyle(0f, 0f, 0f, FontStyle.Normal, TextAnchor.MiddleLeft);
+			InvisibleText = StyleFactory.TextStyle(0f, 0f, 0f, 0f);
 
-			m_TextStyle[(int)EMessageType.Error] = StyleFactory.TextStyle(0f, -offset, -offset, FontStyle.Bold);
-			m_TextStyle[(int)EMessageType.Execution] = StyleFactory.TextStyle(-offset, 0f, 0f, FontStyle.BoldAndItalic);
-			m_TextStyle[(int)EMessageType.Info] = StyleFactory.TextStyle(-offset, -offset, 0f, FontStyle.Normal);
-			m_TextStyle[(int)EMessageType.Success] = StyleFactory.TextStyle(-offset, 0f, -offset, FontStyle.Normal);
-			m_TextStyle[(int)EMessageType.Warning] = StyleFactory.TextStyle(0f, 0, -offset, FontStyle.Italic);
-			m_TextStyle[(int)EMessageType.Announcement] = StyleFactory.TextStyle(0f, 0f, 0f, FontStyle.Bold, TextAnchor.UpperCenter);
+			TitleText = StyleFactory.TextStyle(0f, 0f, 0f, 1f, FontStyle.Bold, TextAnchor.MiddleCenter);
+			InputText = StyleFactory.TextStyle(0f, 0f, 0f, 1f, FontStyle.Normal, TextAnchor.MiddleLeft);
+
+			m_TextStyle[(int)EMessageType.Error] = StyleFactory.TextStyle(0f, -offset, -offset, 1f, FontStyle.Bold);
+			m_TextStyle[(int)EMessageType.Execution] = StyleFactory.TextStyle(-offset, 0f, 0f, 1f, FontStyle.BoldAndItalic);
+			m_TextStyle[(int)EMessageType.Info] = StyleFactory.TextStyle(-offset, -offset, 0f, 1f, FontStyle.Normal);
+			m_TextStyle[(int)EMessageType.Success] = StyleFactory.TextStyle(-offset, 0f, -offset, 1f, FontStyle.Normal);
+			m_TextStyle[(int)EMessageType.Warning] = StyleFactory.TextStyle(0f, 0, -offset, 1f, FontStyle.Italic);
+			m_TextStyle[(int)EMessageType.Announcement] = StyleFactory.TextStyle(0f, 0f, 0f, 1f, FontStyle.Bold, TextAnchor.UpperCenter);
 		}
 
 		private GUIStyle GetTextStyle(EMessageType type)

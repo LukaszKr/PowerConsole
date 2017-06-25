@@ -148,7 +148,7 @@
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\View\Helper\ChainLabel\ChainLabelDrawer.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\View\Helper\ChainLabel\ChainLabelEntry.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\View\Helper\TextEditorHelper.cs" />
-    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\View\Message\MessageView.cs" />
+    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\View\MessageView.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\View\Panel\AConsolePanel.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\View\Panel\ConsoleDetailsPanel.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\View\Panel\ConsoleHintPanel.cs" />

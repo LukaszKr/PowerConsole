@@ -23,6 +23,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 
 		private void InputChangedHandler(InputState state)
 		{
+			IteratingHints = false;
 			UpdateHint(state.Command, state.Query, state.Argument);
 		}
 
@@ -90,6 +91,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 			{
 				m_Iterator.Restart();
 			}
+			IteratingHints = true;
 			RefreshCurrent();
 		}
 
@@ -99,6 +101,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 			{
 				m_Iterator.Restart();
 			}
+			IteratingHints = true;
 			RefreshCurrent();
 		}
 		#endregion
