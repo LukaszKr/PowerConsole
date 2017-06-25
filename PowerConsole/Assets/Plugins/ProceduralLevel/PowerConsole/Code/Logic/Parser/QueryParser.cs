@@ -39,12 +39,22 @@ namespace ProceduralLevel.PowerConsole.Logic
 			Argument argument = null;
 			Token token = null;
 			string rawValue = "";
+			bool escaped = false;
 
 			while(HasTokens())
 			{
 				token = ConsumeToken();
+				if(escaped)
+				{
+					rawValue += token.Value;
+					escaped = false;
+					continue;
+				}
 				switch(token.Value)
 				{
+					case ParserConst.ESCAPE:
+						escaped = true;
+						break;
 					case ParserConst.SPACE:
 						argument = null;
 						break;

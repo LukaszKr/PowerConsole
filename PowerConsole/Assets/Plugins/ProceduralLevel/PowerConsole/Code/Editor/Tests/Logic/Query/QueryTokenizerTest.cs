@@ -30,14 +30,14 @@ namespace ProceduralLevel.PowerConsole.Editor.Test.Logic.Queries
 		public void EscapedValues()
 		{
 			//only separator tokens can be escaped
-			m_Tokenizer.Tokenize("\\\" \\escaped \"test\"");
+			m_Tokenizer.Tokenize("\\\" \\escaped \\\"test\\\"");
 			List<Token> tokens = m_Tokenizer.Flush();
 			Assert.AreEqual(5, tokens.Count);
-			TestHelper.CheckToken(tokens[0], true, "\\");
-			TestHelper.CheckToken(tokens[1], false, "\" \\escaped");
-			TestHelper.CheckToken(tokens[2], true, "\"");
-			TestHelper.CheckToken(tokens[3], false, "test");
-			TestHelper.CheckToken(tokens[4], true, "\"");
+			TestHelper.CheckToken(tokens[0], false, "\"");
+			TestHelper.CheckToken(tokens[1], true, " ");
+			TestHelper.CheckToken(tokens[2], false, "escaped");
+			TestHelper.CheckToken(tokens[3], true, " ");
+			TestHelper.CheckToken(tokens[4], false, "\"test\"");
 		}
 
 		[Test]

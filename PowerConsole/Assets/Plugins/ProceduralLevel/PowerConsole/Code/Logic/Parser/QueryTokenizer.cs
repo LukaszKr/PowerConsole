@@ -12,14 +12,12 @@ namespace ProceduralLevel.PowerConsole.Logic
 
 		private readonly static string[] QUERY_QUOTED = new string[]
 		{
-			ParserConst.QUOTE
+			ParserConst.QUOTE, ParserConst.ESCAPE
 		};
-
-		private readonly static string[] QUERY_ESCAPED = new string [] { };
 
 		private bool m_Quoted;
 
-		public QueryTokenizer(bool autoTrim = false) : base(autoTrim)
+		public QueryTokenizer(bool autoTrim = false) : base(autoTrim, ParserConst.ESCAPE)
 		{
 		}
 
@@ -33,8 +31,6 @@ namespace ProceduralLevel.PowerConsole.Logic
 		{
 			switch(token.Value)
 			{
-				case ParserConst.ESCAPE:
-					return QUERY_ESCAPED;
 				case ParserConst.QUOTE:
 					m_Quoted = !m_Quoted;
 					if(m_Quoted)
