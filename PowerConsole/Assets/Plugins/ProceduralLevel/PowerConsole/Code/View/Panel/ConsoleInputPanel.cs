@@ -18,7 +18,7 @@ namespace ProceduralLevel.PowerConsole.View
 
 		public ConsoleInputPanel(ConsoleView consoleView) : base(consoleView)
 		{
-			m_ButtonText = new GUIContent(Localization.GetLocalizedKey(ELocalizationKey.Input_Submit));
+			m_ButtonText = new GUIContent(Localization.Get(ELocKey.InputSubmit));
 
 			Console.InputState.OnCursorMoved.AddListener(CursorMovedHandler);
 		}

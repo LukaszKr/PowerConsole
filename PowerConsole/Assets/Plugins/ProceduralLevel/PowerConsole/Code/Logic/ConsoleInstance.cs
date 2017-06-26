@@ -21,25 +21,31 @@ namespace ProceduralLevel.PowerConsole.Logic
 		public readonly InputState InputState;
 		public readonly HintState HintState;
 		public readonly HistoryState HistoryState;
+		public readonly MacroState MacroState;
 
 		private List<AConsoleState> m_States;
+		public bool Locked { get; private set; }
+		public readonly bool IncludeDefaultCommands;
 
 		public readonly IPersistence Persistence;
 
-		public ConsoleInstance(LocalizationManager localizationProvider, IPersistence persistence)
+
+		public ConsoleInstance(LocalizationManager localizationProvider, IPersistence persistence, bool includeDefaultCommands = true)
 		{
+			IncludeDefaultCommands = includeDefaultCommands;
 			Localization = localizationProvider;
 			NameHint = new CommandNameHint(m_Commands);
 
 			InputState = new InputState(this);
 			HintState = new HintState(this);
 			HistoryState = new HistoryState(this);
+			MacroState = new MacroState(this);
 
 			Persistence = (persistence != null? persistence: new MockPersistence());
 
 			m_States = new List<AConsoleState>()
 			{
-				InputState, HintState, HistoryState
+				InputState, HintState, HistoryState, MacroState
 			};
 
 			for(int x = 0; x < m_States.Count; x++)
@@ -49,7 +55,15 @@ namespace ProceduralLevel.PowerConsole.Logic
 				state.BindEvents();
 			}
 
-			Factory.CreateDefaultCommands(this);
+			if(includeDefaultCommands)
+			{
+				Factory.CreateDefaultCommands(this);
+			}
+		}
+
+		public void SetLocked(bool locked)
+		{
+			Locked = locked;
 		}
 
 		public List<Query> ParseQuery(string strQuery)
@@ -95,6 +109,12 @@ namespace ProceduralLevel.PowerConsole.Logic
 			CommandMethod method = command.Method;
 			if(MapQuery(method, query) && ParseQueryValues(query))
 			{
+				if(Locked && command.ObeyLock)
+				{
+					OnMessage.Invoke(new Message(EMessageType.Warning, Localization.Get(ELocKey.ConsoleLocked)));
+					return;
+				}
+
 				object[] parsed = query.GetParsedValues();
 				Message result = command.Execute(parsed);
 				if(result != null)

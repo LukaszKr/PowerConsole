@@ -14,6 +14,9 @@ namespace ProceduralLevel.PowerConsole.Logic
 		public CommandMethod Method { get; private set; }
 		public bool IsValid { get; private set; }
 
+		public virtual bool ObeyLock { get { return true; } }
+		protected LocalizationManager Localization { get { return Console.Localization; } }
+
 		public AConsoleCommand(ConsoleInstance console, string name, string description)
 		{
 			IsValid = true;

@@ -31,7 +31,7 @@ namespace ProceduralLevel.PowerConsole.View
 
 		private void AddMissingKeys(CSV csv)
 		{
-			string[] keys = Enum.GetNames(typeof(ELocalizationKey));
+			string[] keys = Enum.GetNames(typeof(ELocKey));
 			for(int x = 0; x < keys.Length; x++)
 			{
 				if(csv.FindRow(0, keys[x]) == null)
