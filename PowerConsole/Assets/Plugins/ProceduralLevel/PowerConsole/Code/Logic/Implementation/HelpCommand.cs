@@ -8,7 +8,15 @@
 
 		public Message Command(EHelpCategory category = EHelpCategory.Input)
 		{
-			return new Message(EMessageType.Info, category.ToString());
+			switch(category)
+			{
+				case EHelpCategory.Input:
+					return CreateMessage(EMessageType.Normal, ELocKey.ResHelpInput);
+				case EHelpCategory.Macro:
+					return CreateMessage(EMessageType.Normal, ELocKey.ResHelpMacro);
+				default:
+					return CreateMessage(EMessageType.Normal, ELocKey.ResHelpUnknownTopic);
+			}
 		}
 	}
 }

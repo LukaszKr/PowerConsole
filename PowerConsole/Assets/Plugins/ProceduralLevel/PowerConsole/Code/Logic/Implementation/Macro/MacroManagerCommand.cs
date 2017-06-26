@@ -26,17 +26,17 @@ namespace ProceduralLevel.PowerConsole.Logic
 				case EMacroMode.Record:
 					if(string.IsNullOrEmpty(name))
 					{
-						return new Message(EMessageType.Error, Localization.Get(ELocKey.ResMacroNameEmpty));
+						return CreateMessage(EMessageType.Error, ELocKey.ResMacroNameEmpty);
 					}
 					if(Console.MacroState.IsRecording)
 					{
-						return new Message(EMessageType.Error, Localization.Get(ELocKey.ResMacroAlreadyRecording));
+						return CreateMessage(EMessageType.Error, ELocKey.ResMacroAlreadyRecording);
 					}
 					Console.MacroState.StartRecording(name);
-					return new Message(EMessageType.Success, Localization.Get(ELocKey.ResMacroRecording));
+					return CreateMessage(EMessageType.Success, ELocKey.ResMacroRecording);
 				case EMacroMode.List:
 					StringBuilder sb = new StringBuilder();
-					sb.Append(Localization.Get(ELocKey.ResMacroList));
+					sb.Append(ELocKey.ResMacroList);
 					for(int x = 0; x < Console.MacroState.Count; x++)
 					{
 						Macro macro = Console.MacroState.Get(x);
@@ -46,21 +46,21 @@ namespace ProceduralLevel.PowerConsole.Logic
 				case EMacroMode.Remove:
 					if(Console.MacroState.RemoveMacro(name))
 					{
-						return new Message(EMessageType.Success, Localization.Get(ELocKey.ResMacroRemoved, name));
+						return CreateMessage(EMessageType.Success, ELocKey.ResMacroRemoved, name);
 					}
 					else
 					{
-						return new Message(EMessageType.Warning, Localization.Get(ELocKey.ResMacroNotRemoved, name));
+						return CreateMessage(EMessageType.Warning, ELocKey.ResMacroNotRemoved, name);
 					}
 				case EMacroMode.Save:
 					if(!Console.MacroState.IsRecording)
 					{
-						return new Message(EMessageType.Error, Localization.Get(ELocKey.ResMacroNotRecording));
+						return CreateMessage(EMessageType.Error, ELocKey.ResMacroNotRecording);
 					}
 					Console.MacroState.Save();
-					return new Message(EMessageType.Success, Localization.Get(ELocKey.ResMacroSaved));
+					return CreateMessage(EMessageType.Success, ELocKey.ResMacroSaved);
 				default:
-					return new Message(EMessageType.Error, Console.Localization.Get(ELocKey.ResMacroModeUnknown, mode));
+					return CreateMessage(EMessageType.Error, ELocKey.ResMacroModeUnknown, mode);
 			}
 		}
 	}

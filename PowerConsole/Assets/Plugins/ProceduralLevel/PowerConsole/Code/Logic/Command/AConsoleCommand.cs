@@ -44,6 +44,16 @@ namespace ProceduralLevel.PowerConsole.Logic
 			Method = Factory.CreateCommandMethod(GetCommandMethod());
 		}
 
+		protected Message CreateMessage(EMessageType message, ELocKey key)
+		{
+			return new Message(message, Localization.Get(key));
+		}
+
+		protected Message CreateMessage(EMessageType message, ELocKey key, params object[] args)
+		{
+			return new Message(message, Localization.Get(key, args));
+		}
+
 		public virtual AHint GetHintFor(HintManager manager, int parameterIndex)
 		{
 			CommandParameter parameter = Method.GetParameter(parameterIndex);

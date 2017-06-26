@@ -10,7 +10,7 @@
 		{
 			int count = Console.HistoryState.Count;
 			Console.HistoryState.ClearExecutionHistory();
-			return new Message(EMessageType.Success, Localization.Get(ELocKey.ResClearHistory, count));
+			return CreateMessage(EMessageType.Success, ELocKey.ResClearHistory, count);
 		}
 	}
 }

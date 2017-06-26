@@ -35,5 +35,9 @@
 		ResMacroList,
 
 		ResClearHistory,
+
+		ResHelpInput,
+		ResHelpMacro,
+		ResHelpUnknownTopic,
 	}
 }
