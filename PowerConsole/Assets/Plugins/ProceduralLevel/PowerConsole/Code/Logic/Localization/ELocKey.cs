@@ -2,14 +2,16 @@
 {
 	public enum ELocKey
 	{
-		CommandNotFound,
-		ParsingMissingParser,
-		ParsingInvalidFormat,
-		QueryNamedArgumentNotFound,
-		QueryTooManyArguments,
-		QueryNotEnoughtArguments,
-		InputSubmit,
-		ConsoleLocked,
+		LogicCommandNotFound,
+		LogicParsingMissingParser,
+		LogicParsingInvalidFormat,
+		LogicQueryNamedArgumentNotFound,
+		LogicQueryTooManyArguments,
+		LogicQueryNotEnoughtArguments,
+		LogicConsoleLocked,
+
+		UIInputSubmit,
+
 
 		CmdHelpName,
 		CmdHelpDesc,
