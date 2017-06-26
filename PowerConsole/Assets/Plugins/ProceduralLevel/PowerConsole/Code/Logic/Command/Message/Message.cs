@@ -2,7 +2,7 @@
 {
 	public class Message
 	{
-		public readonly EMessageType Type;
+		public readonly EMessageType Type = EMessageType.Normal;
 		public readonly string Value;
 
 		public Message(EMessageType type, string value)

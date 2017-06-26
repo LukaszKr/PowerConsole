@@ -2,7 +2,7 @@
 {
 	public class HelpCommand: AConsoleCommand
 	{
-		public HelpCommand(ConsoleInstance console, string name, string description) : base(console, name, description)
+		public HelpCommand(ConsoleInstance console) : base(console, ELocKey.CmdHelpName, ELocKey.CmdHelpDesc)
 		{
 		}
 

@@ -103,7 +103,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 			AConsoleCommand command = FindCommand(query.Name.Value);
 			if(command == null)
 			{
-				OnMessage.Invoke(new Message(EMessageType.Error, Localization.CommandNotFound(query.Name.Value)));
+				OnMessage.Invoke(new Message(EMessageType.Error, Localization.Get(ELocKey.CommandNotFound, query.Name.Value)));
 				return;
 			}
 			CommandMethod method = command.Method;
@@ -132,17 +132,17 @@ namespace ProceduralLevel.PowerConsole.Logic
 			}
 			catch(NotEnoughtArgumentsException e)
 			{
-				OnMessage.Invoke(new Message(EMessageType.Error, Localization.NotEnoughtArguments(method.ParameterCount-e.Parameters.Count)));
+				OnMessage.Invoke(new Message(EMessageType.Error, Localization.Get(ELocKey.QueryNotEnoughtArguments, method.ParameterCount-e.Parameters.Count)));
 				return false;
 			}
 			catch(NamedArgumentNotFoundException e)
 			{
-				OnMessage.Invoke(new Message(EMessageType.Error, Localization.NamedArgumentNotFound(e.Name, e.Value)));
+				OnMessage.Invoke(new Message(EMessageType.Error, Localization.Get(ELocKey.QueryNamedArgumentNotFound, e.Name, e.Value)));
 				return false;
 			}
 			catch(TooManyArgumentsException e)
 			{
-				OnMessage.Invoke(new Message(EMessageType.Error, Localization.TooManyArguments(e.Received, e.Expected)));
+				OnMessage.Invoke(new Message(EMessageType.Error, Localization.Get(ELocKey.QueryTooManyArguments, e.Received, e.Expected)));
 				return false;
 			}
 			return true;
@@ -156,12 +156,12 @@ namespace ProceduralLevel.PowerConsole.Logic
 			}
 			catch(MissingValueParserException e)
 			{
-				OnMessage.Invoke(new Message(EMessageType.Error, Localization.MissingValueParser(e.RawValue, e.ExpectedType)));
+				OnMessage.Invoke(new Message(EMessageType.Error, Localization.Get(ELocKey.ParsingMissingParser, e.RawValue, e.ExpectedType)));
 				return false;
 			}
 			catch(InvalidValueFormatException e)
 			{
-				OnMessage.Invoke(new Message(EMessageType.Error, Localization.InvalidValueFormat(e.RawValue, e.ExpectedType)));
+				OnMessage.Invoke(new Message(EMessageType.Error, Localization.Get(ELocKey.ParsingInvalidFormat, e.RawValue, e.ExpectedType)));
 				return false;
 			}
 			return true;

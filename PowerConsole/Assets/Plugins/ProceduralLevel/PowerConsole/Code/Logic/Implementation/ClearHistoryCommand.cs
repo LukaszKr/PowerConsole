@@ -2,7 +2,7 @@
 {
 	public class ClearHistoryCommand: AConsoleCommand
 	{
-		public ClearHistoryCommand(ConsoleInstance console, string name, string description) : base(console, name, description)
+		public ClearHistoryCommand(ConsoleInstance console) : base(console, ELocKey.CmdClearHistoryName, ELocKey.CmdClearHistoryDesc)
 		{
 		}
 
@@ -10,7 +10,7 @@
 		{
 			int count = Console.HistoryState.Count;
 			Console.HistoryState.ClearExecutionHistory();
-			return new Message(EMessageType.Success, string.Format("Removed {0} entries from execution history", count));
+			return new Message(EMessageType.Success, Localization.Get(ELocKey.ResClearHistory, count));
 		}
 	}
 }

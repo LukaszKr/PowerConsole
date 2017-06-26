@@ -2,7 +2,7 @@
 {
 	public class PrintCommand: AConsoleCommand
 	{
-		public PrintCommand(ConsoleInstance console, string name, string description) : base(console, name, description)
+		public PrintCommand(ConsoleInstance console) : base(console, ELocKey.CmdPrintName, ELocKey.CmdPrintDesc)
 		{
 		}
 

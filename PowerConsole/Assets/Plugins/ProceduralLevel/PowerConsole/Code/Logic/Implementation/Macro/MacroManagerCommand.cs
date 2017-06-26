@@ -4,7 +4,7 @@
 	{
 		public override bool ObeyLock { get { return false; } }
 
-		public MacroManagerCommand(ConsoleInstance console, string name, string description) : base(console, name, description)
+		public MacroManagerCommand(ConsoleInstance console) : base(console, ELocKey.CmdMacroName, ELocKey.CmdMacroDesc)
 		{
 		}
 
@@ -24,24 +24,30 @@
 				case EMacroMode.Record:
 					if(string.IsNullOrEmpty(name))
 					{
-						return new Message(EMessageType.Error, Localization.Get(ELocKey.CmdMacroNameEmpty));
+						return new Message(EMessageType.Error, Localization.Get(ELocKey.ResMacroNameEmpty));
 					}
 					if(Console.MacroState.IsRecording)
 					{
-						return new Message(EMessageType.Error, Localization.Get(ELocKey.CmdMacroAlreadyRecording));
+						return new Message(EMessageType.Error, Localization.Get(ELocKey.ResMacroAlreadyRecording));
 					}
 					Console.MacroState.StartRecording(name);
-					return new Message(EMessageType.Info, Localization.Get(ELocKey.CmdMacroRecording));
+					return new Message(EMessageType.Success, Localization.Get(ELocKey.ResMacroRecording));
 				case EMacroMode.List:
 					return null;
 				case EMacroMode.Remove:
-					Console.MacroState.RemoveMacro(name);
-					return null;
+					if(Console.MacroState.RemoveMacro(name))
+					{
+						return new Message(EMessageType.Success, Localization.Get(ELocKey.ResMacroRemoved, name));
+					}
+					else
+					{
+						return new Message(EMessageType.Warning, Localization.Get(ELocKey.ResMacroNotRemoved, name));
+					}
 				case EMacroMode.Save:
 					Console.MacroState.Save();
 					return null;
 				default:
-					return new Message(EMessageType.Error, Console.Localization.MacroModeNotSupported(mode));
+					return new Message(EMessageType.Error, Console.Localization.Get(ELocKey.ResMacroModeUnknown, mode));
 			}
 		}
 	}

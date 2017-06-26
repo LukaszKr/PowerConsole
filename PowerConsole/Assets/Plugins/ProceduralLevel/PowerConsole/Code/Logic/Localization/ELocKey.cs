@@ -2,26 +2,32 @@
 {
 	public enum ELocKey
 	{
-		CommandNotFound = 0,
+		CommandNotFound,
+		ParsingMissingParser,
+		ParsingInvalidFormat,
+		QueryNamedArgumentNotFound,
+		QueryTooManyArguments,
+		QueryNotEnoughtArguments,
+		InputSubmit,
+		ConsoleLocked,
 
-		ParsingMissingParser = 10,
-		ParsingInvalidFormat = 11,
+		CmdHelpName,
+		CmdHelpDesc,
+		CmdClearName,
+		CmdClearDesc,
+		CmdPrintName,
+		CmdPrintDesc,
+		CmdMacroName,
+		CmdMacroDesc,
+		CmdClearHistoryName,
+		CmdClearHistoryDesc,
 
-		QueryNamedArgumentNotFound = 20,
-		QueryTooManyArguments = 21,
-		QueryNotEnoughtArguments = 22,
-
-		InputSubmit = 30,
-
-		ConsoleLocked = 40,
-
-		CmdHelpName = 100,
-		CmdHelpDesc = 101,
-		CmdClearName = 102,
-		CmdClearDesc = 103,
-		CmdMacroMode = 104,
-		CmdMacroAlreadyRecording = 105,
-		CmdMacroRecording = 106,
-		CmdMacroNameEmpty = 107,
+		ResMacroModeUnknown,
+		ResMacroAlreadyRecording,
+		ResMacroRecording,
+		ResMacroNameEmpty,
+		ResMacroRemoved,
+		ResMacroNotRemoved,
+		ResClearHistory,
 	}
 }

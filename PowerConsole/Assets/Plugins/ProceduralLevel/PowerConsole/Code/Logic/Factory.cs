@@ -7,10 +7,10 @@ namespace ProceduralLevel.PowerConsole.Logic
 	{
 		public static void CreateDefaultCommands(ConsoleInstance console)
 		{
-			console.AddCommand(new HelpCommand(console, "help", "help"));
-			console.AddCommand(new ClearHistoryCommand(console, "clearhistory", "Clear history of executed commands"));
-			console.AddCommand(new PrintCommand(console, "print", "Print input string"));
-			console.AddCommand(new MacroManagerCommand(console, "macro", "Record and manage macro commands"));
+			console.AddCommand(new HelpCommand(console));
+			console.AddCommand(new ClearHistoryCommand(console));
+			console.AddCommand(new PrintCommand(console));
+			console.AddCommand(new MacroManagerCommand(console));
 
 			console.ValueParser.CreateEnumParser<EHelpCategory>();
 		}

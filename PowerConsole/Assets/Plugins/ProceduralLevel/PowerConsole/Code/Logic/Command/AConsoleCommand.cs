@@ -25,6 +25,11 @@ namespace ProceduralLevel.PowerConsole.Logic
 			Description = description;
 		}
 
+		public AConsoleCommand(ConsoleInstance console, ELocKey name, ELocKey description)
+			: this(console, console.Localization.Get(name), console.Localization.Get(description))
+		{
+		}
+
 		public void SetValid(bool valid)
 		{
 			if(IsValid != valid)
