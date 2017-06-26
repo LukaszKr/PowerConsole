@@ -44,16 +44,17 @@ namespace ProceduralLevel.PowerConsole.Logic
 			Method = Factory.CreateCommandMethod(GetCommandMethod());
 		}
 
-		protected Message CreateMessage(EMessageType message, ELocKey key)
+		public Message Execute(object[] values)
 		{
-			return new Message(message, Localization.Get(key));
+			if(!IsValid)
+			{
+				return new Message(EMessageType.Error, "Command is marked as invalid for current state");
+			}
+			object rawResult = Method.Command.Invoke(this, values);
+			return rawResult as Message;
 		}
 
-		protected Message CreateMessage(EMessageType message, ELocKey key, params object[] args)
-		{
-			return new Message(message, Localization.Get(key, args));
-		}
-
+		#region Getters
 		public virtual AHint GetHintFor(HintManager manager, int parameterIndex)
 		{
 			CommandParameter parameter = Method.GetParameter(parameterIndex);
@@ -75,17 +76,20 @@ namespace ProceduralLevel.PowerConsole.Logic
 			Type type = GetType();
 			return type.GetMethod(methodName, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
 		}
+		#endregion
 
 
-		public Message Execute(object[] values)
+		#region Result Creation
+		protected Message CreateMessage(EMessageType message, ELocKey key)
 		{
-			if(!IsValid)
-			{
-				return new Message(EMessageType.Error, "Command is marked as invalid for current state");
-			}
-			object rawResult = Method.Command.Invoke(this, values);
-			return rawResult as Message;
+			return new Message(message, Localization.Get(key));
 		}
+
+		protected Message CreateMessage(EMessageType message, ELocKey key, params object[] args)
+		{
+			return new Message(message, Localization.Get(key, args));
+		}
+		#endregion
 
 		public override string ToString()
 		{
