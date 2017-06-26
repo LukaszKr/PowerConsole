@@ -30,6 +30,10 @@
 		ResMacroNameEmpty,
 		ResMacroRemoved,
 		ResMacroNotRemoved,
+		ResMacroNotRecording,
+		ResMacroSaved,
+		ResMacroList,
+
 		ResClearHistory,
 	}
 }

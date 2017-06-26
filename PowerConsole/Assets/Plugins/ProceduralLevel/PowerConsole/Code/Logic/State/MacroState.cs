@@ -1,4 +1,5 @@
 ﻿using ProceduralLevel.Common.Serialization;
+using System;
 using System.Collections.Generic;
 
 namespace ProceduralLevel.PowerConsole.Logic
@@ -12,6 +13,8 @@ namespace ProceduralLevel.PowerConsole.Logic
 
 		public bool IsRecording { get { return Recorded != null; } }
 		public readonly MacroNameHint NameHint;
+
+		public int Count { get { return m_Macros.Count; } }
 
 		public MacroState(ConsoleInstance console) : base(console)
 		{
@@ -39,6 +42,15 @@ namespace ProceduralLevel.PowerConsole.Logic
 			return true;
 		}
 
+		public Macro Get(int index)
+		{
+			if(index >= 0 && index < m_Macros.Count)
+			{
+				return m_Macros[index];
+			}
+			return null;
+		}
+
 		public bool Save()
 		{
 			if(!IsRecording)
@@ -61,12 +73,29 @@ namespace ProceduralLevel.PowerConsole.Logic
 
 		public bool RemoveMacro(string name)
 		{
-			if(CanUseName(name))
+			int index = IndexOf(name);
+			if(index >= 0)
 			{
 				Console.RemoveCommand(name);
+				m_Macros.RemoveAt(index);
+				Write(Console.Persistence);
+				NameHint.InvalidateCache();
 				return true;
 			}
 			return false;
+		}
+
+		private int IndexOf(string name)
+		{
+			for(int x = 0; x < m_Macros.Count; x++)
+			{
+				Macro macro = m_Macros[x];
+				if(macro.Name.Equals(name, StringComparison.OrdinalIgnoreCase))
+				{
+					return x;
+				}
+			}
+			return -1;
 		}
 
 		private bool RegisterMacro(Macro macro)

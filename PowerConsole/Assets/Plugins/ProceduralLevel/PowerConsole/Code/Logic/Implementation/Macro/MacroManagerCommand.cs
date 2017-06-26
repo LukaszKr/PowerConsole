@@ -1,4 +1,6 @@
-﻿namespace ProceduralLevel.PowerConsole.Logic
+﻿using System.Text;
+
+namespace ProceduralLevel.PowerConsole.Logic
 {
 	public class MacroManagerCommand: AConsoleCommand
 	{
@@ -33,7 +35,14 @@
 					Console.MacroState.StartRecording(name);
 					return new Message(EMessageType.Success, Localization.Get(ELocKey.ResMacroRecording));
 				case EMacroMode.List:
-					return null;
+					StringBuilder sb = new StringBuilder();
+					sb.Append(Localization.Get(ELocKey.ResMacroList));
+					for(int x = 0; x < Console.MacroState.Count; x++)
+					{
+						Macro macro = Console.MacroState.Get(x);
+						sb.AppendLine(macro.Name);
+					}
+					return new Message(EMessageType.Normal, sb.ToString());
 				case EMacroMode.Remove:
 					if(Console.MacroState.RemoveMacro(name))
 					{
@@ -44,8 +53,12 @@
 						return new Message(EMessageType.Warning, Localization.Get(ELocKey.ResMacroNotRemoved, name));
 					}
 				case EMacroMode.Save:
+					if(!Console.MacroState.IsRecording)
+					{
+						return new Message(EMessageType.Error, Localization.Get(ELocKey.ResMacroNotRecording));
+					}
 					Console.MacroState.Save();
-					return null;
+					return new Message(EMessageType.Success, Localization.Get(ELocKey.ResMacroSaved));
 				default:
 					return new Message(EMessageType.Error, Console.Localization.Get(ELocKey.ResMacroModeUnknown, mode));
 			}

@@ -17,7 +17,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 		{
 			if(m_MacroState.IsRecording)
 			{
-				return new string[] { m_MacroState.Recorded.Name };
+				return new string[] { };
 			}
 			else
 			{
