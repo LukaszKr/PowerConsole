@@ -15,7 +15,6 @@ namespace ProceduralLevel.PowerConsole.Logic
 		public bool IsValid { get; private set; }
 
 		public virtual bool ObeyLock { get { return true; } }
-		protected LocalizationManager Localization { get { return Console.Localization; } }
 
 		public AConsoleCommand(ConsoleInstance console, string name, string description)
 		{
@@ -82,12 +81,12 @@ namespace ProceduralLevel.PowerConsole.Logic
 		#region Result Creation
 		protected Message CreateMessage(EMessageType message, ELocKey key)
 		{
-			return new Message(message, Localization.Get(key));
+			return new Message(message, Console.Localization.Get(key));
 		}
 
 		protected Message CreateMessage(EMessageType message, ELocKey key, params object[] args)
 		{
-			return new Message(message, Localization.Get(key, args));
+			return new Message(message, Console.Localization.Get(key, args));
 		}
 		#endregion
 
