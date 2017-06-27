@@ -24,15 +24,14 @@ namespace ProceduralLevel.PowerConsole.Logic
 		public readonly MacroState MacroState;
 
 		private List<AConsoleState> m_States;
+
 		public bool Locked { get; private set; }
-		public readonly bool IncludeDefaultCommands;
 
 		public readonly IPersistence Persistence;
 
 
 		public ConsoleInstance(LocalizationManager localizationProvider, IPersistence persistence, bool includeDefaultCommands = true)
 		{
-			IncludeDefaultCommands = includeDefaultCommands;
 			Localization = localizationProvider;
 			NameHint = new CommandNameHint(m_Commands);
 
@@ -66,6 +65,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 			Locked = locked;
 		}
 
+		#region Parsing
 		public List<Query> ParseQuery(string strQuery)
 		{
 			m_QueryParser.Parse(strQuery);
@@ -84,6 +84,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 				}
 			}
 		}
+		#endregion
 
 		#region Execution
 		public void Execute(string strQuery)

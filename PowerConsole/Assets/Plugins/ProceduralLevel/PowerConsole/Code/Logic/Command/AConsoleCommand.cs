@@ -24,7 +24,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 			Description = description;
 		}
 
-		public AConsoleCommand(ConsoleInstance console, ELocKey name, ELocKey description)
+		protected AConsoleCommand(ConsoleInstance console, ELocKey name, ELocKey description)
 			: this(console, console.Localization.Get(name), console.Localization.Get(description))
 		{
 		}

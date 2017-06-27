@@ -4,7 +4,7 @@
 	{
 		private Macro m_Macro;
 
-		public MacroPlayerCommand(ConsoleInstance console, Macro macro) : base(console, macro.Name, "")
+		public MacroPlayerCommand(ConsoleInstance console, Macro macro) : base(console, macro.Name, console.Localization.Get(ELocKey.CmdMacroPlayerDesc))
 		{
 			m_Macro = macro;
 		}

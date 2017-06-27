@@ -21,6 +21,7 @@
 		CmdPrintDesc,
 		CmdMacroName,
 		CmdMacroDesc,
+		CmdMacroPlayerDesc,
 		CmdClearHistoryName,
 		CmdClearHistoryDesc,
 
