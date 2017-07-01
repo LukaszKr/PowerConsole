@@ -1,4 +1,4 @@
-﻿using ProceduralLevel.Common.Serialization;
+﻿using ProceduralLevel.Serialization;
 using System;
 using System.Collections.Generic;
 
@@ -134,31 +134,31 @@ namespace ProceduralLevel.PowerConsole.Logic
 
 		private const string KEY_MACROS = "macros";
 
-		protected override void Serialize(IObjectSerializer serializer)
+		protected override void Serialize(AObject serializer)
 		{
 			base.Serialize(serializer);
-			
-			IArraySerializer macros = serializer.WriteArray(KEY_MACROS);
+
+			AArray macros = serializer.WriteArray(KEY_MACROS);
 			for(int x = 0; x < m_Macros.Count; x++)
 			{
 				macros.Write(m_Macros[x]);
 			}
 		}
 
-		protected override void Deserialize(IObjectSerializer serializer)
+		protected override void Deserialize(AObject serializer)
 		{
 			base.Deserialize(serializer);
 
 			Clear();
 
-			IArraySerializer macros = serializer.TryReadArray(KEY_MACROS);
+			AArray macros = serializer.TryReadArray(KEY_MACROS);
 			if(macros != null)
 			{
 				for(int x = 0; x < macros.Count; x++)
 				{
 					try
 					{
-						IObjectSerializer rawMacro = macros.ReadObject();
+						AObject rawMacro = macros.ReadObject();
 						Macro macro = new Macro();
 						macro.Deserialize(rawMacro);
 						RegisterMacro(macro);

@@ -1,4 +1,4 @@
-﻿using ProceduralLevel.Common.Serialization;
+﻿using ProceduralLevel.Serialization;
 using System.Collections.Generic;
 
 namespace ProceduralLevel.PowerConsole.Logic
@@ -61,22 +61,22 @@ namespace ProceduralLevel.PowerConsole.Logic
 
 		private const string KEY_HISTORY = "history";
 
-		protected override void Serialize(IObjectSerializer serializer)
+		protected override void Serialize(AObject serializer)
 		{
 			base.Serialize(serializer);
 
-			IArraySerializer entries = serializer.WriteArray(KEY_HISTORY);
+			AArray entries = serializer.WriteArray(KEY_HISTORY);
 			for(int x = 0; x < m_ExecutionHistory.Count; x++)
 			{
 				entries.Write(m_ExecutionHistory[x]);
 			}
 		}
 
-		protected override void Deserialize(IObjectSerializer serializer)
+		protected override void Deserialize(AObject serializer)
 		{
 			base.Deserialize(serializer);
 
-			IArraySerializer entries = serializer.TryReadArray(KEY_HISTORY);
+			AArray entries = serializer.TryReadArray(KEY_HISTORY);
 			if(entries != null)
 			{
 				for(int x = 0; x < entries.Count; x++)

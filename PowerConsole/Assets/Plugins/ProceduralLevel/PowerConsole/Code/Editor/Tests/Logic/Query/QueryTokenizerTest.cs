@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
-using ProceduralLevel.Common.Parsing;
 using ProceduralLevel.PowerConsole.Logic;
+using ProceduralLevel.Tokenize;
 using System.Collections.Generic;
 
 namespace ProceduralLevel.PowerConsole.Editor.Test.Logic.Queries

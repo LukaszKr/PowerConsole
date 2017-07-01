@@ -4,13 +4,15 @@ namespace ProceduralLevel.PowerConsole.Logic
 {
 	public class Query
 	{
+		public readonly bool IsOption;
 		public string RawQuery = "";
 		public readonly Argument Name;
 		public List<Argument> Arguments = new List<Argument>();
 
-		public Query(Argument commandName)
+		public Query(Argument commandName, bool isOption)
 		{
 			Name = commandName;
+			IsOption = isOption;
 		}
 
 		public object[] GetParsedValues()

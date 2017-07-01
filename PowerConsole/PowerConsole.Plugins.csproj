@@ -13,8 +13,7 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>GamePlugins:3</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.6.1f1</UnityVersion>
@@ -89,6 +88,12 @@
     <Reference Include="UnityCommon">
       <HintPath>Assets\Plugins\ProceduralLevel\UnityCommon\UnityCommon.dll</HintPath>
     </Reference>
+    <Reference Include="Serialization">
+      <HintPath>Assets\Plugins\ProceduralLevel\Common\Serialization.dll</HintPath>
+    </Reference>
+    <Reference Include="Tokenize">
+      <HintPath>Assets\Plugins\ProceduralLevel\Common\Tokenize.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Command\AConsoleCommand.cs" />
@@ -133,6 +138,7 @@
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Error\Value\InvalidValueFormatException.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Error\Value\MissingValueParserException.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Factory.cs" />
+    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\IPersistence.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Implementation\ClearHistoryCommand.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Implementation\Enum\EHelpCategory.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Implementation\HelpCommand.cs" />
@@ -141,7 +147,6 @@
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Implementation\Macro\MacroManagerCommand.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Implementation\Macro\MacroPlayerCommand.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Implementation\PrintCommand.cs" />
-    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\IPersistence.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Localization\ELocKey.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Localization\LocalizationManager.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\MockPersistence.cs" />
@@ -154,13 +159,13 @@
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\State\HistoryState.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\State\InputState.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\State\MacroState.cs" />
-    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\View\Implementation\AVisualCommand.cs" />
-    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\View\Implementation\ClearCommand.cs" />
-    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\View\Input\ConsoleInput.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\View\ConsoleView.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\View\Helper\ChainLabel\ChainLabelDrawer.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\View\Helper\ChainLabel\ChainLabelEntry.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\View\Helper\TextEditorHelper.cs" />
+    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\View\Implementation\AVisualCommand.cs" />
+    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\View\Implementation\ClearCommand.cs" />
+    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\View\Input\ConsoleInput.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\View\Input\InputAction.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\View\MessageView.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\View\Panel\AConsolePanel.cs" />
@@ -172,7 +177,6 @@
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\View\Style\StyleFactory.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\View\UnityPersistence.cs" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
 </Project>

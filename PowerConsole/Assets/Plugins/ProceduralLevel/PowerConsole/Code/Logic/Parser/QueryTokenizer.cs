@@ -1,35 +1,35 @@
-﻿using ProceduralLevel.Common.Parsing;
+﻿using ProceduralLevel.Tokenize;
 
 namespace ProceduralLevel.PowerConsole.Logic
 {
 	public class QueryTokenizer: ATokenizer
 	{
-		private readonly static string[] QUERY_DEFAULT = new string[]
+		private readonly static char[] QUERY_DEFAULT = new char[]
 		{
-			ParserConst.ESCAPE, ParserConst.QUOTE,
-			ParserConst.SEPARATOR, ParserConst.SPACE, ParserConst.ASSIGN
+			ParserConst.QUOTE, ParserConst.OPTION,
+			ParserConst.SEPARATOR, ParserConst.SPACE, ParserConst.ASSIGN,
 		};
 
-		private readonly static string[] QUERY_QUOTED = new string[]
+		private readonly static char[] QUERY_QUOTED = new char[]
 		{
-			ParserConst.QUOTE, ParserConst.ESCAPE
+			ParserConst.QUOTE
 		};
 
 		private bool m_Quoted;
 
-		public QueryTokenizer(bool autoTrim = false) : base(autoTrim, ParserConst.ESCAPE)
+		public QueryTokenizer(bool autoTrim = false) : base(autoTrim)
 		{
 		}
 
-		protected override void Reset()
+		protected override void Clear()
 		{
-			base.Reset();
+			base.Clear();
 			m_Quoted = false;
 		}
 
-		protected override string[] GetSeparators(Token token)
+		protected override char[] GetSeparators(Token token)
 		{
-			switch(token.Value)
+			switch(token.Value[0])
 			{
 				case ParserConst.QUOTE:
 					m_Quoted = !m_Quoted;
@@ -42,11 +42,11 @@ namespace ProceduralLevel.PowerConsole.Logic
 						return QUERY_DEFAULT;
 					}
 				default:
-					return GetDefaultSeparators();
+					return GetSeparators();
 			}
 		}
 
-		protected override string[] GetDefaultSeparators()
+		protected override char[] GetSeparators()
 		{
 			return QUERY_DEFAULT;
 		}

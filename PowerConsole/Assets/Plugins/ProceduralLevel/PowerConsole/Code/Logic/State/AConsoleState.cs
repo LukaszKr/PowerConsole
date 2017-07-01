@@ -1,5 +1,5 @@
-﻿using ProceduralLevel.Common.Parsing;
-using ProceduralLevel.Common.Serialization;
+﻿using ProceduralLevel.Serialization;
+using ProceduralLevel.Serialization.Json;
 
 namespace ProceduralLevel.PowerConsole.Logic
 {
@@ -25,7 +25,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 		{ 
 			if(IsPersistent)
 			{
-				JsonObjectSerializer json = new JsonObjectSerializer();
+				JsonObject json = new JsonObject();
 				Serialize(json);
 				persistence.WriteFile(SavePath+FILE_EXT, json.ToString());
 			}
@@ -38,12 +38,12 @@ namespace ProceduralLevel.PowerConsole.Logic
 				string data = persistence.ReadFile(SavePath+FILE_EXT);
 				if(!string.IsNullOrEmpty(data))
 				{
-					JsonObjectSerializer serializer = null;
+					JsonObject serializer = null;
 					try
 					{
-						JsonParser parser = new JsonParser();
-						parser.Parse(data);
-						serializer = new JsonObjectSerializer(parser.Flush());
+						//JsonParser parser = new JsonParser();
+						//parser.Parse(data);
+						//serializer = parser.Flush();
 					}
 					finally
 					{
@@ -56,9 +56,9 @@ namespace ProceduralLevel.PowerConsole.Logic
 			}
 		}
 
-		protected virtual void Deserialize(IObjectSerializer serializer) { }
+		protected virtual void Deserialize(AObject serializer) { }
 
-		protected virtual void Serialize(IObjectSerializer serializer) { }
+		protected virtual void Serialize(AObject serializer) { }
 		#endregion
 	}
 }

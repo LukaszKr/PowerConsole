@@ -1,21 +1,11 @@
-﻿using ProceduralLevel.Common.Parsing;
+﻿using ProceduralLevel.Tokenize;
 
 namespace ProceduralLevel.PowerConsole.Logic
 {
-	public class QueryParserException: ConsoleException
+	public class QueryParserException: ParserException<EQueryError>
 	{
-		public readonly EQueryError ErrorCode;
-		public readonly Token Token;
-
-		public QueryParserException(EQueryError errorCode, Token token) : base()
+		public QueryParserException(EQueryError errorCode, Token token) : base(errorCode, token)
 		{
-			ErrorCode = errorCode;
-			Token = token;
-		}
-
-		public override string ToString()
-		{
-			return string.Format("[ErrorCode: {0}, Token: {1}]", ErrorCode.ToString(), Token.ToString());
 		}
 	}
 }

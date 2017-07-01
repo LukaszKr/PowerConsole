@@ -91,5 +91,19 @@ namespace ProceduralLevel.PowerConsole.Editor.Test.Logic.Queries
 			TestHelper.CheckQuery(query, "test", 1);
 			TestHelper.CheckArgument(query.Arguments[0], "arg", "value");
 		}
+
+		[Test]
+		public void RepeatOption()
+		{
+			m_Parser.Parse("test -repeat 2");
+			List<Query> queries = m_Parser.Flush();
+
+			Assert.AreEqual(2, queries.Count);
+			Query query = queries[0];
+			TestHelper.CheckQuery(query, "test", 0);
+			query = queries[1];
+			TestHelper.CheckQuery(query, "repeat", 1, true);
+			TestHelper.CheckArgument(query.Arguments[0], "count", "2");
+		}
 	}
 }

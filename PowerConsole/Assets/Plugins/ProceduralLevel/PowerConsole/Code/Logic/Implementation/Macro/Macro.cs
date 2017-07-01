@@ -1,4 +1,4 @@
-﻿using ProceduralLevel.Common.Serialization;
+﻿using ProceduralLevel.Serialization;
 using System.Collections.Generic;
 
 namespace ProceduralLevel.PowerConsole.Logic
@@ -19,21 +19,21 @@ namespace ProceduralLevel.PowerConsole.Logic
 			Name = name;
 		}
 
-		public void Serialize(IObjectSerializer serializer)
+		public void Serialize(AObject serializer)
 		{
 			serializer.Write(KEY_NAME, Name);
-			IArraySerializer queries = serializer.WriteArray(KEY_QUERIES);
+			AArray queries = serializer.WriteArray(KEY_QUERIES);
 			for(int x = 0; x < Queries.Count; x++)
 			{
 				queries.Write(Queries[x]);
 			}
 		}
 
-		public void Deserialize(IObjectSerializer serializer)
+		public void Deserialize(AObject serializer)
 		{
 			Name = serializer.ReadString(KEY_NAME);
 			Queries.Clear();
-			IArraySerializer queries = serializer.ReadArray(KEY_QUERIES);
+			AArray queries = serializer.ReadArray(KEY_QUERIES);
 			for(int x = 0; x < queries.Count; x++)
 			{
 				Queries.Add(queries.ReadString());

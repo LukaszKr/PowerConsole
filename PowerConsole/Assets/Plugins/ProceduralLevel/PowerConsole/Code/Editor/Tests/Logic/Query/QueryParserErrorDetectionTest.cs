@@ -10,13 +10,19 @@ namespace ProceduralLevel.PowerConsole.Editor.Test.Logic.Queries
 		[Test]
 		public void NamedWithoutName()
 		{
-			TestHelper.CheckException(m_Parser, "test =value", EQueryError.NamedArgument_NoName);
+			TestHelper.CheckException(m_Parser, "test =value", EQueryError.NamedArgumentNoName);
 		}
 
 		[Test]
 		public void MismatchedQuotes()
 		{
-			TestHelper.CheckException(m_Parser, "\"missing quote", EQueryError.Quote_Mismatch);
+			TestHelper.CheckException(m_Parser, "\"missing quote", EQueryError.QuoteMismatch);
+		}
+
+		[Test]
+		public void OptionRequiresACommand()
+		{
+			TestHelper.CheckException(m_Parser, "-option 123", EQueryError.OptionWithoutCommand);
 		}
 	}
 }

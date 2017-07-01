@@ -1,4 +1,4 @@
-﻿using ProceduralLevel.Common.Parsing;
+﻿using ProceduralLevel.Tokenize;
 using System.Collections.Generic;
 
 namespace ProceduralLevel.PowerConsole.Logic
@@ -17,10 +17,20 @@ namespace ProceduralLevel.PowerConsole.Logic
 		protected override List<Query> Parse()
 		{
 			List<Query> queries = new List<Query>();
-
+			bool isOption;
 			while(HasTokens())
 			{
-				Query query = ParseQuery();
+				Token token = PeekToken();
+				isOption = (token.IsSeparator && token.Value[0] == ParserConst.OPTION);
+				if(isOption)
+				{
+					if(queries.Count == 0)
+					{
+						throw new QueryParserException(EQueryError.OptionWithoutCommand, token);
+					}
+					ConsumeToken();
+				}
+				Query query = ParseQuery(isOption);
 				if(query != null)
 				{
 					queries.Add(query);
@@ -31,7 +41,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 			return queries;
 		}
 
-		private Query ParseQuery()
+		private Query ParseQuery(bool isOption)
 		{
 			Query query = null;
 
@@ -39,42 +49,43 @@ namespace ProceduralLevel.PowerConsole.Logic
 			Argument argument = null;
 			Token token = null;
 			string rawValue = "";
-			bool escaped = false;
 
 			while(HasTokens())
 			{
-				token = ConsumeToken();
-				if(escaped)
+				token = PeekToken();
+				
+				switch(token.Value[0])
 				{
-					rawValue += token.Value;
-					escaped = false;
-					continue;
-				}
-				switch(token.Value)
-				{
-					case ParserConst.ESCAPE:
-						escaped = true;
-						break;
 					case ParserConst.SPACE:
 						argument = null;
+						ConsumeToken();
 						break;
 					case ParserConst.QUOTE:
 						quoted = !quoted;
+						ConsumeToken();
 						break;
-					case ParserConst.SEPARATOR:
+					case ParserConst.OPTION: //do not consume token
 						if(query != null)
 						{
 							query.RawQuery = rawValue;
 						}
 						return query;
+					case ParserConst.SEPARATOR:
+						if(query != null)
+						{
+							query.RawQuery = rawValue;
+						}
+						ConsumeToken();
+						return query;
 					case ParserConst.ASSIGN:
 						if(argument == null)
 						{
-							throw new QueryParserException(EQueryError.NamedArgument_NoName, token);
+							throw new QueryParserException(EQueryError.NamedArgumentNoName, token);
 						}
 						argument.Name = argument.Value;
 						argument.Value = string.Empty;
-						argument.Offset = token.Position+token.Value.Length;
+						argument.Offset = token.Column+token.Value.Length;
+						ConsumeToken();
 						break;
 					default:
 						if(query == null)
@@ -82,10 +93,10 @@ namespace ProceduralLevel.PowerConsole.Logic
 							Argument commandName = new Argument(true)
 							{
 								Name = ParserConst.NAME_ARGUMENT,
-								Offset = token.Position,
+								Offset = token.Column,
 								Value = token.Value
 							};
-							query = new Query(commandName);
+							query = new Query(commandName, isOption);
 						}
 						else
 						{
@@ -94,9 +105,10 @@ namespace ProceduralLevel.PowerConsole.Logic
 								argument = new Argument();
 								query.Arguments.Add(argument);
 							}
-							argument.Offset = token.Position;
+							argument.Offset = token.Column;
 							argument.Value = token.Value;
 						}
+						ConsumeToken();
 						break;
 				}
 				rawValue += token.Value;
@@ -108,13 +120,13 @@ namespace ProceduralLevel.PowerConsole.Logic
 			}
 			if(quoted)
 			{
-				throw new QueryParserException(EQueryError.Quote_Mismatch, token);
+				throw new QueryParserException(EQueryError.QuoteMismatch, token);
 			}
-			if(query != null && token.IsSeparator && token.Value == ParserConst.SPACE)
+			if(query != null && token.IsSeparator && token.Value[0] == ParserConst.SPACE)
 			{
 				query.Arguments.Add(new Argument() 
 				{ 
-					Offset = token.Position+token.Value.Length
+					Offset = token.Column+token.Value.Length
 				});
 			}
 			return query;

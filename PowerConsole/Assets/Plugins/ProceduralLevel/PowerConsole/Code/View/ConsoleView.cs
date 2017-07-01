@@ -81,9 +81,11 @@ namespace ProceduralLevel.PowerConsole.View
 			if(!m_Initialized)
 			{
 				m_Initialized = true;
+				LocalizationManager localization = new LocalizationManager();
+				localization.Load("en-us", LocalizationCSV.text);
 
 				Styles = new ConsoleStyles();
-				Console = new ConsoleInstance(new LocalizationManager(), new UnityPersistence());
+				Console = new ConsoleInstance(localization, new UnityPersistence());
 				UserInput = new ConsoleInput(Console);
 				
 				Details = new ConsoleDetailsPanel(this);

@@ -1,16 +1,17 @@
 ﻿using NUnit.Framework;
-using ProceduralLevel.Common.Parsing;
 using ProceduralLevel.PowerConsole.Logic;
+using ProceduralLevel.Tokenize;
 using System;
 
 namespace ProceduralLevel.PowerConsole.Editor.Test
 {
 	public static class TestHelper
 	{
-		public static void CheckQuery(Query query, string name, int argCount)
+		public static void CheckQuery(Query query, string name, int argCount, bool isOption = false)
 		{
 			Assert.AreEqual(name, query.Name.Value);
 			Assert.AreEqual(argCount, query.Arguments.Count);
+			Assert.AreEqual(isOption, query.IsOption);
 		}
 
 		public static void CheckArgument(Argument param, string name, string value)
