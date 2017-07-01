@@ -69,12 +69,16 @@ namespace ProceduralLevel.PowerConsole.Logic
 
 		private void RefreshCurrent()
 		{
-			if(Query != null && Argument != null && m_Iterator != null && m_Iterator.Current.Length > 0)
+			if(Query != null && Argument != null && m_Iterator != null)
 			{
 				Current = new HintHit(Console.InputState.UserInput, Argument, m_Iterator.Current);
 				if(Argument.IsCommandName)
 				{
 					Command = Console.FindCommand(m_Iterator.Current);
+				}
+				if(m_Iterator.Current.Length == 0)
+				{ 
+					IteratingHints = false;
 				}
 			}
 			else
@@ -100,8 +104,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 			{
 				m_Iterator.Restart();
 			}
-			IteratingHints = true;
-			RefreshCurrent();
+			SetToCurrentHint();
 		}
 
 		public void PrevHint()
@@ -110,7 +113,15 @@ namespace ProceduralLevel.PowerConsole.Logic
 			{
 				m_Iterator.Restart();
 			}
-			IteratingHints = true;
+			SetToCurrentHint();
+		}
+
+		private void SetToCurrentHint()
+		{
+			if(m_Iterator.Current != Argument.Value)
+			{
+				IteratingHints = true;
+			}
 			RefreshCurrent();
 		}
 
