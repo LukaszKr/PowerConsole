@@ -11,7 +11,7 @@
 "LogicParserError","Parser failed with given error: {0} around {1}"
 "UIInputSubmit","Execute"
 "CmdListName","list"
-"CmdListDesc","CmdListDesc"
+"CmdListDesc","List all commands and options"
 "CmdClearName","clear"
 "CmdClearDesc","Remove all messages fro console"
 "CmdPrintName","print"
