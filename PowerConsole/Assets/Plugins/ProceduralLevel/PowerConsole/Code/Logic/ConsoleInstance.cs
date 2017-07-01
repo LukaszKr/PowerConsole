@@ -29,7 +29,6 @@ namespace ProceduralLevel.PowerConsole.Logic
 
 		public readonly IPersistence Persistence;
 
-
 		public ConsoleInstance(LocalizationManager localizationProvider, IPersistence persistence, bool includeDefaultCommands = true)
 		{
 			Localization = localizationProvider;
@@ -87,14 +86,38 @@ namespace ProceduralLevel.PowerConsole.Logic
 		#endregion
 
 		#region Execution
+		public List<Query> ExecutionStack = new List<Query>();
+
 		public void Execute(string strQuery)
 		{
 			HistoryState.Add(strQuery);
 			List<Query> queries = ParseQuery(strQuery);
+			Execute(queries);
+		}
+
+		public void Execute(List<Query> queries)
+		{
 			for(int x = 0; x < queries.Count; x++)
 			{
 				Query query = queries[x];
-				Execute(query);
+				if(!query.IsOption)
+				{
+					ExecuteStack();
+				}
+				ExecutionStack.Add(query);
+			}
+			ExecuteStack();
+		}
+
+		private void ExecuteStack()
+		{
+			int count = ExecutionStack.Count-1;
+			for(int stackIndex = count; stackIndex >= 0; stackIndex--)
+			{
+				int lastIndex = ExecutionStack.Count-1;
+				Query executedQuery = ExecutionStack[lastIndex];
+				ExecutionStack.RemoveAt(lastIndex);
+				Execute(executedQuery);
 			}
 		}
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 
@@ -13,19 +14,27 @@ namespace ProceduralLevel.PowerConsole.Logic
 		public readonly string Description;
 		public CommandMethod Method { get; private set; }
 		public bool IsValid { get; private set; }
+		public bool IsOption {  get; private set; }
 
 		public virtual bool ObeyLock { get { return true; } }
 
-		public AConsoleCommand(ConsoleInstance console, string name, string description)
+		private HashSet<AConsoleCommand> m_ValidOptions = new HashSet<AConsoleCommand>();
+
+		public AConsoleCommand(ConsoleInstance console, string name, string description, bool isOption = false)
 		{
 			IsValid = true;
+			IsOption = isOption;
 			Console = console;
 			Name = name.ToLowerInvariant();
+			if(isOption)
+			{
+				Name = ParserConst.OPTION+name;
+			}
 			Description = description;
 		}
 
-		protected AConsoleCommand(ConsoleInstance console, ELocKey name, ELocKey description)
-			: this(console, console.Localization.Get(name), console.Localization.Get(description))
+		protected AConsoleCommand(ConsoleInstance console, ELocKey name, ELocKey description, bool isOption = false)
+			: this(console, console.Localization.Get(name), console.Localization.Get(description), isOption)
 		{
 		}
 
@@ -52,6 +61,23 @@ namespace ProceduralLevel.PowerConsole.Logic
 			object rawResult = Method.Command.Invoke(this, values);
 			return rawResult as Message;
 		}
+
+		#region Options
+		public bool IsOptionValid(AConsoleCommand option)
+		{
+			return m_ValidOptions.Contains(option);
+		}
+
+		public bool AddValidOption(AConsoleCommand option)
+		{
+			if(!IsOptionValid(option))
+			{
+				m_ValidOptions.Add(option);
+				return true;
+			}
+			return false;
+		}
+		#endregion
 
 		#region Getters
 		public virtual AHint GetHintFor(HintManager manager, int parameterIndex)

@@ -25,6 +25,9 @@
 		CmdClearHistoryName,
 		CmdClearHistoryDesc,
 
+		OptRepeatName,
+		OptRepeatDesc,
+
 		ResMacroModeUnknown,
 		ResMacroAlreadyRecording,
 		ResMacroRecording,
