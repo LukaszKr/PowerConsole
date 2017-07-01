@@ -9,9 +9,10 @@
 		LogicQueryTooManyArguments,
 		LogicQueryNotEnoughtArguments,
 		LogicConsoleLocked,
+		LogicOptionWithoutCommand,
+		LogicOptionInvalid,
 
 		UIInputSubmit,
-
 
 		CmdHelpName,
 		CmdHelpDesc,

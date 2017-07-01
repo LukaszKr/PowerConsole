@@ -15,6 +15,18 @@ namespace ProceduralLevel.PowerConsole.Logic
 			IsOption = isOption;
 		}
 
+		public AConsoleCommand GetCommand(ConsoleInstance console)
+		{
+			if(Name.Parsed != null)
+			{
+				return console.FindCommand(Name.Parsed as string);
+			}
+			else
+			{
+				return console.FindCommand(Name.Value);
+			}
+		}
+
 		public object[] GetParsedValues()
 		{
 			object[] parsed = new object[Arguments.Count];

@@ -15,7 +15,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 
 		public override string ToString()
 		{
-			return string.Format("[ExpectedType: {0}, RawValue: {1}", ExpectedType.Name, RawValue);
+			return string.Format("[ExpectedType: {0}, RawValue: {1}]", ExpectedType.Name, RawValue);
 		}
 	}
 }

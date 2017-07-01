@@ -18,7 +18,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 
 		public virtual bool ObeyLock { get { return true; } }
 
-		private HashSet<AConsoleCommand> m_ValidOptions = new HashSet<AConsoleCommand>();
+		private HashSet<Type> m_ValidOptions = new HashSet<Type>();
 
 		public AConsoleCommand(ConsoleInstance console, string name, string description, bool isOption = false)
 		{
@@ -59,16 +59,26 @@ namespace ProceduralLevel.PowerConsole.Logic
 		}
 
 		#region Options
-		public bool IsOptionValid(AConsoleCommand option)
+		public bool IsOptionValid<OptionType>() where OptionType: AConsoleCommand
 		{
-			return m_ValidOptions.Contains(option);
+			return m_ValidOptions.Contains(typeof(OptionType));
 		}
 
-		public bool AddValidOption(AConsoleCommand option)
+		public bool IsOptionValid(Type type)
 		{
-			if(!IsOptionValid(option))
+			return m_ValidOptions.Contains(type);
+		}
+
+		public bool AddValidOption<OptionType>() where OptionType: AConsoleCommand
+		{
+			return AddValidOption(typeof(OptionType));
+		}
+
+		public bool AddValidOption(Type type)
+		{
+			if(!IsOptionValid(type))
 			{
-				m_ValidOptions.Add(option);
+				m_ValidOptions.Add(type);
 				return true;
 			}
 			return false;

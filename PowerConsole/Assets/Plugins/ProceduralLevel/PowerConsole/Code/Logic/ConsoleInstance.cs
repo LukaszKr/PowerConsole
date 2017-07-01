@@ -30,7 +30,10 @@ namespace ProceduralLevel.PowerConsole.Logic
 
 		public readonly IPersistence Persistence;
 
-		public ConsoleInstance(LocalizationManager localizationProvider, IPersistence persistence, bool includeDefaultCommands = true)
+		private List<AConsoleCommand> m_DefaultOptions;
+
+
+		public ConsoleInstance(LocalizationManager localizationProvider, IPersistence persistence)
 		{
 			Localization = localizationProvider;
 			NameHint = new CommandNameHint(m_Commands, false);
@@ -55,12 +58,17 @@ namespace ProceduralLevel.PowerConsole.Logic
 				state.BindEvents();
 			}
 
-			if(includeDefaultCommands)
+			m_DefaultOptions = new List<AConsoleCommand>()
 			{
-				Factory.CreateDefaultCommands(this);
-			}
+				new RepeatOption(this)
+			};
 
 			InputState.SetInput("", 0);
+		}
+
+		public void SetupDefault()
+		{
+			Factory.CreateDefaultCommands(this);
 		}
 
 		public void SetLocked(bool locked)
@@ -107,6 +115,25 @@ namespace ProceduralLevel.PowerConsole.Logic
 				if(!query.IsOption && (x == queries.Count-1 || !queries[x+1].IsOption))
 				{
 					ExecuteStack(ExecutionStack.Count > 1);
+				}
+				if(query.IsOption)
+				{
+					if(ExecutionStack.Count == 0)
+					{
+						OnMessage.Invoke(new Message(EMessageType.Error, Localization.Get(ELocKey.LogicOptionWithoutCommand)));
+						return;
+					}
+					else
+					{
+						AConsoleCommand option = query.GetCommand(this);
+						AConsoleCommand command = ExecutionStack[0].GetCommand(this);
+						if(!command.IsOptionValid(option.GetType()))
+						{
+							string message = Localization.Get(ELocKey.LogicOptionInvalid, option.Name, command.Name);
+							OnMessage.Invoke(new Message(EMessageType.Error, message));
+							return;
+						}
+					}
 				}
 				ExecutionStack.Add(query);
 			}
@@ -211,6 +238,11 @@ namespace ProceduralLevel.PowerConsole.Logic
 			m_Commands.Add(command);
 			NameHint.InvalidateCache();
 			OptionHint.InvalidateCache();
+
+			for(int x = 0; x < m_DefaultOptions.Count; x++)
+			{
+				command.AddValidOption(m_DefaultOptions[x].GetType());
+			}
 		}
 
 		public bool RemoveCommand(AConsoleCommand command)
@@ -257,6 +289,15 @@ namespace ProceduralLevel.PowerConsole.Logic
 				}
 			}
 			return -1;
+		}
+
+		public void AddCommonOption(AConsoleCommand command)
+		{
+			if(command == null || !command.IsOption)
+			{
+				throw new ArgumentException();
+			}
+			m_DefaultOptions.Add(command);
 		}
 		#endregion
 	}

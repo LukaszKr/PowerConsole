@@ -15,6 +15,7 @@ namespace ProceduralLevel.PowerConsole.View
 		public AVisualCommand(ConsoleView view, ELocKey name, ELocKey description, bool isOption = false) 
 			: base(view.Console, name, description, isOption)
 		{
+			m_View = view;
 		}
 	}
 }

@@ -60,8 +60,18 @@ namespace ProceduralLevel.PowerConsole.Logic
 			Command = null;
 			Query = null;
 			Argument = null;
+			Issues.Clear();
 
-			List<Query> queries = Console.ParseQuery(UserInput);
+			List<Query> queries;
+			try
+			{
+				queries = Console.ParseQuery(UserInput);
+			}
+			catch(Exception e)
+			{
+				queries = new List<Query>();
+				Issues.Add(e);
+			}
 
 			for(int x = 0; x < queries.Count; x++)
 			{
