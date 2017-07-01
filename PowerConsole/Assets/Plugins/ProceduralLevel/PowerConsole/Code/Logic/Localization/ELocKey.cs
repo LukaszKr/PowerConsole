@@ -11,6 +11,7 @@
 		LogicConsoleLocked,
 		LogicOptionWithoutCommand,
 		LogicOptionInvalid,
+		LogicParserError,
 
 		UIInputSubmit,
 
