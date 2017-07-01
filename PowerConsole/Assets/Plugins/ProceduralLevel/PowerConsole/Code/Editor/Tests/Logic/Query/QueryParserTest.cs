@@ -104,7 +104,7 @@ namespace ProceduralLevel.PowerConsole.Editor.Test.Logic.Queries
 			TestHelper.CheckQuery(query, "test", 0);
 			query = queries[1];
 			TestHelper.CheckQuery(query, "repeat", 1, true);
-			TestHelper.CheckArgument(query.Arguments[0], "count", "2");
+			TestHelper.CheckArgument(query.Arguments[0], null, "2");
 		}
 	}
 }
