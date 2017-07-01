@@ -6,9 +6,15 @@ namespace ProceduralLevel.PowerConsole.View
 	{
 		protected ConsoleView m_View;
 
-		public AVisualCommand(ConsoleView view, string name, string description) : base(view.Console, name, description)
+		public AVisualCommand(ConsoleView view, string name, string description, bool isOption = false) 
+			: base(view.Console, name, description, isOption)
 		{
 			m_View = view;
+		}
+
+		public AVisualCommand(ConsoleView view, ELocKey name, ELocKey description, bool isOption = false) 
+			: base(view.Console, name, description, isOption)
+		{
 		}
 	}
 }

@@ -4,7 +4,7 @@ namespace ProceduralLevel.PowerConsole.View
 {
 	public class ClearCommand: AVisualCommand
 	{
-		public ClearCommand(ConsoleView view, string name, string description) : base(view, name, description)
+		public ClearCommand(ConsoleView view) : base(view, ELocKey.CmdClearName, ELocKey.CmdClearDesc)
 		{
 		}
 
