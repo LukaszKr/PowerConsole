@@ -4,7 +4,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 {
 	public class RepeatOption: AConsoleCommand
 	{
-		protected RepeatOption(ConsoleInstance console) 
+		public RepeatOption(ConsoleInstance console) 
 			: base(console, ELocKey.OptRepeatName, ELocKey.OptRepeatDesc, true)
 		{
 		}
@@ -12,9 +12,12 @@ namespace ProceduralLevel.PowerConsole.Logic
 		public Message Command(int count)
 		{
 			List<Query> queries = Console.ExecutionStack;
-			for(int x = queries.Count-1; x >= 0; x--)
+			for(int repeatIndex = 0; repeatIndex < count; repeatIndex++)
 			{
-				Console.Execute(queries[x]);
+				for(int queryIndex = queries.Count-1; queryIndex >= 0; queryIndex--)
+				{
+					Console.Execute(queries[queryIndex]);
+				}
 			}
 			return null;
 		}

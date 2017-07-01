@@ -48,7 +48,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 				}
 				else if(argument.IsCommandName)
 				{
-					Hint = Console.NameHint;
+					Hint = (query.IsOption? Console.OptionHint: Console.NameHint);
 					m_Iterator = Hint.GetIterator(argument.Value);
 					Command = Console.FindCommand(m_Iterator.Current);
 				}

@@ -17,6 +17,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 		public readonly ValueParser ValueParser = new ValueParser();
 		public readonly HintManager Hints = new HintManager();
 		public readonly CommandNameHint NameHint;
+		public readonly CommandNameHint OptionHint;
 
 		public readonly InputState InputState;
 		public readonly HintState HintState;
@@ -32,7 +33,8 @@ namespace ProceduralLevel.PowerConsole.Logic
 		public ConsoleInstance(LocalizationManager localizationProvider, IPersistence persistence, bool includeDefaultCommands = true)
 		{
 			Localization = localizationProvider;
-			NameHint = new CommandNameHint(m_Commands);
+			NameHint = new CommandNameHint(m_Commands, false);
+			OptionHint = new CommandNameHint(m_Commands, true);
 
 			InputState = new InputState(this);
 			HintState = new HintState(this);
@@ -100,19 +102,19 @@ namespace ProceduralLevel.PowerConsole.Logic
 			for(int x = 0; x < queries.Count; x++)
 			{
 				Query query = queries[x];
-				if(!query.IsOption)
+				if(!query.IsOption && (x == queries.Count-1 || !queries[x+1].IsOption))
 				{
-					ExecuteStack();
+					ExecuteStack(ExecutionStack.Count > 1);
 				}
 				ExecutionStack.Add(query);
 			}
-			ExecuteStack();
+			ExecuteStack(ExecutionStack.Count > 1);
 		}
 
-		private void ExecuteStack()
+		private void ExecuteStack(bool hasOptions)
 		{
 			int count = ExecutionStack.Count-1;
-			for(int stackIndex = count; stackIndex >= 0; stackIndex--)
+			for(int stackIndex = count; stackIndex >= (hasOptions? 1: 0); stackIndex--)
 			{
 				int lastIndex = ExecutionStack.Count-1;
 				Query executedQuery = ExecutionStack[lastIndex];
@@ -206,6 +208,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 			}
 			m_Commands.Add(command);
 			NameHint.InvalidateCache();
+			OptionHint.InvalidateCache();
 		}
 
 		public bool RemoveCommand(AConsoleCommand command)
@@ -220,6 +223,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 			{
 				m_Commands.RemoveAt(index);
 				NameHint.InvalidateCache();
+				OptionHint.InvalidateCache();
 				return true;
 			}
 			return false;

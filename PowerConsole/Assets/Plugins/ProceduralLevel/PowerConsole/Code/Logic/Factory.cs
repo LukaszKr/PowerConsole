@@ -12,7 +12,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 			console.AddCommand(new PrintCommand(console));
 			console.AddCommand(new MacroManagerCommand(console));
 
-			console.ValueParser.CreateEnumParser<EHelpCategory>();
+			console.AddCommand(new RepeatOption(console));
 		}
 
 		public static CommandMethod CreateCommandMethod(MethodInfo info)

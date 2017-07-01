@@ -26,10 +26,6 @@ namespace ProceduralLevel.PowerConsole.Logic
 			IsOption = isOption;
 			Console = console;
 			Name = name.ToLowerInvariant();
-			if(isOption)
-			{
-				Name = ParserConst.OPTION+name;
-			}
 			Description = description;
 		}
 

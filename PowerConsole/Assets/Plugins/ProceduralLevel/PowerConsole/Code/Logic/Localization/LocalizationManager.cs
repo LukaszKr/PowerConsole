@@ -41,7 +41,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 		{
 			string value = key.ToString();
 			m_Translations.TryGetValue(value, out value);
-			return value?? key.ToString();
+			return value?? key.ToString().ToLower();
 		}
 
 		public string Get(ELocKey key, params object[] args)
