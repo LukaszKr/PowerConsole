@@ -24,6 +24,8 @@
 		CmdMacroPlayerDesc,
 		CmdClearHistoryName,
 		CmdClearHistoryDesc,
+		CmdListName,
+		CmdListDesc,
 
 		OptRepeatName,
 		OptRepeatDesc,

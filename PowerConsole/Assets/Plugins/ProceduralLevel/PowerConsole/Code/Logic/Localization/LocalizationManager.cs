@@ -96,7 +96,8 @@ namespace ProceduralLevel.PowerConsole.Logic
 
 		public string Get(QueryParserException e)
 		{
-			return Get(ELocKey.LogicParserError, e.ErrorCode, e.Token.ToString());
+			return Get(ELocKey.LogicParserError, 
+				e.ErrorCode, string.Format("['{0}', Position: {1}]", e.Token.Value, e.Token.Column));
 		}
 	}
 }

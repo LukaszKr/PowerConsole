@@ -10,6 +10,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 			console.AddCommand(new ClearHistoryCommand(console));
 			console.AddCommand(new PrintCommand(console));
 			console.AddCommand(new MacroManagerCommand(console));
+			console.AddCommand(new ListCommand(console));
 
 			console.AddCommand(new RepeatOption(console));
 		}

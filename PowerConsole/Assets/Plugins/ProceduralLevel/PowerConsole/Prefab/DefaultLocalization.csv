@@ -10,6 +10,8 @@
 "LogicOptionInvalid","Command {1} doesn't accept {0} option"
 "LogicParserError","Parser failed with given error: {0} around {1}"
 "UIInputSubmit","Execute"
+"CmdListName","list"
+"CmdListDesc","CmdListDesc"
 "CmdClearName","clear"
 "CmdClearDesc","Remove all messages fro console"
 "CmdPrintName","print"

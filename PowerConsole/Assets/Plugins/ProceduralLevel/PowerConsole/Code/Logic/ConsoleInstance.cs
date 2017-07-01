@@ -299,6 +299,11 @@ namespace ProceduralLevel.PowerConsole.Logic
 			}
 			m_DefaultOptions.Add(command);
 		}
+
+		public IEnumerator<AConsoleCommand> GetCommandEnumerator()
+		{
+			return m_Commands.GetEnumerator();
+		}
 		#endregion
 	}
 }
