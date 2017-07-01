@@ -16,20 +16,22 @@ namespace ProceduralLevel.PowerConsole.Logic
 			CSVParser parser = new CSVParser();
 			parser.Parse(rawCSV);
 			CSVObject csv = parser.Flush();
-			
-			int keyCol = csv[0].IndexOf(KEY);
-			int langCol = csv[0].IndexOf(lang);
-			if(langCol < 0 || keyCol < 0)
+			if(csv != null)
 			{
-				return false;
-			}
+				int keyCol = csv[0].IndexOf(KEY);
+				int langCol = csv[0].IndexOf(lang);
+				if(langCol < 0 || keyCol < 0)
+				{
+					return false;
+				}
 
-			for(int x = 0; x < csv.Count; x++)
-			{
-				CSVEntry entry = csv[x];
-				string key = entry[keyCol];
-				string value = entry[langCol];
-				m_Translations[key] = value;
+				for(int x = 0; x < csv.Count; x++)
+				{
+					CSVEntry entry = csv[x];
+					string key = entry[keyCol];
+					string value = entry[langCol];
+					m_Translations[key] = value;
+				}
 			}
 
 			return true;
