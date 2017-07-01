@@ -92,34 +92,34 @@ namespace ProceduralLevel.PowerConsole.View
 		#region Query
 		private void NamedArgumentNotFoundHandler(NamedArgumentNotFoundException e, out string text)
 		{
-			text = Localization.Get(ELocKey.LogicQueryNamedArgumentNotFound, e.Name);
+			text = Localization.Get(e);
 		}
 
 		private void NotEnoughtArgumentsHandler(NotEnoughtArgumentsException e, out string text)
 		{
-			text = Localization.Get(ELocKey.LogicQueryNotEnoughtArguments, e.Required, e.Parameters.Count);
+			text = Localization.Get(e);
 		}
 
 		private void QueryParserHandler(QueryParserException e, out string text)
 		{
-			text = Localization.Get(ELocKey.LogicParserError, e.ErrorCode, e.Token);
+			text = Localization.Get(e);
 		}
 
 		private void TooManyArgumentsHandler(TooManyArgumentsException e, out string text)
 		{
-			text = Localization.Get(ELocKey.LogicQueryTooManyArguments, e.Expected, e.Received);
+			text = Localization.Get(e);
 		}
 		#endregion
 
 		#region Value
 		private void InvalidValueFormatHandler(InvalidValueFormatException e, out string text)
 		{
-			text = Localization.Get(ELocKey.LogicParsingInvalidFormat, e.ExpectedType, e.RawValue);
+			text = Localization.Get(e);
 		}
 
 		private void MissingValueParserHandler(MissingValueParserException e, out string text)
 		{
-			text = Localization.Get(ELocKey.LogicParsingMissingParser, e.ExpectedType, e.RawValue);
+			text = Localization.Get(e);
 		}
 		#endregion
 	}

@@ -18,11 +18,11 @@ namespace ProceduralLevel.PowerConsole.Logic
 			CSVObject csv = parser.Flush();
 			if(csv != null)
 			{
-				int keyCol = csv[0].IndexOf(KEY);
-				int langCol = csv[0].IndexOf(lang);
+				int keyCol = csv.Header.IndexOf(KEY);
+				int langCol = csv.Header.IndexOf(lang);
 				if(langCol < 0 || keyCol < 0)
 				{
-					return false;
+					throw new Exception("Could not find required columns");
 				}
 
 				for(int x = 0; x < csv.Count; x++)
@@ -39,9 +39,10 @@ namespace ProceduralLevel.PowerConsole.Logic
 
 		public string Get(ELocKey key)
 		{
-			string value = key.ToString();
-			m_Translations.TryGetValue(value, out value);
-			return value?? key.ToString().ToLower();
+			string strKey = key.ToString();
+			string value;
+			m_Translations.TryGetValue(strKey, out value);
+			return value?? strKey.ToLower();
 		}
 
 		public string Get(ELocKey key, params object[] args)
@@ -66,6 +67,36 @@ namespace ProceduralLevel.PowerConsole.Logic
 				throw new NotSupportedException();
 			}
 			return string.Format(ENUM_FORMAT, type.Name, value.ToString());
+		}
+
+		public string Get(NotEnoughtArgumentsException e)
+		{
+			return Get(ELocKey.LogicQueryNotEnoughtArguments, e.Required, e.Parameters.Count);
+		}
+
+		public string Get(NamedArgumentNotFoundException e)
+		{
+			return Get(ELocKey.LogicQueryNamedArgumentNotFound, e.Name);
+		}
+
+		public string Get(TooManyArgumentsException e)
+		{
+			return Get(ELocKey.LogicQueryTooManyArguments, e.Received, e.Expected);
+		}
+
+		public string Get(MissingValueParserException e)
+		{
+			return Get(ELocKey.LogicParsingMissingParser, e.RawValue, e.ExpectedType.Name);
+		}
+
+		public string Get(InvalidValueFormatException e)
+		{
+			return Get(ELocKey.LogicParsingInvalidFormat, e.RawValue, e.ExpectedType.Name);
+		}
+
+		public string Get(QueryParserException e)
+		{
+			return Get(ELocKey.LogicParserError, e.ErrorCode, e.Token.ToString());
 		}
 	}
 }

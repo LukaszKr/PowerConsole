@@ -13,21 +13,79 @@ namespace ProceduralLevel.PowerConsole.View
 	[CustomEditor(typeof(ConsoleView))]
 	public class ConsoleViewEditor: AExtendedEditor<ConsoleView>
 	{
+		private CSVObject m_CSV;
+
+		private int m_EditedHeader = 0;
+		private string[] m_Headers;
+
 		protected override void Initialize()
 		{
 			DrawDefault = true;
+			m_CSV = LoadCSV();
+		}
+
+		private CSVObject LoadCSV()
+		{
+			m_Headers = null;
+			TextAsset asset = Target.LocalizationCSV;
+			if(asset != null)
+			{
+				string path = AssetDatabase.GetAssetPath(asset);
+				CSVObject csv = LoadCSV(path);
+				if(csv != null)
+				{
+					m_Headers = new string[csv.Header.Size-1];
+					for(int x = 1; x < csv.Header.Size; x++)
+					{
+						m_Headers[x-1] = csv.Header[x];
+					}
+				}
+				return csv;
+			}
+			return null;
 		}
 
 		protected override void Draw()
 		{
-			if(GUILayout.Button("Update Localization"))
+			EditorGUILayout.BeginHorizontal();
+			if(GUILayout.Button("Reload"))
 			{
-				TextAsset asset = Target.LocalizationCSV;
-				string path = AssetDatabase.GetAssetPath(asset);
-				CSVObject csv = LoadCSV(path);
-				AddMissingKeys(csv);
-				SaveCSV(asset, path, csv);
+				m_CSV = LoadCSV();
+				AddMissingKeys(m_CSV);
+				SaveCSV();
 			}
+			if(GUILayout.Button("Save"))
+			{
+				SaveCSV();
+			}
+			EditorGUILayout.EndHorizontal();
+
+			if(m_CSV != null)
+			{
+				DrawLocalizationEntries();
+			}
+		}
+
+		private void DrawLocalizationEntries()
+		{
+			m_EditedHeader = EditorGUILayout.Popup(m_EditedHeader, m_Headers);
+			int column = m_EditedHeader+1;
+			EditorGUILayout.BeginVertical();
+
+			for(int x = 0; x < m_CSV.Count; x++)
+			{
+				EditorGUILayout.BeginHorizontal();
+				CSVEntry entry = m_CSV[x];
+				string oldValue = entry[column];
+				entry[column] = EditorGUILayout.DelayedTextField(entry[0], entry[column]);
+				if(entry[column] != oldValue)
+				{
+					SaveCSV();
+				}
+				EditorGUILayout.EndHorizontal();
+			}
+
+			EditorGUILayout.EndVertical();
 		}
 
 		private void AddMissingKeys(CSVObject csv)
@@ -53,17 +111,23 @@ namespace ProceduralLevel.PowerConsole.View
 			CSVParser parser = new CSVParser();
 			for(int x = 0; x < lines.Length; x++)
 			{
-				parser.Parse(lines[x]);
+				parser.ParseLine(lines[x]);
 			}
 
 			CSVObject csv = parser.Flush();
 
-			
-			csv.AddColumns("key", "en-us");
+			if(csv == null)
+			{
+				csv = new CSVObject();
+			}
+			csv.AddHeaders("key", "en-us");
 
 			string[] keyNames = Enum.GetNames(typeof(ELocKey));
 			HashSet<string> knownNames = new HashSet<string>();
-
+			for(int x = 0; x < csv.Count; x++)
+			{
+				knownNames.Add(csv[x][0]);
+			}
 
 			for(int x = 0; x < keyNames.Length; x++)
 			{
@@ -82,13 +146,14 @@ namespace ProceduralLevel.PowerConsole.View
 			return csv;
 		}
 
-		private void SaveCSV(TextAsset asset, string path, CSVObject csv)
+		private void SaveCSV()
 		{
 			if(Provider.onlineState != OnlineState.Offline)
 			{
-				Provider.Checkout(asset, CheckoutMode.Asset).Wait();
+				Provider.Checkout(Target.LocalizationCSV, CheckoutMode.Asset).Wait();
 			}
-			File.WriteAllText(path, csv.ToString());
+			string path = AssetDatabase.GetAssetPath(Target.LocalizationCSV);
+			File.WriteAllText(path, m_CSV.ToString());
 		}
 	}
 }

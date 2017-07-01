@@ -187,17 +187,17 @@ namespace ProceduralLevel.PowerConsole.Logic
 			}
 			catch(NotEnoughtArgumentsException e)
 			{
-				OnMessage.Invoke(new Message(EMessageType.Error, Localization.Get(ELocKey.LogicQueryNotEnoughtArguments, method.ParameterCount-e.Parameters.Count)));
+				OnMessage.Invoke(new Message(EMessageType.Error, Localization.Get(e)));
 				return false;
 			}
 			catch(NamedArgumentNotFoundException e)
 			{
-				OnMessage.Invoke(new Message(EMessageType.Error, Localization.Get(ELocKey.LogicQueryNamedArgumentNotFound, e.Name, e.Value)));
+				OnMessage.Invoke(new Message(EMessageType.Error, Localization.Get(e)));
 				return false;
 			}
 			catch(TooManyArgumentsException e)
 			{
-				OnMessage.Invoke(new Message(EMessageType.Error, Localization.Get(ELocKey.LogicQueryTooManyArguments, e.Received, e.Expected)));
+				OnMessage.Invoke(new Message(EMessageType.Error, Localization.Get(e)));
 				return false;
 			}
 			return true;
@@ -211,12 +211,12 @@ namespace ProceduralLevel.PowerConsole.Logic
 			}
 			catch(MissingValueParserException e)
 			{
-				OnMessage.Invoke(new Message(EMessageType.Error, Localization.Get(ELocKey.LogicParsingMissingParser, e.RawValue, e.ExpectedType)));
+				OnMessage.Invoke(new Message(EMessageType.Error, Localization.Get(e)));
 				return false;
 			}
 			catch(InvalidValueFormatException e)
 			{
-				OnMessage.Invoke(new Message(EMessageType.Error, Localization.Get(ELocKey.LogicParsingInvalidFormat, e.RawValue, e.ExpectedType)));
+				OnMessage.Invoke(new Message(EMessageType.Error,  Localization.Get(e)));
 				return false;
 			}
 			return true;

@@ -15,8 +15,6 @@
 
 		UIInputSubmit,
 
-		CmdHelpName,
-		CmdHelpDesc,
 		CmdClearName,
 		CmdClearDesc,
 		CmdPrintName,
@@ -41,9 +39,5 @@
 		ResMacroList,
 
 		ResClearHistory,
-
-		ResHelpInput,
-		ResHelpMacro,
-		ResHelpUnknownTopic,
 	}
 }

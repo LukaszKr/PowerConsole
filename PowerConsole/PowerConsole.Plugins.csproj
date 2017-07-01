@@ -142,8 +142,6 @@
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Implementation\Option\RepeatOption.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\IPersistence.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Implementation\ClearHistoryCommand.cs" />
-    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Implementation\Enum\EHelpCategory.cs" />
-    <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Implementation\HelpCommand.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Implementation\Macro\EMacroMode.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Implementation\Macro\Macro.cs" />
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Implementation\Macro\MacroManagerCommand.cs" />

@@ -7,7 +7,6 @@ namespace ProceduralLevel.PowerConsole.Logic
 	{
 		public static void CreateDefaultCommands(ConsoleInstance console)
 		{
-			console.AddCommand(new HelpCommand(console));
 			console.AddCommand(new ClearHistoryCommand(console));
 			console.AddCommand(new PrintCommand(console));
 			console.AddCommand(new MacroManagerCommand(console));
