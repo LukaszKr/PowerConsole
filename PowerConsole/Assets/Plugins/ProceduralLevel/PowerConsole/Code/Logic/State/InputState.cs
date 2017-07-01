@@ -37,8 +37,8 @@ namespace ProceduralLevel.PowerConsole.Logic
 		public InputState(ConsoleInstance console)
 			: base(console)
 		{
-			UserInput = "";
-			Cursor = 0;
+			UserInput = null;
+			Cursor = -1;
 			m_HistoryIndex = -1;
 		}
 

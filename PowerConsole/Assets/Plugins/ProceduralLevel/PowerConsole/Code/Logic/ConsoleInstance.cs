@@ -59,6 +59,8 @@ namespace ProceduralLevel.PowerConsole.Logic
 			{
 				Factory.CreateDefaultCommands(this);
 			}
+
+			InputState.SetInput("", 0);
 		}
 
 		public void SetLocked(bool locked)

@@ -59,9 +59,10 @@ namespace ProceduralLevel.PowerConsole.Logic
 			}
 			else
 			{
+				Command = null;
+				Query = null;
 				Hint = Console.NameHint;
 				m_Iterator = Hint.GetIterator(string.Empty);
-				Clear();
 			}
 			RefreshCurrent();
 		}
@@ -71,6 +72,10 @@ namespace ProceduralLevel.PowerConsole.Logic
 			if(Query != null && Argument != null && m_Iterator != null && m_Iterator.Current.Length > 0)
 			{
 				Current = new HintHit(Console.InputState.UserInput, Argument, m_Iterator.Current);
+				if(Argument.IsCommandName)
+				{
+					Command = Console.FindCommand(m_Iterator.Current);
+				}
 			}
 			else
 			{

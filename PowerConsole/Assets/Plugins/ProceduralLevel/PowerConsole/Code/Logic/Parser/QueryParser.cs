@@ -37,6 +37,16 @@ namespace ProceduralLevel.PowerConsole.Logic
 				}
 			}
 
+			if(queries.Count == 0)
+			{
+				Argument commandName = new Argument(true)
+				{
+					Name = ParserConst.NAME_ARGUMENT,
+					Offset = 0,
+					Value = string.Empty
+				};
+				queries.Add(new Query(commandName, false));
+			}
 
 			return queries;
 		}

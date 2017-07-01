@@ -14,7 +14,8 @@ namespace ProceduralLevel.PowerConsole.Editor.Test.Logic.Queries
 			m_Parser.Parse(" ");
 			List<Query> queries = m_Parser.Flush();
 
-			Assert.AreEqual(0, queries.Count);
+			Assert.AreEqual(1, queries.Count);
+			TestHelper.CheckQuery(queries[0], "", 0);
 		}
 
 		[Test]

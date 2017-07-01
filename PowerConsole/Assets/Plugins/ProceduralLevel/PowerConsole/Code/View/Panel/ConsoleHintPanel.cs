@@ -28,6 +28,7 @@ namespace ProceduralLevel.PowerConsole.View
 		public ConsoleHintPanel(ConsoleView consoleView) : base(consoleView)
 		{
 			Hint.OnHintChanged.AddListener(HintChangedHandler);
+			HintChangedHandler(Hint.Current);
 		}
 
 		protected override void Initialize()
