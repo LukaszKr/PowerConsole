@@ -7,6 +7,7 @@ namespace ProceduralLevel.PowerConsole.View
 {
 	public class ConsoleInput
 	{
+		private KeyCode[] m_Toggle = new KeyCode[] { KeyCode.BackQuote };
 		private KeyCode[] m_Execute = new KeyCode[] { KeyCode.Return };
 		private KeyCode[] m_NextHint = new KeyCode[] { KeyCode.Tab };
 		private KeyCode[] m_NextHistory = new KeyCode[] { KeyCode.UpArrow };
@@ -14,16 +15,19 @@ namespace ProceduralLevel.PowerConsole.View
 
 		private List<InputAction> m_Actions = new List<InputAction>();
 
+		private ConsoleView m_View;
 		private ConsoleInstance m_Console;
 
-		public ConsoleInput(ConsoleInstance console)
+		public ConsoleInput(ConsoleView view)
 		{
-			m_Console = console;
+			m_View = view;
+			m_Console = view.Console;
 
-			m_Actions.Add(new InputAction(m_Execute, console.InputState.Execute));
-			m_Actions.Add(new InputAction(m_NextHint, console.HintState.NextHint));
-			m_Actions.Add(new InputAction(m_PrevHistory, console.InputState.PrevHistory));
-			m_Actions.Add(new InputAction(m_NextHistory, console.InputState.NextHistory));
+			m_Actions.Add(new InputAction(m_Execute, m_Console.InputState.Execute));
+			m_Actions.Add(new InputAction(m_NextHint, m_Console.HintState.NextHint));
+			m_Actions.Add(new InputAction(m_PrevHistory, m_Console.InputState.PrevHistory));
+			m_Actions.Add(new InputAction(m_NextHistory, m_Console.InputState.NextHistory));
+			m_Actions.Add(new InputAction(m_Toggle, m_View.ToggleActive));
 		}
 
 		public void Update()
@@ -34,18 +38,6 @@ namespace ProceduralLevel.PowerConsole.View
 				TryInvoke(action.Keys, action.Callback);
 			}
 		}
-
-		#region Callback
-		private void Execute()
-		{
-			m_Console.InputState.Execute();
-		}
-
-		private void NextHint()
-		{
-			m_Console.HintState.NextHint();
-		}
-		#endregion
 
 		private void TryInvoke(KeyCode[] keys, Action action)
 		{

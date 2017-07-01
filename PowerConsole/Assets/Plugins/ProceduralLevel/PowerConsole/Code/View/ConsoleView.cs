@@ -26,6 +26,7 @@ namespace ProceduralLevel.PowerConsole.View
 		public bool DisplayHints = true;
 		public bool DisplayIssues = true;
 		public bool InitializeDefaults = true;
+		public bool Active = false;
 
 		public TextAsset LocalizationCSV;
 
@@ -42,6 +43,11 @@ namespace ProceduralLevel.PowerConsole.View
 			//after recompiling, restart the console
 			TryInitialize();
 			UserInput.Update();
+
+			if(!Active)
+			{
+				return;
+			}
 
 			//has to be done in OnGUI
 			Styles.TryInitialize(false);
@@ -100,7 +106,7 @@ namespace ProceduralLevel.PowerConsole.View
 				{
 					Console.SetupDefault();
 				}
-				UserInput = new ConsoleInput(Console);
+				UserInput = new ConsoleInput(this);
 				
 				Details = new ConsoleDetailsPanel(this);
 				Messages = new ConsoleMessagesPanel(this);
@@ -120,6 +126,11 @@ namespace ProceduralLevel.PowerConsole.View
 		private Rect CreateRect(float offset, float height)
 		{
 			return new Rect(0, offset, Screen.width, height).AddMargin(H_MARGIN, V_MARGIN);
+		}
+
+		public void ToggleActive()
+		{
+			Active = !Active;
 		}
 	}
 }
