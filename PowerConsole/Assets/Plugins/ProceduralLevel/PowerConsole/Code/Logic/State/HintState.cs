@@ -118,7 +118,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 
 		private void SetToCurrentHint()
 		{
-			if(m_Iterator.Current != Argument.Value)
+			if(m_Iterator != null && Argument != null && m_Iterator.Current != Argument.Value)
 			{
 				IteratingHints = true;
 			}

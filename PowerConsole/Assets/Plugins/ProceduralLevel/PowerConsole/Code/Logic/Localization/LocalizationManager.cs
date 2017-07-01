@@ -48,10 +48,10 @@ namespace ProceduralLevel.PowerConsole.Logic
 		public string Get(ELocKey key, params object[] args)
 		{
 			string locKey = Get(key);
-			for(int x = 0; x < args.Length; x++)
-			{
-				locKey += " - {"+x+"}";
-			}
+			//for(int x = 0; x < args.Length; x++)
+			//{
+				//locKey += " - {"+x+"}";
+			//}
 			return string.Format(locKey, args);
 		}
 
