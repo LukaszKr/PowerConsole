@@ -59,7 +59,7 @@ namespace ProceduralLevel.PowerConsole.View
 			float hHints = GetHeight(Hints, DisplayHints);
 			float hIssues = GetHeight(Issues, DisplayIssues);
 
-			hMessages = hMessages-hDetails-hInput-hHints-hIssues;
+			hMessages = hMessages-hDetails-hInput;
 
 			Rect detailsRect = CreateRect(offset, hDetails);
 			offset += hDetails;
