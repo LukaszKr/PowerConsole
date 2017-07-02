@@ -52,13 +52,19 @@ namespace ProceduralLevel.PowerConsole.View
 			if(m_ScrollToBottom)
 			{
 				m_ScrollToBottom = false;
-				m_ScrollPosition = m_TotalHeight;
+				if(m_TotalHeight > size.y)
+				{
+					m_ScrollPosition = m_TotalHeight;
+				}
 			}
 			HandleMouse(size);
 
-			m_ScrollPosition = GUI.VerticalScrollbar(m_ScrollRect, m_ScrollPosition, size.y, 0f, m_TotalHeight);
+			if(m_TotalHeight > size.y)
+			{
+				m_ScrollPosition = GUI.VerticalScrollbar(m_ScrollRect, m_ScrollPosition, size.y, 0f, m_TotalHeight);
+			}
 
-			
+
 			float hOffset = 0;
 			float minOffset = m_ScrollPosition;
 			float maxOffset = minOffset+size.y;

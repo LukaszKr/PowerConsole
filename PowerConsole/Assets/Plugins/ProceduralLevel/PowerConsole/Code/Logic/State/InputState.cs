@@ -154,6 +154,10 @@ namespace ProceduralLevel.PowerConsole.Logic
 		public void Execute()
 		{
 			m_HistoryIndex = -1;
+			if(UserInput.Trim().Length == 0)
+			{
+				return;
+			}
 			if(Console.HintState.IteratingHints)
 			{
 				Console.Execute(Console.HintState.Current.Merged);
