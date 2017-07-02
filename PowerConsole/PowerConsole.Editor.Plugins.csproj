@@ -127,6 +127,9 @@
     <Reference Include="Common">
       <HintPath>Assets\Plugins\ProceduralLevel\Common\Common.dll</HintPath>
     </Reference>
+    <Reference Include="Game">
+      <HintPath>Assets\Plugins\ProceduralLevel\Common\Game.dll</HintPath>
+    </Reference>
     <Reference Include="Serialization">
       <HintPath>Assets\Plugins\ProceduralLevel\Common\Serialization.dll</HintPath>
     </Reference>
@@ -139,8 +142,11 @@
     <Reference Include="UnityCommon">
       <HintPath>Assets\Plugins\ProceduralLevel\UnityCommon\UnityCommon.dll</HintPath>
     </Reference>
-    <Reference Include="Game">
-      <HintPath>Assets\Plugins\ProceduralLevel\Common\Game.dll</HintPath>
+    <Reference Include="AssetStoreToolsExtra">
+      <HintPath>Assets\AssetStoreTools\Editor\AssetStoreToolsExtra.dll</HintPath>
+    </Reference>
+    <Reference Include="AssetStoreTools">
+      <HintPath>Assets\AssetStoreTools\Editor\AssetStoreTools.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
