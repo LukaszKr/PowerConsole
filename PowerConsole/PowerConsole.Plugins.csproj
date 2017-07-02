@@ -94,9 +94,6 @@
     <Reference Include="UnityCommon">
       <HintPath>Assets\Plugins\ProceduralLevel\UnityCommon\UnityCommon.dll</HintPath>
     </Reference>
-    <Reference Include="Game">
-      <HintPath>Assets\Plugins\ProceduralLevel\Common\Game.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Plugins\ProceduralLevel\PowerConsole\Code\Logic\Command\AConsoleCommand.cs" />

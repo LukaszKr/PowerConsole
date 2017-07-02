@@ -24,7 +24,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 		public readonly HistoryState HistoryState;
 		public readonly MacroState MacroState;
 
-		public bool PrintExecutedCommand;
+		public bool PrintExecutedCommand = true;
 
 		private List<AConsoleState> m_States;
 
