@@ -4,6 +4,7 @@
 	{
 		Commands = 0,
 		Options = 1,
-		Both = 2
+		Macro = 2,
+		All = 3
 	}
 }

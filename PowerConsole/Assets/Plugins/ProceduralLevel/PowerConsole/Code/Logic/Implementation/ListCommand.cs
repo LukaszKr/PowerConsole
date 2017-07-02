@@ -16,10 +16,11 @@ namespace ProceduralLevel.PowerConsole.Logic
 			while(commands.MoveNext())
 			{
 				AConsoleCommand command = commands.Current;
+				bool isMacro = command is MacroPlayerCommand;
 				switch(mode)
 				{
 					case EListMode.Commands:
-						if(!command.IsOption)
+						if(!command.IsOption && !isMacro)
 						{
 							list += command.Name+", ";
 						}
@@ -30,7 +31,13 @@ namespace ProceduralLevel.PowerConsole.Logic
 							list += command.Name+", ";
 						}
 						break;
-					case EListMode.Both:
+					case EListMode.Macro:
+						if(isMacro)
+						{
+							list += command.Name+", ";
+						}
+						break;
+					case EListMode.All:
 						if(command.IsOption)
 						{
 							list += ParserConst.OPTION+command.Name+", ";

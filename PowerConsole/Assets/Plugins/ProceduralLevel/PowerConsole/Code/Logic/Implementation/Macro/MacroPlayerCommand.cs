@@ -13,7 +13,7 @@
 		{
 			for(int x = 0; x < m_Macro.Queries.Count; x++)
 			{
-				Console.Execute(m_Macro.Queries[x]);
+				Console.Execute(m_Macro.Queries[x], false);
 			}
 			return null;
 		}

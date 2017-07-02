@@ -100,9 +100,12 @@ namespace ProceduralLevel.PowerConsole.Logic
 		#region Execution
 		public List<Query> ExecutionStack = new List<Query>();
 
-		public void Execute(string strQuery)
+		public void Execute(string strQuery, bool recordHistory = true)
 		{
-			HistoryState.Add(strQuery);
+			if(recordHistory)
+			{
+				HistoryState.Add(strQuery);
+			}
 			List<Query> queries = ParseQuery(strQuery);
 			Execute(queries);
 		}
