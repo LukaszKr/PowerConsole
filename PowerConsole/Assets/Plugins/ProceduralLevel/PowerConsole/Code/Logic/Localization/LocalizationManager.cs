@@ -6,6 +6,8 @@ namespace ProceduralLevel.PowerConsole.Logic
 {
 	public class LocalizationManager
 	{
+		private string[] ENUM_NAMES = Enum.GetNames(typeof(ELocKey));
+
 		private const string ENUM_FORMAT = "Gen{0}{1}";
 		private const string KEY = "key";
 
@@ -39,7 +41,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 
 		public string Get(ELocKey key)
 		{
-			string strKey = key.ToString();
+			string strKey = ENUM_NAMES[(int)key];
 			string value;
 			m_Translations.TryGetValue(strKey, out value);
 			return value?? strKey.ToLower();
