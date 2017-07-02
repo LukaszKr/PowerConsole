@@ -64,7 +64,8 @@ namespace ProceduralLevel.PowerConsole.View
 			{
 				newCursor = m_DesiredCursor;
 			}
-			if(GUI.changed || (Event.current != null && Event.current.isMouse))
+
+			if(GUI.changed)
 			{
 				if(!Console.HintState.IteratingHints)
 				{
