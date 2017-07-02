@@ -41,9 +41,9 @@ namespace ProceduralLevel.PowerConsole.Logic
 					JsonObject serializer = null;
 					try
 					{
-						//JsonParser parser = new JsonParser();
-						//parser.Parse(data);
-						//serializer = parser.Flush();
+						JsonParser parser = new JsonParser();
+						parser.Parse(data);
+						serializer = parser.Flush();
 					}
 					finally
 					{

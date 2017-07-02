@@ -13,8 +13,7 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Full v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>EditorPlugins:7</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.6.1f1</UnityVersion>
@@ -128,17 +127,20 @@
     <Reference Include="Common">
       <HintPath>Assets\Plugins\ProceduralLevel\Common\Common.dll</HintPath>
     </Reference>
+    <Reference Include="Serialization">
+      <HintPath>Assets\Plugins\ProceduralLevel\Common\Serialization.dll</HintPath>
+    </Reference>
+    <Reference Include="Tokenize">
+      <HintPath>Assets\Plugins\ProceduralLevel\Common\Tokenize.dll</HintPath>
+    </Reference>
     <Reference Include="ExtendedEditor">
       <HintPath>Assets\Plugins\ProceduralLevel\ExtendedEditor\ExtendedEditor.dll</HintPath>
     </Reference>
     <Reference Include="UnityCommon">
       <HintPath>Assets\Plugins\ProceduralLevel\UnityCommon\UnityCommon.dll</HintPath>
     </Reference>
-    <Reference Include="Serialization">
-      <HintPath>Assets\Plugins\ProceduralLevel\Common\Serialization.dll</HintPath>
-    </Reference>
-    <Reference Include="Tokenize">
-      <HintPath>Assets\Plugins\ProceduralLevel\Common\Tokenize.dll</HintPath>
+    <Reference Include="Game">
+      <HintPath>Assets\Plugins\ProceduralLevel\Common\Game.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

@@ -44,11 +44,16 @@ namespace ProceduralLevel.PowerConsole.Logic
 			HistoryState = new HistoryState(this);
 			MacroState = new MacroState(this);
 
-			Persistence = (persistence != null? persistence: new MockPersistence());
+			Persistence = (persistence ??new MockPersistence());
 
 			m_States = new List<AConsoleState>()
 			{
 				InputState, HintState, HistoryState, MacroState
+			};
+
+			m_DefaultOptions = new List<AConsoleCommand>()
+			{
+				new RepeatOption(this)
 			};
 
 			for(int x = 0; x < m_States.Count; x++)
@@ -57,11 +62,6 @@ namespace ProceduralLevel.PowerConsole.Logic
 				state.Read(Persistence);
 				state.BindEvents();
 			}
-
-			m_DefaultOptions = new List<AConsoleCommand>()
-			{
-				new RepeatOption(this)
-			};
 
 			InputState.SetInput("", 0);
 		}
