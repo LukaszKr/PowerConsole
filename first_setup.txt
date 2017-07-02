@@ -1,0 +1,1 @@
+Create UnityDLL folder and copy all .dll files from \Editor\Data\Managed in your Unity Installation folder to enable .dll compilation of project
