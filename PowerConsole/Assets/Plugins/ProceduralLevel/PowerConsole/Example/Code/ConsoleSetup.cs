@@ -6,9 +6,8 @@ public class ConsoleSetup: MonoBehaviour
 {
 	public PrefabManager Manager;
 	public ConsoleView ConsoleView;
-	// Use this for initialization
 
-	void Start()
+	public void Start()
 	{
 		ConsoleView.Console.AddCommand(new SpawnCommand(Manager, ConsoleView.Console, "spawn", "Spawn a prefab"));
 
@@ -29,11 +28,5 @@ public class ConsoleSetup: MonoBehaviour
 			"You can also remove them by typing 'macro remove [name]'"));
 		messages.AddMessage(new Message(EMessageType.Success,
 			"I hope you will find this tool usefull!"));
-	}
-
-	// Update is called once per frame
-	void Update()
-	{
-
 	}
 }
