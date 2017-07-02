@@ -39,6 +39,13 @@ namespace ProceduralLevel.PowerConsole.View
 			{
 				GUI.SetNextControlName(INPUT_NAME);
 			}
+			if(m_DesiredCursor >= 0)
+			{
+				TextEditorHelper.SetText(Console.InputState.CurrentInput);
+				TextEditorHelper.SetCursor(m_DesiredCursor);
+				m_DesiredCursor = -1;
+			}
+
 			string newInput = GUI.TextField(m_InputRect, Console.InputState.CurrentInput, Styles.InputText);
 			if(isRepaint)
 			{
@@ -46,12 +53,6 @@ namespace ProceduralLevel.PowerConsole.View
 				{
 					m_StealFocus = false;
 					GUI.FocusControl(INPUT_NAME);
-				}
-
-				if(m_DesiredCursor >= 0)
-				{
-					TextEditorHelper.SetCursor(m_DesiredCursor);
-					m_DesiredCursor = -1;
 				}
 			}
 
@@ -75,6 +76,9 @@ namespace ProceduralLevel.PowerConsole.View
 				{
 					if(newCursor < Console.InputState.Cursor)
 					{
+						Argument arg = Console.HintState.Argument;
+						TextEditorHelper.SetText(Console.InputState.CurrentInput);
+						TextEditorHelper.SetCursor(arg.Offset+arg.Value.Length);
 						Console.HintState.CancelHint();
 					}
 					else if(newCursor > Console.InputState.Cursor)

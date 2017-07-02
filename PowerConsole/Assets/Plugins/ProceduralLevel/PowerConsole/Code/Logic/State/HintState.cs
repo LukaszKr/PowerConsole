@@ -122,7 +122,8 @@ namespace ProceduralLevel.PowerConsole.Logic
 			if(m_Iterator != null && Argument != null && m_Iterator.Current != Argument.Value)
 			{
 				IteratingHints = true;
-				Console.InputState.SetCursor(Argument.Offset+m_Iterator.Current.Length);
+				int currentLength = m_Iterator.Current.Length;
+				Console.InputState.SetCursor(Argument.Offset+(currentLength > 0? currentLength: Argument.Value.Length), true);
 			}
 			RefreshCurrent();
 		}

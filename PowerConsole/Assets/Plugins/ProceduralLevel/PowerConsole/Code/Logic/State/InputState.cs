@@ -110,9 +110,9 @@ namespace ProceduralLevel.PowerConsole.Logic
 			OnInputChanged.Invoke(this);
 		}
 
-		public void SetCursor(int cursor)
+		public void SetCursor(int cursor, bool force = false)
 		{ 
-			if(Cursor != cursor)
+			if(force || Cursor != cursor)
 			{
 				Cursor = cursor;
 				OnCursorMoved.Invoke(Cursor);

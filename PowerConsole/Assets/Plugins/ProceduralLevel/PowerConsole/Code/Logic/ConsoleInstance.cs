@@ -143,6 +143,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 				ExecutionStack.Add(query);
 			}
 			ExecuteStack(ExecutionStack.Count > 1);
+			ExecutionStack.Clear();
 		}
 
 		private void ExecuteStack(bool hasOptions)
@@ -155,7 +156,6 @@ namespace ProceduralLevel.PowerConsole.Logic
 				ExecutionStack.RemoveAt(lastIndex);
 				Execute(executedQuery);
 			}
-			ExecutionStack.Clear();
 		}
 
 		public void Execute(Query query)

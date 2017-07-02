@@ -10,6 +10,11 @@ namespace ProceduralLevel.PowerConsole.View
 			return editor;
 		}
 
+		public static void SetText(string text)
+		{
+			GetEditor().text = text;
+		}
+
 		public static int GetCursor()
 		{
 			return GetEditor().cursorIndex;

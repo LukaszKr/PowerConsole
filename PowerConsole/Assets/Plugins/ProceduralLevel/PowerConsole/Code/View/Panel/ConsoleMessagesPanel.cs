@@ -45,7 +45,7 @@ namespace ProceduralLevel.PowerConsole.View
 			for(int x = 0; x < m_MessageBuffer.Count; x++)
 			{
 				MessageView messagaView = m_MessageBuffer[x];
-				messagaView.UpdateSize(size.x, Styles[messagaView.Message.Type]);
+				messagaView.UpdateSize(size.x-Styles.ScrollbarWidth, Styles[messagaView.Message.Type]);
 			}
 
 			m_TotalHeight = TotalHeight();
