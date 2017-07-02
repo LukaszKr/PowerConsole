@@ -24,6 +24,8 @@ namespace ProceduralLevel.PowerConsole.Logic
 		public readonly HistoryState HistoryState;
 		public readonly MacroState MacroState;
 
+		public bool PrintExecutedCommand;
+
 		private List<AConsoleState> m_States;
 
 		public bool Locked { get; private set; }
@@ -158,7 +160,10 @@ namespace ProceduralLevel.PowerConsole.Logic
 
 		public void Execute(Query query)
 		{
-			OnMessage.Invoke(new Message(EMessageType.Execution, query.RawQuery));
+			if(PrintExecutedCommand)
+			{
+				OnMessage.Invoke(new Message(EMessageType.Execution, query.RawQuery));
+			}
 			AConsoleCommand command = FindCommand(query.Name.Value);
 			if(command == null)
 			{

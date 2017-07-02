@@ -22,6 +22,8 @@ namespace ProceduralLevel.PowerConsole.View
 
 		public float Height = 400;
 
+		public bool PrintExecutedCommand = true;
+
 		public bool DisplayTitle = true;
 		public bool DisplayHints = true;
 		public bool DisplayIssues = true;
@@ -80,6 +82,9 @@ namespace ProceduralLevel.PowerConsole.View
 			{
 				Details.Render(detailsRect);
 			}
+
+			Console.PrintExecutedCommand = PrintExecutedCommand;
+
 			Messages.Render(messagesRect);
 			Input.Render(inputRect);
 			if(DisplayHints && hHints > 1)
