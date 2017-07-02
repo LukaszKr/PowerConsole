@@ -40,14 +40,14 @@ namespace ProceduralLevel.PowerConsole.View
 				GUI.SetNextControlName(INPUT_NAME);
 			}
 			string newInput = GUI.TextField(m_InputRect, Console.InputState.CurrentInput, Styles.InputText);
-			if(m_StealFocus)
-			{
-				m_StealFocus = false;
-				GUI.FocusControl(INPUT_NAME);
-			}
-
 			if(isRepaint)
 			{
+				if(m_StealFocus)
+				{
+					m_StealFocus = false;
+					GUI.FocusControl(INPUT_NAME);
+				}
+
 				if(m_DesiredCursor >= 0)
 				{
 					TextEditorHelper.SetCursor(m_DesiredCursor);

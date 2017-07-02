@@ -150,6 +150,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 				ExecutionStack.RemoveAt(lastIndex);
 				Execute(executedQuery);
 			}
+			ExecutionStack.Clear();
 		}
 
 		public void Execute(Query query)
