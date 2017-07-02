@@ -15,6 +15,7 @@ namespace ProceduralLevel.PowerConsole.View
 		public HintState Hint { get { return Console.HintState; } }
 
 		protected int m_LastWidth = 0;
+		protected int m_LastHeight = 0;
 		private bool m_Initialized = false;
 
 		public AConsolePanel(ConsoleView consoleView)
@@ -50,9 +51,11 @@ namespace ProceduralLevel.PowerConsole.View
 		private void UpdateSizes(Vector2 size)
 		{
 			int width = (int)size.x;
-			if(width != m_LastWidth)
+			int height = (int)size.y;
+			if(width != m_LastWidth || height != m_LastHeight)
 			{
 				m_LastWidth = width;
+				m_LastHeight = height;
 				OnSizeChanged(size);
 			}
 		}
