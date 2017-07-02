@@ -59,14 +59,24 @@ namespace ProceduralLevel.PowerConsole.Logic
 			Argument argument = null;
 			Token token = null;
 			string rawValue = "";
+			Token prevToken = null;
 
 			while(HasTokens())
 			{
+				prevToken = token;
 				token = PeekToken();
 				
 				switch(token.Value[0])
 				{
 					case ParserConst.SPACE:
+						if(prevToken != null && prevToken.Value == token.Value)
+						{
+							argument = new Argument()
+							{ 
+								Offset = token.Column
+							};
+							query.Arguments.Add(argument);
+						}
 						argument = null;
 						ConsumeToken();
 						break;

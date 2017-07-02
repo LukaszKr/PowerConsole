@@ -56,8 +56,8 @@ namespace ProceduralLevel.PowerConsole.Editor.Test.Logic.Queries
 
 			Assert.AreEqual(1, queries.Count);
 			Query query = queries[0];
-			TestHelper.CheckQuery(query, "test", 1);
-			TestHelper.CheckArgument(query.Arguments[0], null, "param");
+			TestHelper.CheckQuery(query, "test", 3);
+			TestHelper.CheckArgument(query.Arguments[2], null, "param");
 		}
 
 		[Test]
