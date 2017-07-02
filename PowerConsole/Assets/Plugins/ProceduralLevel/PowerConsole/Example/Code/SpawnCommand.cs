@@ -2,13 +2,9 @@
 using System.Reflection;
 using UnityEngine;
 
-/// <summary>
-/// Console Commands need to inherit from AConsoleCommand
-/// </summary>
 public class SpawnCommand: AConsoleCommand
 {
 	private PrefabManager m_Manager;
-
 	/// <param name="console">Instance of console that this will be attached to</param>
 	/// <param name="name">This is the name that you will use in console. It will be turned lowerCase but input is case insensitive</param>
 	/// <param name="description">Short description of what this command does</param>
@@ -20,6 +16,16 @@ public class SpawnCommand: AConsoleCommand
 	}
 
 	/// <summary>
+	/// You can provide custom hints for parameter by extending ADynamicHint or ACollectionHint. Hints should be singletones whenever possible.
+	/// </summary>
+	/// <param name="manager">Keeps track of all common hints</param>
+	/// <param name="parameterIndex">Index of parameter that you should provide hint for.</param>
+	public override AHint GetHintFor(HintManager manager, int parameterIndex)
+	{
+		return base.GetHintFor(manager, parameterIndex);
+	}
+
+	/// <summary>
 	/// If you want to use different names than 'Command' for method that will get executed, override this method like shown below.
 	/// </summary>
 	public override MethodInfo GetCommandMethod()
@@ -27,9 +33,6 @@ public class SpawnCommand: AConsoleCommand
 		return GetMethodInfo(DEFAULT_COMMAND_NAME);
 	}
 
-	/// <summary>
-	/// 
-	/// </summary>
 	/// <param name="prefabName">Primitive types (int, bool, strings etc.) and Enums are supported as command parameters.</param>
 	/// <returns>Command method has to return Message - it can be null</returns>
 	public Message Command(EPrefabName prefabName = EPrefabName.Cube, float x = 0f, float y = 0f, float z = 0f)
@@ -45,3 +48,5 @@ public class SpawnCommand: AConsoleCommand
 		//return null;
 	}
 }
+
+
