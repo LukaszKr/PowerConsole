@@ -16,7 +16,9 @@ namespace ProceduralLevel.PowerConsole.Logic
 			AddParser<bool>(BoolParser);
 			AddParser<byte>(ByteParser);
 			AddParser<short>(ShortParser);
+			AddParser<ushort>(UShortParser);
 			AddParser<int>(IntParser);
+			AddParser<uint>(UIntParser);
 			AddParser<long>(LongParser);
 			AddParser<float>(FloatParser);
 			AddParser<double>(DoubleParser);
@@ -100,9 +102,19 @@ namespace ProceduralLevel.PowerConsole.Logic
 			return short.Parse(rawValue);
 		}
 
+		private static object UShortParser(string rawValue)
+		{
+			return ushort.Parse(rawValue);
+		}
+
 		private static object IntParser(string rawValue)
 		{
 			return int.Parse(rawValue);
+		}
+
+		private static object UIntParser(string rawValue)
+		{
+			return uint.Parse(rawValue);
 		}
 
 		private static object LongParser(string rawValue)

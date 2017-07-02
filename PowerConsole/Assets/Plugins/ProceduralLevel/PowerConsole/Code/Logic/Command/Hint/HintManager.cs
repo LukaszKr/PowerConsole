@@ -20,6 +20,8 @@ namespace ProceduralLevel.PowerConsole.Logic
 			RegisterHint(new UShortHint());
 			RegisterHint(new UIntHint());
 			//RegisterHint(new ULongHint());
+
+			RegisterHint(new FloatHint());
 		}
 
 		public AHint GetHint(Type type)
