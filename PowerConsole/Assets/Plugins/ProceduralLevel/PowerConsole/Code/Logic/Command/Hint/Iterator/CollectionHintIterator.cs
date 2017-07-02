@@ -21,6 +21,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 
 		public CollectionHintIterator(List<string> hints)
 		{
+			Restart();
 			m_Hints = hints;
 		}
 

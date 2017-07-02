@@ -101,7 +101,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 		#region Control
 		public void NextHint()
 		{
-			if(m_Iterator != null && !m_Iterator.MoveNext())
+			if(IteratingHints && m_Iterator != null && !m_Iterator.MoveNext())
 			{
 				m_Iterator.Restart();
 			}
@@ -110,7 +110,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 
 		public void PrevHint()
 		{
-			if(m_Iterator != null && !m_Iterator.MovePrev())
+			if(IteratingHints && m_Iterator != null && !m_Iterator.MovePrev())
 			{
 				m_Iterator.Restart();
 			}
