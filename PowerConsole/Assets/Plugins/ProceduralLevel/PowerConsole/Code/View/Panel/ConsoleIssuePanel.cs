@@ -1,4 +1,5 @@
 ﻿using ProceduralLevel.PowerConsole.Logic;
+using ProceduralLevel.UnityCommon.Ext;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,8 @@ namespace ProceduralLevel.PowerConsole.View
 
 	public class ConsoleIssuePanel: AConsolePanel
 	{
+		private float V_MARGIN = 2f;
+
 		private Rect m_IssueRect;
 		private GUIContent m_IssueContent = new GUIContent();
 
@@ -64,7 +67,7 @@ namespace ProceduralLevel.PowerConsole.View
 
 		protected override void OnSizeChanged(Vector2 size)
 		{
-			m_IssueRect = new Rect(0, 0, size.x, size.y);
+			m_IssueRect = new Rect(0, 0, size.x, size.y).AddMargin(V_MARGIN, 0);
 		}
 
 		#region Issue Handler Generator

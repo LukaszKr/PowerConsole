@@ -69,6 +69,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 
 		private void RefreshCurrent()
 		{
+			HintHit old = Current;
 			if(Query != null && Argument != null && m_Iterator != null)
 			{
 				Current = new HintHit(Console.InputState.UserInput, Argument, m_Iterator.Current);

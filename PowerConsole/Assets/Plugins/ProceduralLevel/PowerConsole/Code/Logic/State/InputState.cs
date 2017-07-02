@@ -148,10 +148,6 @@ namespace ProceduralLevel.PowerConsole.Logic
 			{
 				SetCursor(Argument.Offset+hit.HitPrefix.Length+hit.Value.Length+hit.HitSufix.Length);
 			}
-			else if(Argument != null)
-			{
-				SetCursor(Argument.Offset+Argument.Value.Length);
-			}
 		}
 
 		#region Control

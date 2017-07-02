@@ -30,5 +30,10 @@ namespace ProceduralLevel.PowerConsole.Logic
 
 			Merged = Prefix+HitPrefix+Value+HitSufix+Sufix;
 		}
+
+		public override string ToString()
+		{
+			return Merged;
+		}
 	}
 }

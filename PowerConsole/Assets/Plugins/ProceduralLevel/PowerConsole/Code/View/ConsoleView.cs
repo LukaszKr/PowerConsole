@@ -131,6 +131,10 @@ namespace ProceduralLevel.PowerConsole.View
 		public void ToggleActive()
 		{
 			Active = !Active;
+			if(Active)
+			{
+				Input.StealFocus();
+			}
 		}
 	}
 }

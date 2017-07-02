@@ -6,6 +6,7 @@ namespace ProceduralLevel.PowerConsole.View
 {
 	public class ConsoleInputPanel: AConsolePanel
 	{
+		private const string INPUT_NAME = "Input";
 		private const int PADDING = 6;
 		private const int SUBMIT_MARGIN = 2;
 
@@ -15,6 +16,8 @@ namespace ProceduralLevel.PowerConsole.View
 		private Rect m_SubmitRect;
 
 		private int m_DesiredCursor = -1;
+		private bool m_StealFocus;
+
 
 		public ConsoleInputPanel(ConsoleView consoleView) : base(consoleView)
 		{
@@ -32,7 +35,16 @@ namespace ProceduralLevel.PowerConsole.View
 		{
 			bool isRepaint = (Event.current != null && Event.current.type == EventType.Repaint);
 
+			if(m_StealFocus)
+			{
+				GUI.SetNextControlName(INPUT_NAME);
+			}
 			string newInput = GUI.TextField(m_InputRect, Console.InputState.CurrentInput, Styles.InputText);
+			if(m_StealFocus)
+			{
+				m_StealFocus = false;
+				GUI.FocusControl(INPUT_NAME);
+			}
 
 			if(isRepaint)
 			{
@@ -52,19 +64,22 @@ namespace ProceduralLevel.PowerConsole.View
 			{
 				newCursor = m_DesiredCursor;
 			}
-			if(!Console.HintState.IteratingHints)
+			if(GUI.changed || (Event.current != null && Event.current.isMouse))
 			{
-				Console.InputState.SetInput(newInput, newCursor);
-			}
-			else if(m_DesiredCursor < 0)
-			{
-				if(newCursor < Console.InputState.Cursor)
-				{
-					Console.HintState.CancelHint();
-				}
-				else if(newCursor > Console.InputState.Cursor)
+				if(!Console.HintState.IteratingHints)
 				{
 					Console.InputState.SetInput(newInput, newCursor);
+				}
+				else if(m_DesiredCursor < 0)
+				{
+					if(newCursor < Console.InputState.Cursor)
+					{
+						Console.HintState.CancelHint();
+					}
+					else if(newCursor > Console.InputState.Cursor)
+					{
+						Console.InputState.SetInput(newInput, newCursor);
+					}
 				}
 			}
 		}
@@ -79,6 +94,11 @@ namespace ProceduralLevel.PowerConsole.View
 		private void CursorMovedHandler(int cursor)
 		{
 			m_DesiredCursor = cursor;
+		}
+
+		public void StealFocus()
+		{
+			m_StealFocus = true;
 		}
 	}
 }
