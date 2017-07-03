@@ -19,10 +19,11 @@ namespace ProceduralLevel.PowerConsole.Logic
 			}
 		}
 
-		public CollectionHintIterator(List<string> hints)
+		public CollectionHintIterator(Query query, Argument argument, AHint hint, List<string> hintsList)
+			: base(query, argument, hint)
 		{
 			Restart();
-			m_Hints = hints;
+			m_Hints = hintsList;
 		}
 
 		public override bool MovePrev()

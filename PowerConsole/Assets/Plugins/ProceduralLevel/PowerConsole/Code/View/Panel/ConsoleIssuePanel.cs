@@ -39,10 +39,10 @@ namespace ProceduralLevel.PowerConsole.View
 
 		protected override void OnRender(Vector2 size)
 		{
-			List<Exception> issues = Console.HintModule.Issues;
+			List<ConsoleException> issues = Console.HintModule.Issues;
 			if(issues.Count > 0)
 			{
-				Exception issue = issues[0];
+				ConsoleException issue = issues[0];
 				bool handled = false;
 				string text = string.Empty;
 

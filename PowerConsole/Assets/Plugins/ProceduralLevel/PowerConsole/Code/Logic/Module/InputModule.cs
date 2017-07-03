@@ -37,6 +37,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 
 		public override void BindEvents()
 		{
+			Console.HintModule.OnHintChanged.AddListener(HintChangedHandler);
 		}
 
 		public void SetInput(string userInput, int cursor)
@@ -77,6 +78,14 @@ namespace ProceduralLevel.PowerConsole.Logic
 				Console.Execute(UserInput);
 			}
 			SetInput("", 0);
+		}
+
+		private void HintChangedHandler(HintHit current)
+		{
+			if(current != null)
+			{
+				SetCursor(current.SufixOffset);
+			}
 		}
 
 		#region History

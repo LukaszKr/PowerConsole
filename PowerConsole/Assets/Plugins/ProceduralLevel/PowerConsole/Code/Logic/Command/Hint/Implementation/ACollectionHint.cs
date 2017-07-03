@@ -57,9 +57,9 @@ namespace ProceduralLevel.PowerConsole.Logic
 			return compare;
 		}
 
-		public override AHintIterator GetIterator(string value)
+		public override AHintIterator GetIterator(Query query, Argument argument)
 		{
-			return new CollectionHintIterator(GetHints(value));
+			return new CollectionHintIterator(query, argument, this, GetHints(argument.Value));
 		}
 	}
 }

@@ -6,6 +6,6 @@ namespace ProceduralLevel.PowerConsole.Logic
 	{
 		public abstract Type HintedType { get; }
 
-		public abstract AHintIterator GetIterator(string value);
+		public abstract AHintIterator GetIterator(Query query, Argument argument);
 	}
 }

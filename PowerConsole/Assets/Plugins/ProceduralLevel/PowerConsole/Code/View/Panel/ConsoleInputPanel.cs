@@ -35,10 +35,7 @@ namespace ProceduralLevel.PowerConsole.View
 		{
 			bool isRepaint = (Event.current != null && Event.current.type == EventType.Repaint);
 
-			if(m_StealFocus)
-			{
-				GUI.SetNextControlName(INPUT_NAME);
-			}
+			GUI.SetNextControlName(INPUT_NAME);
 			if(m_DesiredCursor >= 0)
 			{
 				TextEditorHelper.SetText(Console.InputModule.CurrentInput);
@@ -70,22 +67,32 @@ namespace ProceduralLevel.PowerConsole.View
 			{
 				if(!Console.HintModule.IteratingHints)
 				{
+					if(newCursor != Console.InputModule.Cursor)
+					{
+						Console.HintModule.UpdateHint();
+					}
 					Console.InputModule.SetInput(newInput, newCursor);
 				}
 				else if(m_DesiredCursor < 0)
 				{
+					//if user deleted
 					if(newCursor < Console.InputModule.Cursor)
 					{
-						Argument arg = Console.HintModule.Argument;
+						HintHit hit = Console.HintModule.Current;
 						TextEditorHelper.SetText(Console.InputModule.CurrentInput);
-						TextEditorHelper.SetCursor(arg.Offset+arg.Value.Length);
+						TextEditorHelper.SetCursor(hit.SufixOffset);
 						Console.HintModule.CancelHint();
 					}
 					else if(newCursor > Console.InputModule.Cursor)
 					{
 						Console.InputModule.SetInput(newInput, newCursor);
+						Console.HintModule.UpdateHint();
 					}
 				}
+			}
+			else
+			{
+				Console.InputModule.SetCursor(newCursor);
 			}
 		}
 

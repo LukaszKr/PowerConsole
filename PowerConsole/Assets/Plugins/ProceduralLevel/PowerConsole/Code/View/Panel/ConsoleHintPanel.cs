@@ -44,13 +44,9 @@ namespace ProceduralLevel.PowerConsole.View
 		public override float PreferedHeight(float availableHeight)
 		{
 			float height = 0;
-			if(Hint.Command != null)
+			if(Hint.Iterator != null)
 			{
-				height += Styles.LineHeight;
-				if(Hint.Hint != null)
-				{
-					height += Styles.LineHeight;
-				}
+				height += Styles.LineHeight*2;
 			}
 			if(height > 0)
 			{
@@ -62,7 +58,7 @@ namespace ProceduralLevel.PowerConsole.View
 		protected override void OnRender(Vector2 size)
 		{
 			GUI.Label(m_CommandRect, m_CommandLabel);
-			if(Hint.Hint != null)
+			if(Hint.Iterator != null)
 			{
 				GUI.Label(m_ParameterRect, m_ParameterLabel);
 				m_HintDrawer.Draw(m_ParameterRect);
@@ -78,17 +74,26 @@ namespace ProceduralLevel.PowerConsole.View
 
 		private void HintChangedHandler(HintHit hit)
 		{
-			if(Hint.Command != null)
+			AHintIterator iterator = Hint.Iterator;
+			if(iterator.Argument.IsCommandName)
 			{
-				m_CommandLabel.text = string.Format(COMMAND_HINT, Hint.Command.ToString(), Hint.Command.Description);
+				AConsoleCommand command = Console.FindCommand(iterator.Current);
+				if(command != null)
+				{
+					m_CommandLabel.text = string.Format(COMMAND_HINT, command.ToString(), command.Description);
+				}
+				else
+				{
+					m_CommandLabel.text = iterator.Argument.Value;
+				}
 			}
 			else
 			{
-				m_CommandLabel.text = (Hint.Argument != null ? Hint.Argument.Value : "");
+				m_CommandLabel.text = iterator.Query.Name.Value;
 			}
-			if(hit != null && Hint.Query != null && Hint.Argument != null && Hint.Hint != null)
+			if(hit != null && iterator.Query != null && iterator.Hint != null)
 			{
-				m_ParameterLabel.text = string.Format(PARAMETER_HINT, Hint.Argument.Name, Hint.Hint.HintedType.Name);
+				m_ParameterLabel.text = string.Format(PARAMETER_HINT, iterator.Argument.Name, iterator.Hint.HintedType.Name);
 				m_HintPrefixLabel.text = hit.HitPrefix;
 				m_HintHitLabel.text = hit.Value;
 				m_HintSufixLabel.text = hit.HitSufix;

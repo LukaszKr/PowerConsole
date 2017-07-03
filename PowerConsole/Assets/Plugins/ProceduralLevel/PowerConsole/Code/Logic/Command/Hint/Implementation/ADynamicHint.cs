@@ -5,9 +5,9 @@
 		public abstract string PrevHint(string value);
 		public abstract string NextHint(string value);
 
-		public override AHintIterator GetIterator(string value)
+		public override AHintIterator GetIterator(Query query, Argument argument)
 		{
-			return new DynamicHintIterator<HintType>(this, value);
+			return new DynamicHintIterator<HintType>(query, argument, this);
 		}
 	}
 }

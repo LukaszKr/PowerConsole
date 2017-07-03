@@ -12,7 +12,7 @@
 
 		public string Value = "";
 		public object Parsed;
-		public int Offset = -1;
+		public int Offset = 0;
 		public CommandParameter Parameter;
 		public readonly bool IsCommandName;
 

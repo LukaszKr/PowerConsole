@@ -11,10 +11,11 @@
 
 		private ADynamicHint<HintType> m_Hint;
 
-		public DynamicHintIterator(ADynamicHint<HintType> hint, string startValue)
+		public DynamicHintIterator(Query query, Argument argument, ADynamicHint<HintType> hint)
+			: base(query, argument, hint)
 		{
 			m_Hint = hint;
-			m_Current = startValue;
+			m_Current = argument.Value;
 		}
 
 		public override bool MovePrev()
