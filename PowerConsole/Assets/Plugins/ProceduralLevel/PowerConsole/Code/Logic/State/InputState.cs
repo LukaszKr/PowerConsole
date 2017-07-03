@@ -1,6 +1,4 @@
 ﻿using ProceduralLevel.Common.Event;
-using System;
-using System.Collections.Generic;
 
 namespace ProceduralLevel.PowerConsole.Logic
 {
@@ -23,14 +21,9 @@ namespace ProceduralLevel.PowerConsole.Logic
 		public string UserInput { get; private set; }
 		public int Cursor { get; private set; }
 
-		public List<Exception> Issues = new List<Exception>();
 
 		public readonly Event<InputState> OnInputChanged = new Event<InputState>();
 		public readonly Event<int> OnCursorMoved = new Event<int>();
-
-		public AConsoleCommand Command { get; private set; }
-		public Query Query { get; private set; }
-		public Argument Argument { get; private set; }
 
 		private int m_HistoryIndex;
 
@@ -44,7 +37,6 @@ namespace ProceduralLevel.PowerConsole.Logic
 
 		public override void BindEvents()
 		{
-			Console.HintState.OnHintChanged.AddListener(HintChangedListener);
 		}
 
 		public void SetInput(string userInput, int cursor)
@@ -56,56 +48,6 @@ namespace ProceduralLevel.PowerConsole.Logic
 
 			SetCursor(cursor);
 			UserInput = userInput;
-
-			Command = null;
-			Query = null;
-			Argument = null;
-			Issues.Clear();
-
-			List<Query> queries;
-			try
-			{
-				queries = Console.ParseQuery(UserInput);
-			}
-			catch(Exception e)
-			{
-				queries = new List<Query>();
-				Issues.Add(e);
-			}
-
-			for(int x = 0; x < queries.Count; x++)
-			{
-				Query = queries[x];
-				Argument = Query.GetArgumentAt(cursor);
-				if(Argument != null)
-				{
-					break;
-				}
-			}
-
-			if(Query != null)
-			{
-				Command = Console.FindCommand(Query.Name.Value);
-				if(Command != null)
-				{
-					try
-					{
-						Command.Method.MapArguments(Query);
-					}
-					catch(Exception e)
-					{
-						Issues.Add(e);
-					}
-					try
-					{
-						Console.ParseValues(Query);
-					}
-					catch(Exception e)
-					{
-						Issues.Add(e);
-					}
-				}
-			}
 
 			OnInputChanged.Invoke(this);
 		}
@@ -139,14 +81,6 @@ namespace ProceduralLevel.PowerConsole.Logic
 			else
 			{
 				SetInput("", 0);
-			}
-		}
-
-		private void HintChangedListener(HintHit hit)
-		{
-			if(hit != null && Console.HintState.IteratingHints)
-			{
-				SetCursor(Argument.Offset+hit.HitPrefix.Length+hit.Value.Length+hit.HitSufix.Length);
 			}
 		}
 

@@ -1,4 +1,6 @@
 ﻿using ProceduralLevel.Common.Event;
+using System;
+using System.Collections.Generic;
 
 namespace ProceduralLevel.PowerConsole.Logic
 {
@@ -13,6 +15,10 @@ namespace ProceduralLevel.PowerConsole.Logic
 
 		private AHintIterator m_Iterator;
 		public HintHit Current { get; private set; }
+		
+		private readonly HintManager m_HintsManager = new HintManager();
+
+		public List<Exception> Issues = new List<Exception>();
 
 		public readonly Event<HintHit> OnHintChanged = new Event<HintHit>();
 
@@ -28,7 +34,55 @@ namespace ProceduralLevel.PowerConsole.Logic
 		private void InputChangedHandler(InputState state)
 		{
 			IteratingHints = false;
-			UpdateHint(state.Command, state.Query, state.Argument);
+
+			Issues.Clear();
+
+			List<Query> queries;
+			try
+			{
+				queries = Console.ParseQuery(state.UserInput);
+			}
+			catch(Exception e)
+			{
+				queries = new List<Query>();
+				Issues.Add(e);
+			}
+
+			for(int x = 0; x < queries.Count; x++)
+			{
+				Query = queries[x];
+				Argument = Query.GetArgumentAt(state.Cursor);
+				if(Argument != null)
+				{
+					break;
+				}
+			}
+
+			if(Query != null)
+			{
+				Command = Console.FindCommand(Query.Name.Value);
+				if(Command != null)
+				{
+					try
+					{
+						Command.Method.MapArguments(Query);
+					}
+					catch(Exception e)
+					{
+						Issues.Add(e);
+					}
+					try
+					{
+						Console.ParseValues(Query);
+					}
+					catch(Exception e)
+					{
+						Issues.Add(e);
+					}
+				}
+			}
+
+			UpdateHint(Command, Query, Argument);
 		}
 
 
@@ -43,7 +97,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 			{
 				if(Argument.Parameter != null)
 				{
-					Hint = command.GetHintFor(Console.Hints, Argument.Parameter.Index);
+					Hint = command.GetHintFor(m_HintsManager, Argument.Parameter.Index);
 					m_Iterator = Hint.GetIterator(argument.Value);
 				}
 				else if(argument.IsCommandName)
@@ -124,6 +178,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 				IteratingHints = true;
 				int currentLength = m_Iterator.Current.Length;
 				Console.InputState.SetCursor(Argument.Offset+(currentLength > 0? currentLength: Argument.Value.Length), true);
+				//SetCursor(hit.Prefix.Length+hit.HitPrefix.Length+hit.Value.Length+hit.HitSufix.Length);
 			}
 			RefreshCurrent();
 		}

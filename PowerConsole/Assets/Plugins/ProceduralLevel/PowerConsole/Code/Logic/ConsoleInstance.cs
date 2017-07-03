@@ -15,7 +15,6 @@ namespace ProceduralLevel.PowerConsole.Logic
 
 		public readonly LocalizationManager Localization;
 		public readonly ValueParser ValueParser = new ValueParser();
-		public readonly HintManager Hints = new HintManager();
 		public readonly CommandNameHint NameHint;
 		public readonly CommandNameHint OptionHint;
 
