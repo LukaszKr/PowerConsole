@@ -71,6 +71,19 @@ namespace ProceduralLevel.PowerConsole.Logic
 			return true;
 		}
 
+		private bool RegisterMacro(Macro macro)
+		{
+			if(!CanUseName(macro.Name))
+			{
+				return false;
+			}
+			m_Macros.Add(macro);
+			Console.RemoveCommand(macro.Name);
+			Console.AddCommand(new MacroPlayerCommand(Console, macro));
+			NameHint.InvalidateCache();
+			return true;
+		}
+
 		public bool RemoveMacro(string name)
 		{
 			int index = IndexOf(name);
@@ -98,18 +111,6 @@ namespace ProceduralLevel.PowerConsole.Logic
 			return -1;
 		}
 
-		private bool RegisterMacro(Macro macro)
-		{
-			if(!CanUseName(macro.Name))
-			{
-				return false;
-			}
-			m_Macros.Add(macro);
-			Console.RemoveCommand(macro.Name);
-			Console.AddCommand(new MacroPlayerCommand(Console, macro));
-			NameHint.InvalidateCache();
-			return true;
-		}
 
 		private bool CanUseName(string name)
 		{

@@ -12,7 +12,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 		public readonly string Merged;
 		public readonly string Hint;
 
-		public int SufixOffset { get; private set; }
+		public readonly int SufixOffset;
 
 		public HintHit(string userInput, Argument argument, string hint)
 		{

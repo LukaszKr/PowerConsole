@@ -94,6 +94,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 			}
 		}
 
+		#region Parameters
 		public void ClearParameters()
 		{
 			m_NonOptionalCount = 0;
@@ -139,5 +140,6 @@ namespace ProceduralLevel.PowerConsole.Logic
 		{
 			return m_Parameters[index];
 		}
+		#endregion
 	}
 }
