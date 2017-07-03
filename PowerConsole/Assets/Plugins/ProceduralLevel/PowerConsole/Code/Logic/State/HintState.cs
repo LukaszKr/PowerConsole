@@ -29,18 +29,35 @@ namespace ProceduralLevel.PowerConsole.Logic
 		public override void BindEvents()
 		{
 			Console.InputState.OnInputChanged.AddListener(InputChangedHandler);
+			Console.InputState.OnCursorMoved.AddListener(CursorMovedHandler);
 		}
 
-		private void InputChangedHandler(InputState state)
+		private void InputChangedHandler(string userInput)
 		{
-			IteratingHints = false;
+			UpdateHintStatus();
+		}
 
-			Issues.Clear();
+		private void CursorMovedHandler(int cursor)
+		{
+			UpdateHintStatus();
+		}
 
+		private void UpdateHintStatus()
+		{
+			ParseQuery();
+			FindHint();
+			UpdateHintHit();
+		}
+
+		private void ParseQuery()
+		{
+			Clear();
+
+			//parse query
 			List<Query> queries;
 			try
 			{
-				queries = Console.ParseQuery(state.UserInput);
+				queries = Console.ParseQuery(Console.InputState.UserInput);
 			}
 			catch(Exception e)
 			{
@@ -48,16 +65,18 @@ namespace ProceduralLevel.PowerConsole.Logic
 				Issues.Add(e);
 			}
 
+			//find query at which cursor is currently
 			for(int x = 0; x < queries.Count; x++)
 			{
 				Query = queries[x];
-				Argument = Query.GetArgumentAt(state.Cursor);
+				Argument = Query.GetArgumentAt(Console.InputState.Cursor);
 				if(Argument != null)
 				{
 					break;
 				}
 			}
 
+			//if there is a query, fnid the command then map and parse arguments
 			if(Query != null)
 			{
 				Command = Console.FindCommand(Query.Name.Value);
@@ -81,29 +100,21 @@ namespace ProceduralLevel.PowerConsole.Logic
 					}
 				}
 			}
-
-			UpdateHint(Command, Query, Argument);
 		}
 
-
-		public void UpdateHint(AConsoleCommand command, Query query, Argument argument)
+		private void FindHint()
 		{
-			//find a way to limit call on this
-			Hint = null;
-			Command = command;
-			Query = query;
-			Argument = argument;
 			if(Argument != null)
 			{
 				if(Argument.Parameter != null)
 				{
-					Hint = command.GetHintFor(m_HintsManager, Argument.Parameter.Index);
-					m_Iterator = Hint.GetIterator(argument.Value);
+					Hint = Command.GetHintFor(m_HintsManager, Argument.Parameter.Index);
+					m_Iterator = Hint.GetIterator(Argument.Value);
 				}
-				else if(argument.IsCommandName)
+				else if(Argument.IsCommandName)
 				{
-					Hint = (query.IsOption? Console.OptionHint: Console.NameHint);
-					m_Iterator = Hint.GetIterator(argument.Value);
+					Hint = (Query.IsOption? Console.OptionHint: Console.NameHint);
+					m_Iterator = Hint.GetIterator(Argument.Value);
 					Command = Console.FindCommand(m_Iterator.Current);
 				}
 				else
@@ -113,35 +124,36 @@ namespace ProceduralLevel.PowerConsole.Logic
 			}
 			else
 			{
-				Command = null;
-				Query = null;
+				Clear();
 				Hint = Console.NameHint;
 				m_Iterator = Hint.GetIterator(string.Empty);
 			}
-			RefreshCurrent();
 		}
 
-		private void RefreshCurrent()
+		private void UpdateHintHit()
 		{
 			HintHit old = Current;
 			if(Query != null && Argument != null && m_Iterator != null)
 			{
-				Current = new HintHit(Console.InputState.UserInput, Argument, m_Iterator.Current);
-				if(Argument.IsCommandName)
+				if(Current == null || m_Iterator.Current != Current.Hint)
 				{
-					Command = Console.FindCommand(m_Iterator.Current);
-				}
-				if(m_Iterator.Current.Length == 0)
-				{ 
-					IteratingHints = false;
+					Current = new HintHit(Console.InputState.UserInput, Argument, m_Iterator.Current);
+					if(m_Iterator.Current.Length == 0)
+					{
+						IteratingHints = false;
+					}
+					OnHintChanged.Invoke(Current);
+					//Console.InputState.SetCursor(Current.SufixOffset, true);
 				}
 			}
 			else
 			{
 				Current = null;
-				IteratingHints = false;
+				if(old != null)
+				{
+					OnHintChanged.Invoke(Current);
+				}
 			}
-			OnHintChanged.Invoke(Current);
 		}
 
 		private void Clear()
@@ -150,6 +162,8 @@ namespace ProceduralLevel.PowerConsole.Logic
 			Query = null;
 			Current = null;
 			m_Iterator = null;
+			IteratingHints = false;
+			Issues.Clear();
 		}
 
 		#region Control
@@ -180,15 +194,14 @@ namespace ProceduralLevel.PowerConsole.Logic
 				Console.InputState.SetCursor(Argument.Offset+(currentLength > 0? currentLength: Argument.Value.Length), true);
 				//SetCursor(hit.Prefix.Length+hit.HitPrefix.Length+hit.Value.Length+hit.HitSufix.Length);
 			}
-			RefreshCurrent();
+			UpdateHintHit();
 		}
 
 		public void CancelHint()
 		{
 			IteratingHints = false;
 			Clear();
-			RefreshCurrent();
-			InputChangedHandler(Console.InputState);
+			UpdateHintStatus();
 		}
 		#endregion
 	}

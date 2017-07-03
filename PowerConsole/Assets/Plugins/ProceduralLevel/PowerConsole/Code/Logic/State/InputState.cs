@@ -22,7 +22,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 		public int Cursor { get; private set; }
 
 
-		public readonly Event<InputState> OnInputChanged = new Event<InputState>();
+		public readonly Event<string> OnInputChanged = new Event<string>();
 		public readonly Event<int> OnCursorMoved = new Event<int>();
 
 		private int m_HistoryIndex;
@@ -30,7 +30,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 		public InputState(ConsoleInstance console)
 			: base(console)
 		{
-			UserInput = null;
+			UserInput = "";
 			Cursor = -1;
 			m_HistoryIndex = -1;
 		}
@@ -49,7 +49,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 			SetCursor(cursor);
 			UserInput = userInput;
 
-			OnInputChanged.Invoke(this);
+			OnInputChanged.Invoke(UserInput);
 		}
 
 		public void SetCursor(int cursor, bool force = false)
@@ -61,6 +61,25 @@ namespace ProceduralLevel.PowerConsole.Logic
 			}
 		}
 
+		public void Execute()
+		{
+			m_HistoryIndex = -1;
+			if(UserInput.Trim().Length == 0)
+			{
+				return;
+			}
+			if(Console.HintState.IteratingHints)
+			{
+				Console.Execute(Console.HintState.Current.Merged);
+			}
+			else
+			{
+				Console.Execute(UserInput);
+			}
+			SetInput("", 0);
+		}
+
+		#region History
 		private void IterateHistory(int indexChange)
 		{
 			int executionCount = Console.HistoryState.Count;
@@ -82,26 +101,6 @@ namespace ProceduralLevel.PowerConsole.Logic
 			{
 				SetInput("", 0);
 			}
-		}
-
-		#region Control
-		public void Execute()
-		{
-			m_HistoryIndex = -1;
-			if(UserInput.Trim().Length == 0)
-			{
-				return;
-			}
-			if(Console.HintState.IteratingHints)
-			{
-				Console.Execute(Console.HintState.Current.Merged);
-			}
-			else
-			{
-				Console.Execute(UserInput);
-			}
-			UserInput = "";
-			OnInputChanged.Invoke(this);
 		}
 
 		public void NextHistory()

@@ -10,9 +10,14 @@ namespace ProceduralLevel.PowerConsole.Logic
 		public readonly string HitSufix;
 		public readonly string Sufix;
 		public readonly string Merged;
+		public readonly string Hint;
+
+		public int SufixOffset { get; private set; }
 
 		public HintHit(string userInput, Argument argument, string hint)
 		{
+			Hint = hint;
+
 			int hitIndex = hint.IndexOf(argument.Value, StringComparison.OrdinalIgnoreCase);
 			hitIndex = Math.Max(0, hitIndex);
 
@@ -25,8 +30,8 @@ namespace ProceduralLevel.PowerConsole.Logic
 			int hitSufixOffset = Math.Min(hint.Length, hitIndex+Value.Length);
 			HitSufix = hint.Substring(hitSufixOffset);
 
-			int sufixOffset = Math.Min(userInput.Length, Prefix.Length+HitPrefix.Length+Value.Length);
-			Sufix = userInput.Substring(sufixOffset);
+			SufixOffset = Math.Min(userInput.Length, Prefix.Length+HitPrefix.Length+Value.Length);
+			Sufix = userInput.Substring(SufixOffset);
 
 			Merged = Prefix+HitPrefix+Value+HitSufix+Sufix;
 		}
