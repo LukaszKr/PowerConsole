@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ProceduralLevel.PowerConsole.Logic
 {
-	public class HistoryState: AConsoleState
+	public class HistoryModule: AConsoleModule
 	{
 		public const int EXECUTION_HISTORY_LIMIT = 50;
 
@@ -14,7 +14,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 			get { return m_ExecutionHistory.Count; }
 		}
 
-		public HistoryState(ConsoleInstance console) : base(console)
+		public HistoryModule(ConsoleInstance console) : base(console)
 		{
 		}
 
@@ -54,7 +54,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 		#endregion
 
 		#region Serialization
-		private string HISTORY_FILE = "HistoryState";
+		private string HISTORY_FILE = "History";
 
 
 		protected override string SavePath { get { return HISTORY_FILE; } }

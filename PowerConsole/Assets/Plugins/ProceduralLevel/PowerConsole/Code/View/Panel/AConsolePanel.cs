@@ -11,8 +11,8 @@ namespace ProceduralLevel.PowerConsole.View
 		public ConsoleInstance Console { get { return m_ConsoleView.Console; } }
 		public ConsoleStyles Styles { get { return m_ConsoleView.Styles; } }
 
-		public InputState Input { get { return Console.InputState; } }
-		public HintState Hint { get { return Console.HintState; } }
+		public InputModule Input { get { return Console.InputModule; } }
+		public HintModule Hint { get { return Console.HintModule; } }
 
 		protected int m_LastWidth = 0;
 		protected int m_LastHeight = 0;

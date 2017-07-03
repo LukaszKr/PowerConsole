@@ -2,19 +2,19 @@
 
 namespace ProceduralLevel.PowerConsole.Logic
 {
-	public class InputState: AConsoleState
+	public class InputModule: AConsoleModule
 	{
 		public string CurrentInput 
 		{ 
 			get 
 			{
-				if(Console.HintState.IteratingHints && Console.HintState.Current != null)
+				if(Console.HintModule.IteratingHints && Console.HintModule.Current != null)
 				{
-					return Console.HintState.Current.Merged;
+					return Console.HintModule.Current.Merged;
 				}
 				else
 				{
-					return Console.InputState.UserInput;
+					return Console.InputModule.UserInput;
 				}
 			}
 		}
@@ -27,7 +27,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 
 		private int m_HistoryIndex;
 
-		public InputState(ConsoleInstance console)
+		public InputModule(ConsoleInstance console)
 			: base(console)
 		{
 			UserInput = "";
@@ -68,9 +68,9 @@ namespace ProceduralLevel.PowerConsole.Logic
 			{
 				return;
 			}
-			if(Console.HintState.IteratingHints)
+			if(Console.HintModule.IteratingHints)
 			{
-				Console.Execute(Console.HintState.Current.Merged);
+				Console.Execute(Console.HintModule.Current.Merged);
 			}
 			else
 			{
@@ -82,7 +82,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 		#region History
 		private void IterateHistory(int indexChange)
 		{
-			int executionCount = Console.HistoryState.Count;
+			int executionCount = Console.HistoryModule.Count;
 			m_HistoryIndex += indexChange;
 			if(m_HistoryIndex < -1)
 			{
@@ -94,7 +94,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 			}
 			if(m_HistoryIndex >= 0 && m_HistoryIndex < executionCount)
 			{
-				string input = Console.HistoryState.Get(m_HistoryIndex);
+				string input = Console.HistoryModule.Get(m_HistoryIndex);
 				SetInput(input, input.Length);
 			}
 			else

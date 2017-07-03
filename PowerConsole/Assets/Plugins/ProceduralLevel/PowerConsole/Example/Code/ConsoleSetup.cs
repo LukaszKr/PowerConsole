@@ -21,7 +21,7 @@ public class ConsoleSetup: MonoBehaviour
 		messages.AddMessage(new Message(EMessageType.Info, 
 			"You can input parameters out of order by typing name=value, for example 'spawn cube y=2'"));
 		messages.AddMessage(new Message(EMessageType.Info, 
-			"Up to "+HistoryState.EXECUTION_HISTORY_LIMIT+" last commands are saved, you can iterate over them with up and down arrows"));
+			"Up to "+HistoryModule.EXECUTION_HISTORY_LIMIT+" last commands are saved, you can iterate over them with up and down arrows"));
 		messages.AddMessage(new Message(EMessageType.Info,
 			"You can also create new commands by recording a macro. To do this type 'macro record [name]' then all comands you need. " +
 			"When you are done, just type 'macro save'.From now on you can use this macro just like any other command. " +

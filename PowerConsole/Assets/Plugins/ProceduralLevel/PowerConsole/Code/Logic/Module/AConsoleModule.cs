@@ -3,11 +3,11 @@ using ProceduralLevel.Serialization.Json;
 
 namespace ProceduralLevel.PowerConsole.Logic
 {
-	public abstract class AConsoleState
+	public abstract class AConsoleModule
 	{
 		public readonly ConsoleInstance Console;
 
-		public AConsoleState(ConsoleInstance console)
+		public AConsoleModule(ConsoleInstance console)
 		{
 			Console = console;
 		}

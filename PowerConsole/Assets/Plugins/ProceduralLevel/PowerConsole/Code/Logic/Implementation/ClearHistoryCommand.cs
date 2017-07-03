@@ -8,8 +8,8 @@
 
 		public Message Command()
 		{
-			int count = Console.HistoryState.Count;
-			Console.HistoryState.ClearExecutionHistory();
+			int count = Console.HistoryModule.Count;
+			Console.HistoryModule.ClearExecutionHistory();
 			return CreateMessage(EMessageType.Success, ELocKey.ResClearHistory, count);
 		}
 	}

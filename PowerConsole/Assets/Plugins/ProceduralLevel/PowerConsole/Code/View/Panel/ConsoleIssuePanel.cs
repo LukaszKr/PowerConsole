@@ -34,12 +34,12 @@ namespace ProceduralLevel.PowerConsole.View
 
 		public override float PreferedHeight(float availableHeight)
 		{
-			return (Console.HintState.Issues.Count > 0? Styles.InputHeight: 0);
+			return (Console.HintModule.Issues.Count > 0? Styles.InputHeight: 0);
 		}
 
 		protected override void OnRender(Vector2 size)
 		{
-			List<Exception> issues = Console.HintState.Issues;
+			List<Exception> issues = Console.HintModule.Issues;
 			if(issues.Count > 0)
 			{
 				Exception issue = issues[0];

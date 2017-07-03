@@ -14,7 +14,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 		{
 			if(parameterIndex == 1)
 			{
-				return Console.MacroState.NameHint;
+				return Console.MacroModule.NameHint;
 			}
 			return base.GetHintFor(manager, parameterIndex);
 		}
@@ -28,23 +28,23 @@ namespace ProceduralLevel.PowerConsole.Logic
 					{
 						return CreateMessage(EMessageType.Error, ELocKey.ResMacroNameEmpty);
 					}
-					if(Console.MacroState.IsRecording)
+					if(Console.MacroModule.IsRecording)
 					{
 						return CreateMessage(EMessageType.Error, ELocKey.ResMacroAlreadyRecording);
 					}
-					Console.MacroState.StartRecording(name);
+					Console.MacroModule.StartRecording(name);
 					return CreateMessage(EMessageType.Success, ELocKey.ResMacroRecording);
 				case EMacroMode.List:
 					StringBuilder sb = new StringBuilder();
 					sb.Append(ELocKey.ResMacroList);
-					for(int x = 0; x < Console.MacroState.Count; x++)
+					for(int x = 0; x < Console.MacroModule.Count; x++)
 					{
-						Macro macro = Console.MacroState.Get(x);
+						Macro macro = Console.MacroModule.Get(x);
 						sb.AppendLine(macro.Name);
 					}
 					return new Message(EMessageType.Normal, sb.ToString());
 				case EMacroMode.Remove:
-					if(Console.MacroState.RemoveMacro(name))
+					if(Console.MacroModule.RemoveMacro(name))
 					{
 						return CreateMessage(EMessageType.Success, ELocKey.ResMacroRemoved, name);
 					}
@@ -53,11 +53,11 @@ namespace ProceduralLevel.PowerConsole.Logic
 						return CreateMessage(EMessageType.Warning, ELocKey.ResMacroNotRemoved, name);
 					}
 				case EMacroMode.Save:
-					if(!Console.MacroState.IsRecording)
+					if(!Console.MacroModule.IsRecording)
 					{
 						return CreateMessage(EMessageType.Error, ELocKey.ResMacroNotRecording);
 					}
-					Console.MacroState.Save();
+					Console.MacroModule.Save();
 					return CreateMessage(EMessageType.Success, ELocKey.ResMacroSaved);
 				default:
 					return CreateMessage(EMessageType.Error, ELocKey.ResMacroModeUnknown, mode);

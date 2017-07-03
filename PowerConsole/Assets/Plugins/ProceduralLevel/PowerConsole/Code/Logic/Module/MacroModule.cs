@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace ProceduralLevel.PowerConsole.Logic
 {
-	public class MacroState: AConsoleState
+	public class MacroModule: AConsoleModule
 	{
 		private List<Macro> m_Macros = new List<Macro>();
 
@@ -16,7 +16,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 
 		public int Count { get { return m_Macros.Count; } }
 
-		public MacroState(ConsoleInstance console) : base(console)
+		public MacroModule(ConsoleInstance console) : base(console)
 		{
 			NameHint = new MacroNameHint(this, m_Macros);
 		}
@@ -36,7 +36,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 				return false;
 			}
 			Console.SetLocked(true);
-			m_RecordingFrom = Console.HistoryState.Count;
+			m_RecordingFrom = Console.HistoryModule.Count;
 			Recorded = new Macro(name);
 			NameHint.InvalidateCache();
 			return true;
@@ -58,9 +58,9 @@ namespace ProceduralLevel.PowerConsole.Logic
 				return false;
 			}
 			Console.SetLocked(false);
-			for(int x = m_RecordingFrom; x < Console.HistoryState.Count-1; x++)
+			for(int x = m_RecordingFrom; x < Console.HistoryModule.Count-1; x++)
 			{
-				Recorded.Queries.Add(Console.HistoryState.Get(x));
+				Recorded.Queries.Add(Console.HistoryModule.Get(x));
 			}
 			if(!RegisterMacro(Recorded))
 			{
@@ -128,7 +128,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 		}
 
 		#region Serialization
-		private const string MACRO_FILE = "MacroState";
+		private const string MACRO_FILE = "Macro";
 
 		protected override string SavePath { get { return MACRO_FILE; } }
 

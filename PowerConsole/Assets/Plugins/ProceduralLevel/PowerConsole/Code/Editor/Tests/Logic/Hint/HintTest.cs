@@ -6,7 +6,7 @@ namespace ProceduralLevel.PowerConsole.Editor.Test.Logic.Hint
 	public class HintTest
 	{
 		private ConsoleInstance m_Console = new ConsoleInstance(new LocalizationManager(), null);
-		protected HintState Hints { get { return m_Console.HintState; } }
+		protected HintModule Hints { get { return m_Console.HintModule; } }
 
 		[Test]
 		public void CommandNameHint()

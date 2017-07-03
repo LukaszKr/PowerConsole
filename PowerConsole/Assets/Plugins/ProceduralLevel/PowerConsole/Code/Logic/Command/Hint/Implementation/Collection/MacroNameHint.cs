@@ -4,10 +4,10 @@ namespace ProceduralLevel.PowerConsole.Logic
 {
 	public class MacroNameHint: ACollectionHint<string>
 	{
-		private MacroState m_MacroState;
+		private MacroModule m_MacroState;
 		private List<Macro> m_Macros;
 
-		public MacroNameHint(MacroState state, List<Macro> macros)
+		public MacroNameHint(MacroModule state, List<Macro> macros)
 		{
 			m_MacroState = state;
 			m_Macros = macros;

@@ -18,14 +18,14 @@ namespace ProceduralLevel.PowerConsole.Logic
 		public readonly CommandNameHint NameHint;
 		public readonly CommandNameHint OptionHint;
 
-		public readonly InputState InputState;
-		public readonly HintState HintState;
-		public readonly HistoryState HistoryState;
-		public readonly MacroState MacroState;
+		public readonly InputModule InputModule;
+		public readonly HintModule HintModule;
+		public readonly HistoryModule HistoryModule;
+		public readonly MacroModule MacroModule;
 
 		public bool PrintExecutedCommand = true;
 
-		private List<AConsoleState> m_States;
+		private List<AConsoleModule> m_Modules;
 
 		public bool Locked { get; private set; }
 
@@ -40,16 +40,16 @@ namespace ProceduralLevel.PowerConsole.Logic
 			NameHint = new CommandNameHint(m_Commands, false);
 			OptionHint = new CommandNameHint(m_Commands, true);
 
-			InputState = new InputState(this);
-			HintState = new HintState(this);
-			HistoryState = new HistoryState(this);
-			MacroState = new MacroState(this);
+			InputModule = new InputModule(this);
+			HintModule = new HintModule(this);
+			HistoryModule = new HistoryModule(this);
+			MacroModule = new MacroModule(this);
 
 			Persistence = (persistence ??new MockPersistence());
 
-			m_States = new List<AConsoleState>()
+			m_Modules = new List<AConsoleModule>()
 			{
-				InputState, HintState, HistoryState, MacroState
+				InputModule, HintModule, HistoryModule, MacroModule
 			};
 
 			m_DefaultOptions = new List<AConsoleCommand>()
@@ -57,14 +57,14 @@ namespace ProceduralLevel.PowerConsole.Logic
 				new RepeatOption(this)
 			};
 
-			for(int x = 0; x < m_States.Count; x++)
+			for(int x = 0; x < m_Modules.Count; x++)
 			{
-				AConsoleState state = m_States[x];
-				state.Read(Persistence);
-				state.BindEvents();
+				AConsoleModule module = m_Modules[x];
+				module.Read(Persistence);
+				module.BindEvents();
 			}
 
-			InputState.SetInput("", 0);
+			InputModule.SetInput("", 0);
 		}
 
 		public void SetupDefault()
@@ -105,7 +105,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 		{
 			if(recordHistory)
 			{
-				HistoryState.Add(strQuery);
+				HistoryModule.Add(strQuery);
 			}
 			List<Query> queries = ParseQuery(strQuery);
 			Execute(queries);

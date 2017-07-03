@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace ProceduralLevel.PowerConsole.Logic
 {
-	public class HintState: AConsoleState
+	public class HintModule: AConsoleModule
 	{
 		public bool IteratingHints { get; private set; }
 
@@ -22,14 +22,14 @@ namespace ProceduralLevel.PowerConsole.Logic
 
 		public readonly Event<HintHit> OnHintChanged = new Event<HintHit>();
 
-		public HintState(ConsoleInstance console) : base(console)
+		public HintModule(ConsoleInstance console) : base(console)
 		{
 		}
 
 		public override void BindEvents()
 		{
-			Console.InputState.OnInputChanged.AddListener(InputChangedHandler);
-			Console.InputState.OnCursorMoved.AddListener(CursorMovedHandler);
+			Console.InputModule.OnInputChanged.AddListener(InputChangedHandler);
+			Console.InputModule.OnCursorMoved.AddListener(CursorMovedHandler);
 		}
 
 		private void InputChangedHandler(string userInput)
@@ -57,7 +57,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 			List<Query> queries;
 			try
 			{
-				queries = Console.ParseQuery(Console.InputState.UserInput);
+				queries = Console.ParseQuery(Console.InputModule.UserInput);
 			}
 			catch(Exception e)
 			{
@@ -69,7 +69,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 			for(int x = 0; x < queries.Count; x++)
 			{
 				Query = queries[x];
-				Argument = Query.GetArgumentAt(Console.InputState.Cursor);
+				Argument = Query.GetArgumentAt(Console.InputModule.Cursor);
 				if(Argument != null)
 				{
 					break;
@@ -137,7 +137,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 			{
 				if(Current == null || m_Iterator.Current != Current.Hint)
 				{
-					Current = new HintHit(Console.InputState.UserInput, Argument, m_Iterator.Current);
+					Current = new HintHit(Console.InputModule.UserInput, Argument, m_Iterator.Current);
 					if(m_Iterator.Current.Length == 0)
 					{
 						IteratingHints = false;
@@ -191,7 +191,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 			{
 				IteratingHints = true;
 				int currentLength = m_Iterator.Current.Length;
-				Console.InputState.SetCursor(Argument.Offset+(currentLength > 0? currentLength: Argument.Value.Length), true);
+				Console.InputModule.SetCursor(Argument.Offset+(currentLength > 0? currentLength: Argument.Value.Length), true);
 				//SetCursor(hit.Prefix.Length+hit.HitPrefix.Length+hit.Value.Length+hit.HitSufix.Length);
 			}
 			UpdateHintHit();

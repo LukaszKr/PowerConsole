@@ -23,7 +23,7 @@ namespace ProceduralLevel.PowerConsole.View
 		{
 			m_ButtonText = new GUIContent(Localization.Get(ELocKey.UIInputSubmit));
 
-			Console.InputState.OnCursorMoved.AddListener(CursorMovedHandler);
+			Console.InputModule.OnCursorMoved.AddListener(CursorMovedHandler);
 		}
 
 		public override float PreferedHeight(float availableHeight)
@@ -41,12 +41,12 @@ namespace ProceduralLevel.PowerConsole.View
 			}
 			if(m_DesiredCursor >= 0)
 			{
-				TextEditorHelper.SetText(Console.InputState.CurrentInput);
+				TextEditorHelper.SetText(Console.InputModule.CurrentInput);
 				TextEditorHelper.SetCursor(m_DesiredCursor);
 				m_DesiredCursor = -1;
 			}
 
-			string newInput = GUI.TextField(m_InputRect, Console.InputState.CurrentInput, Styles.InputText);
+			string newInput = GUI.TextField(m_InputRect, Console.InputModule.CurrentInput, Styles.InputText);
 			if(isRepaint)
 			{
 				if(m_StealFocus)
@@ -58,7 +58,7 @@ namespace ProceduralLevel.PowerConsole.View
 
 			if(GUI.Button(m_SubmitRect, m_ButtonText))
 			{
-				Console.InputState.Execute();
+				Console.InputModule.Execute();
 			}
 			int newCursor = TextEditorHelper.GetCursor();
 			if(m_DesiredCursor >= 0)
@@ -68,22 +68,22 @@ namespace ProceduralLevel.PowerConsole.View
 
 			if(GUI.changed)
 			{
-				if(!Console.HintState.IteratingHints)
+				if(!Console.HintModule.IteratingHints)
 				{
-					Console.InputState.SetInput(newInput, newCursor);
+					Console.InputModule.SetInput(newInput, newCursor);
 				}
 				else if(m_DesiredCursor < 0)
 				{
-					if(newCursor < Console.InputState.Cursor)
+					if(newCursor < Console.InputModule.Cursor)
 					{
-						Argument arg = Console.HintState.Argument;
-						TextEditorHelper.SetText(Console.InputState.CurrentInput);
+						Argument arg = Console.HintModule.Argument;
+						TextEditorHelper.SetText(Console.InputModule.CurrentInput);
 						TextEditorHelper.SetCursor(arg.Offset+arg.Value.Length);
-						Console.HintState.CancelHint();
+						Console.HintModule.CancelHint();
 					}
-					else if(newCursor > Console.InputState.Cursor)
+					else if(newCursor > Console.InputModule.Cursor)
 					{
-						Console.InputState.SetInput(newInput, newCursor);
+						Console.InputModule.SetInput(newInput, newCursor);
 					}
 				}
 			}
