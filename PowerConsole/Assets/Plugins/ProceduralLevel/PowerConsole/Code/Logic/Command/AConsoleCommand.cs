@@ -39,7 +39,14 @@ namespace ProceduralLevel.PowerConsole.Logic
 			if(IsValid != valid)
 			{
 				IsValid = valid;
-				Console.NameHint.InvalidateCache();
+				if(IsOption)
+				{
+					Console.OptionHint.InvalidateCache();
+				}
+				else
+				{
+					Console.NameHint.InvalidateCache();
+				}
 			}
 		}
 
