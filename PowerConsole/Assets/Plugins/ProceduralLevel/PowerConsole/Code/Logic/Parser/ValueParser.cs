@@ -148,6 +148,10 @@ namespace ProceduralLevel.PowerConsole.Logic
 		{
 			return (string rawValue) =>
 			{
+				if(!Enum.IsDefined(type, rawValue))
+				{
+					throw new ArgumentException();
+				}
 				return Enum.Parse(type, rawValue, true);
 			};
 		}
