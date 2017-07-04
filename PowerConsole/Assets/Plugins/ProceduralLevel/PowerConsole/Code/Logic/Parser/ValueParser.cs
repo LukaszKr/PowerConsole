@@ -146,9 +146,17 @@ namespace ProceduralLevel.PowerConsole.Logic
 
 		private static ValueParserDelegate GenerateEnumParser(Type type)
 		{
+			string[] rawValues = Enum.GetNames(type);
+			//this is because IsDefined is caseSensitive and it's needed to filter out numbers without enum value
+			HashSet<string> values = new HashSet<string>();
+			for(int x = 0; x < rawValues.Length; x++)
+			{
+				values.Add(rawValues[x].ToLower());
+			}
+
 			return (string rawValue) =>
 			{
-				if(!Enum.IsDefined(type, rawValue))
+				if(!Enum.IsDefined(type, rawValue) && !values.Contains(rawValue.ToLower()))
 				{
 					throw new ArgumentException();
 				}
