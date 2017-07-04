@@ -30,8 +30,10 @@ namespace ProceduralLevel.PowerConsole.Logic
 			int hitSufixOffset = Math.Min(hint.Length, hitIndex+Value.Length);
 			HitSufix = hint.Substring(hitSufixOffset);
 
-			SufixOffset = Prefix.Length+HitPrefix.Length+Value.Length+HitSufix.Length;
+			SufixOffset = Prefix.Length+Value.Length;
 			Sufix = userInput.Substring(Math.Min(userInput.Length, SufixOffset));
+			SufixOffset += HitPrefix.Length+HitSufix.Length;
+
 
 			Merged = Prefix+HitPrefix+Value+HitSufix+Sufix;
 		}

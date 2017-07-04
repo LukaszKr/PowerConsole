@@ -65,12 +65,8 @@ namespace ProceduralLevel.PowerConsole.View
 
 			if(GUI.changed)
 			{
-				if(!Console.HintModule.IteratingHints)
+				if(!Console.HintModule.IteratingHints || Console.HintModule.Current.Hint.Length == 0)
 				{
-					if(newCursor != Console.InputModule.Cursor)
-					{
-						Console.HintModule.UpdateHint();
-					}
 					Console.InputModule.SetInput(newInput, newCursor);
 				}
 				else if(m_DesiredCursor < 0)
@@ -78,7 +74,6 @@ namespace ProceduralLevel.PowerConsole.View
 					//if user deleted
 					if(newCursor < Console.InputModule.Cursor)
 					{
-						TextEditorHelper.SetText(Console.InputModule.UserInput);
 						Console.HintModule.CancelHint();
 					}
 					else if(newCursor > Console.InputModule.Cursor)

@@ -10,7 +10,6 @@ namespace ProceduralLevel.PowerConsole.Logic
 		private HintProvider m_HintProvider;
 		public AHintIterator Iterator { get; private set; }
 		public HintHit Current { get; private set; }
-		
 
 		public List<ConsoleException> Issues = new List<ConsoleException>();
 
@@ -33,17 +32,10 @@ namespace ProceduralLevel.PowerConsole.Logic
 
 		public void UpdateHint()
 		{
+			Issues.Clear();
 			Iterator = m_HintProvider.GetHintIterator(Console.InputModule.UserInput, Console.InputModule.Cursor, Issues);
 			IteratingHints = false;
 			SetToCurrentHint();
-		}
-
-		private void Clear()
-		{
-			Current = null;
-			Iterator = null;
-			IteratingHints = false;
-			Issues.Clear();
 		}
 
 		#region Control
@@ -69,7 +61,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 
 		private void SetToCurrentHint()
 		{
-			if(Iterator != null && Iterator.Current != Iterator.Argument.Value)
+			if(Iterator != null)
 			{
 				Current = new HintHit(Console.InputModule.UserInput, Iterator, Iterator.Current);
 				OnHintChanged.Invoke(Current);
@@ -87,7 +79,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 
 		public void CancelHint()
 		{
-			Clear();
+			Console.InputModule.SetCursor(Current.SufixOffset-Current.HitSufix.Length);
 			UpdateHint();
 		}
 		#endregion
