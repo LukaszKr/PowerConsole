@@ -78,15 +78,12 @@ namespace ProceduralLevel.PowerConsole.View
 					//if user deleted
 					if(newCursor < Console.InputModule.Cursor)
 					{
-						HintHit hit = Console.HintModule.Current;
-						TextEditorHelper.SetText(Console.InputModule.CurrentInput);
-						TextEditorHelper.SetCursor(hit.SufixOffset);
+						TextEditorHelper.SetText(Console.InputModule.UserInput);
 						Console.HintModule.CancelHint();
 					}
 					else if(newCursor > Console.InputModule.Cursor)
 					{
 						Console.InputModule.SetInput(newInput, newCursor);
-						Console.HintModule.UpdateHint();
 					}
 				}
 			}

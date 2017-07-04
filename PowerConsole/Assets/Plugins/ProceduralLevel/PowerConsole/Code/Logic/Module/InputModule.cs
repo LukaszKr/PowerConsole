@@ -82,7 +82,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 
 		private void HintChangedHandler(HintHit current)
 		{
-			if(current != null)
+			if(current != null && Console.HintModule.IteratingHints)
 			{
 				SetCursor(current.SufixOffset);
 			}

@@ -33,16 +33,8 @@ namespace ProceduralLevel.PowerConsole.Logic
 
 		public void UpdateHint()
 		{
-			AHintIterator newIterator = m_HintProvider.GetHintIterator(Console.InputModule.UserInput, Console.InputModule.Cursor, Issues);
-
-			if(newIterator != null)
-			{
-				Iterator = newIterator;
-				if(Iterator.Current.Length == 0)
-				{
-					IteratingHints = false;
-				}
-			}
+			Iterator = m_HintProvider.GetHintIterator(Console.InputModule.UserInput, Console.InputModule.Cursor, Issues);
+			IteratingHints = false;
 			SetToCurrentHint();
 		}
 
@@ -96,7 +88,6 @@ namespace ProceduralLevel.PowerConsole.Logic
 		public void CancelHint()
 		{
 			Clear();
-			SetToCurrentHint();
 			UpdateHint();
 		}
 		#endregion
