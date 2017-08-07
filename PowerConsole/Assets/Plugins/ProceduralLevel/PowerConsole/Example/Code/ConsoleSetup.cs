@@ -26,7 +26,5 @@ public class ConsoleSetup: MonoBehaviour
 			"You can also create new commands by recording a macro. To do this type 'macro record [name]' then all comands you need. " +
 			"When you are done, just type 'macro save'.From now on you can use this macro just like any other command. " +
 			"You can also remove them by typing 'macro remove [name]'"));
-		messages.AddMessage(new Message(EMessageType.Success,
-			"I hope you will find this tool usefull!"));
 	}
 }
