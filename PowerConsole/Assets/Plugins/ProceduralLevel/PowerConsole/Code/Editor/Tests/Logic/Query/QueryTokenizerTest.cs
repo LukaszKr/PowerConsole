@@ -5,7 +5,8 @@ using System.Collections.Generic;
 
 namespace ProceduralLevel.PowerConsole.Editor.Test.Logic.Queries
 {
-	public class QueryTokenizerTest
+    [Category("PowerConsole")]
+    public class QueryTokenizerTest
 	{
 		private QueryTokenizer m_Tokenizer = new QueryTokenizer();
 

@@ -3,7 +3,8 @@ using ProceduralLevel.PowerConsole.Logic;
 
 namespace ProceduralLevel.PowerConsole.Editor.Test.Logic.Queries
 {
-	public class QueryParserErrorDetectionTest
+    [Category("PowerConsole")]
+    public class QueryParserErrorDetectionTest
 	{
 		private QueryParser m_Parser = new QueryParser();
 

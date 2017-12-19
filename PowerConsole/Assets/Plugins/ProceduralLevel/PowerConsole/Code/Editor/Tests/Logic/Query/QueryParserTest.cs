@@ -4,7 +4,8 @@ using System.Collections.Generic;
 
 namespace ProceduralLevel.PowerConsole.Editor.Test.Logic.Queries
 {
-	public class QueryParserTest
+    [Category("PowerConsole")]
+    public class QueryParserTest
 	{
 		private QueryParser m_Parser = new QueryParser();
 

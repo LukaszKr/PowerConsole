@@ -4,7 +4,8 @@ using System;
 
 namespace ProceduralLevel.PowerConsole.Editor.Test.Logic
 {
-	public class FactoryTest
+    [Category("PowerConsole")]
+    public class FactoryTest
 	{
 		[Test]
 		public void IncorrectReturnTypeDetection()

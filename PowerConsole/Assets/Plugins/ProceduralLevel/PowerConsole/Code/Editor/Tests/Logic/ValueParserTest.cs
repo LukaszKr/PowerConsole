@@ -3,6 +3,7 @@ using ProceduralLevel.PowerConsole.Logic;
 
 namespace ProceduralLevel.PowerConsole.Editor.Test.Logic
 {
+    [Category("PowerConsole")]
 	public class ValueParserTest
 	{
 		private ValueParser m_Parser = new ValueParser();

@@ -4,7 +4,8 @@ using System.Collections.Generic;
 
 namespace ProceduralLevel.PowerConsole.Editor.Test.Logic.Console
 {
-	public class ConsoleTest
+    [Category("PowerConsole")]
+    public class ConsoleTest
 	{
 		private ConsoleInstance m_Console = new ConsoleInstance(new LocalizationManager(), null);
 

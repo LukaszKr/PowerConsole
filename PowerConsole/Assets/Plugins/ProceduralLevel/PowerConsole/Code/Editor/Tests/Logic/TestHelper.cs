@@ -5,7 +5,7 @@ using System;
 
 namespace ProceduralLevel.PowerConsole.Editor.Test
 {
-	public static class TestHelper
+    public static class TestHelper
 	{
 		public static void CheckQuery(Query query, string name, int argCount, bool isOption = false)
 		{
