@@ -6,7 +6,7 @@ namespace ProceduralLevel.PowerConsole.View
 {
 	public class ConsoleInputPanel: AConsolePanel
 	{
-		private const string INPUT_NAME = "Input";
+		private const string INPUT_NAME = "ConsoleInputField";
 		private const int PADDING = 6;
 		private const int SUBMIT_MARGIN = 2;
 
@@ -33,7 +33,15 @@ namespace ProceduralLevel.PowerConsole.View
 
 		protected override void OnRender(Vector2 size)
 		{
-			bool isRepaint = (Event.current != null && Event.current.type == EventType.Repaint);
+			Event current = Event.current;
+			bool isRepaint = (current != null &&  current.type == EventType.Repaint);
+			if(current.isKey && m_ConsoleView.UserInput.IsToggleKey(current.keyCode))
+			{
+				if(GUI.GetNameOfFocusedControl() == INPUT_NAME)
+				{
+					GUI.FocusControl(null);
+				}
+			}
 
 			GUI.SetNextControlName(INPUT_NAME);
 			if(m_DesiredCursor >= 0)

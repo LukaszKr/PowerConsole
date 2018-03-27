@@ -69,5 +69,22 @@ namespace ProceduralLevel.PowerConsole.View
 			}
 			return false;
 		}
+
+		public bool IsToggleKey(KeyCode keyCode)
+		{
+			return ContainsKey(m_Toggle, keyCode);
+		}
+
+		public static bool ContainsKey(KeyCode[] keyCodes, KeyCode keyCode)
+		{
+			for(int x = 0; x < keyCodes.Length; ++x)
+			{
+				if(keyCodes[x] == keyCode)
+				{
+					return true;
+				}
+			}
+			return false;
+		}
 	}
 }

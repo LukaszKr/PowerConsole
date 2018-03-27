@@ -6,7 +6,6 @@ namespace ProceduralLevel.PowerConsole.Logic
 {
 	public class ConsoleInstance
 	{
-
 		private QueryParser m_QueryParser = new QueryParser();
 
 		private List<AConsoleCommand> m_Commands = new List<AConsoleCommand>();
