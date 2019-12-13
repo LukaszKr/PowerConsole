@@ -73,7 +73,7 @@ namespace ProceduralLevel.PowerConsole.View
 
 			if(GUI.changed)
 			{
-				if(!Console.HintModule.IteratingHints || Console.HintModule.Current.Hint.Length == 0)
+				if(!Console.HintModule.IteratingHints || (Console.HintModule.Current != null && Console.HintModule.Current.Hint.Length == 0))
 				{
 					Console.InputModule.SetInput(newInput, newCursor);
 				}

@@ -75,29 +75,32 @@ namespace ProceduralLevel.PowerConsole.View
 		private void HintChangedHandler(HintHit hit)
 		{
 			AHintIterator iterator = Hint.Iterator;
-			if(iterator.Argument.IsCommandName)
+			if(iterator != null)
 			{
-				AConsoleCommand command = Console.FindCommand(iterator.Current);
-				if(command != null)
+				if(iterator.Argument.IsCommandName)
 				{
-					m_CommandLabel.text = string.Format(COMMAND_HINT, command.ToString(), command.Description);
+					AConsoleCommand command = Console.FindCommand(iterator.Current);
+					if(command != null)
+					{
+						m_CommandLabel.text = string.Format(COMMAND_HINT, command.ToString(), command.Description);
+					}
+					else
+					{
+						m_CommandLabel.text = iterator.Argument.Value;
+					}
 				}
 				else
 				{
-					m_CommandLabel.text = iterator.Argument.Value;
+					m_CommandLabel.text = iterator.Query.Name.Value;
 				}
-			}
-			else
-			{
-				m_CommandLabel.text = iterator.Query.Name.Value;
-			}
-			if(hit != null && iterator.Query != null && iterator.Hint != null)
-			{
-				m_ParameterLabel.text = string.Format(PARAMETER_HINT, iterator.Argument.Name, iterator.Hint.HintedType.Name);
-				m_HintPrefixLabel.text = hit.HitPrefix;
-				m_HintHitLabel.text = hit.Value;
-				m_HintSufixLabel.text = hit.HitSufix;
-				m_HintDrawer.MarkAsDirty();
+				if(hit != null && iterator.Query != null && iterator.Hint != null)
+				{
+					m_ParameterLabel.text = string.Format(PARAMETER_HINT, iterator.Argument.Name, iterator.Hint.HintedType.Name);
+					m_HintPrefixLabel.text = hit.HitPrefix;
+					m_HintHitLabel.text = hit.Value;
+					m_HintSufixLabel.text = hit.HitSufix;
+					m_HintDrawer.MarkAsDirty();
+				}
 			}
 		}
 	}

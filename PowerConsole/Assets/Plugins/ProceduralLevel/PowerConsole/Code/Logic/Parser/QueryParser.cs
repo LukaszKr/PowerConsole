@@ -81,7 +81,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 						if(HasTokens())
 						{
 							Token nextToken = PeekToken();
-							if(!string.IsNullOrEmpty(nextToken.Value) && char.IsDigit(nextToken.Value[0]))
+							if(string.IsNullOrEmpty(nextToken.Value) || char.IsDigit(nextToken.Value[0]))
 							{
 								m_ParseMode = EQueryParseMode.NegativeNumber;
 							}
@@ -157,10 +157,6 @@ namespace ProceduralLevel.PowerConsole.Logic
 			if(query != null)
 			{
 				query.RawQuery = rawValue;
-			}
-			if(quoted)
-			{
-				throw new QueryParserException(EQueryError.QuoteMismatch, token);
 			}
 			if(query != null && token.IsSeparator && token.Value[0] == ParserConst.SPACE)
 			{

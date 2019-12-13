@@ -79,8 +79,11 @@ namespace ProceduralLevel.PowerConsole.Logic
 
 		public void CancelHint()
 		{
-			Console.InputModule.SetCursor(Current.SufixOffset-Current.HitSufix.Length);
-			UpdateHint();
+			if(Current != null)
+			{
+				Console.InputModule.SetCursor(Current.SufixOffset-Current.HitSufix.Length);
+				UpdateHint();
+			}
 		}
 		#endregion
 	}

@@ -130,7 +130,11 @@ namespace ProceduralLevel.PowerConsole.Logic
 					{
 						AConsoleCommand option = query.GetCommand(this);
 						AConsoleCommand command = ExecutionStack[0].GetCommand(this);
-						if(!command.IsOptionValid(option.GetType()))
+						if(command == null)
+						{
+							OnMessage.Invoke(new Message(EMessageType.Error, Localization.Get(ELocKey.LogicCommandNotFound, query.Name.Value)));
+						}
+						else if(!command.IsOptionValid(option.GetType()))
 						{
 							string message = Localization.Get(ELocKey.LogicOptionInvalid, option.Name, command.Name);
 							OnMessage.Invoke(new Message(EMessageType.Error, message));

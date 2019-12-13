@@ -3,7 +3,7 @@ using ProceduralLevel.PowerConsole.Logic;
 
 namespace ProceduralLevel.PowerConsole.Editor.Test.Logic.Queries
 {
-    [Category("PowerConsole")]
+	[Category("PowerConsole")]
     public class QueryParserErrorDetectionTest
 	{
 		private QueryParser m_Parser = new QueryParser();
@@ -12,12 +12,6 @@ namespace ProceduralLevel.PowerConsole.Editor.Test.Logic.Queries
 		public void NamedWithoutName()
 		{
 			TestHelper.CheckException(m_Parser, "test =value", EQueryError.NamedArgumentNoName);
-		}
-
-		[Test]
-		public void MismatchedQuotes()
-		{
-			TestHelper.CheckException(m_Parser, "\"missing quote", EQueryError.QuoteMismatch);
 		}
 
 		[Test]
