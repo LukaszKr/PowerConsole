@@ -5,8 +5,11 @@ namespace ProceduralLevel.PowerConsole.Logic
 {
 	public class QueryParser: AParser<List<Query>>
 	{
+		private EQueryParseMode m_ParseMode = EQueryParseMode.Argument;
+
 		public QueryParser() : base(new QueryTokenizer())
 		{
+			m_ParseMode = EQueryParseMode.Argument;
 		}
 
 		protected override void Reset()
@@ -17,20 +20,9 @@ namespace ProceduralLevel.PowerConsole.Logic
 		protected override List<Query> Parse()
 		{
 			List<Query> queries = new List<Query>();
-			bool isOption;
 			while(HasTokens())
 			{
-				Token token = PeekToken();
-				isOption = (token.IsSeparator && token.Value[0] == ParserConst.OPTION);
-				if(isOption)
-				{
-					if(queries.Count == 0)
-					{
-						throw new QueryParserException(EQueryError.OptionWithoutCommand, token);
-					}
-					ConsumeToken();
-				}
-				Query query = ParseQuery(isOption);
+				Query query = ParseQuery();
 				if(query != null)
 				{
 					queries.Add(query);
@@ -51,7 +43,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 			return queries;
 		}
 
-		private Query ParseQuery(bool isOption)
+		private Query ParseQuery()
 		{
 			Query query = null;
 
@@ -85,11 +77,29 @@ namespace ProceduralLevel.PowerConsole.Logic
 						ConsumeToken();
 						break;
 					case ParserConst.OPTION: //do not consume token
-						if(query != null)
+						ConsumeToken();
+						if(HasTokens())
 						{
-							query.RawQuery = rawValue;
+							Token nextToken = PeekToken();
+							if(!string.IsNullOrEmpty(nextToken.Value) && char.IsDigit(nextToken.Value[0]))
+							{
+								m_ParseMode = EQueryParseMode.NegativeNumber;
+							}
+							else
+							{
+								m_ParseMode = EQueryParseMode.Option;
+								if(query != null)
+								{
+									query.RawQuery = rawValue;
+								}
+								else
+								{
+									throw new QueryParserException(EQueryError.OptionWithoutCommand, nextToken);
+								}
+								return query;
+							}
 						}
-						return query;
+						break;
 					case ParserConst.SEPARATOR:
 						if(query != null)
 						{
@@ -116,7 +126,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 								Offset = token.Column,
 								Value = token.Value
 							};
-							query = new Query(commandName, isOption);
+							query = new Query(commandName, m_ParseMode == EQueryParseMode.Option);
 						}
 						else
 						{
@@ -125,8 +135,18 @@ namespace ProceduralLevel.PowerConsole.Logic
 								argument = new Argument();
 								query.Arguments.Add(argument);
 							}
+							string argumentValue;
+							if(m_ParseMode == EQueryParseMode.NegativeNumber)
+							{
+								argumentValue = ParserConst.OPTION+token.Value;
+							}
+							else
+							{
+								argumentValue = token.Value;
+							}
+
 							argument.Offset = token.Column;
-							argument.Value = token.Value;
+							argument.Value = argumentValue;
 						}
 						ConsumeToken();
 						break;
@@ -149,6 +169,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 					Offset = token.Column+token.Value.Length
 				});
 			}
+			m_ParseMode = EQueryParseMode.Argument;
 			return query;
 		}
 	}

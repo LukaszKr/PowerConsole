@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace ProceduralLevel.PowerConsole.Editor.Test.Logic.Queries
 {
-    [Category("PowerConsole")]
+	[Category("PowerConsole")]
     public class QueryParserTest
 	{
 		private QueryParser m_Parser = new QueryParser();
@@ -106,6 +106,18 @@ namespace ProceduralLevel.PowerConsole.Editor.Test.Logic.Queries
 			query = queries[1];
 			TestHelper.CheckQuery(query, "repeat", 1, true);
 			TestHelper.CheckArgument(query.Arguments[0], null, "2");
+		}
+
+		[Test]
+		public void NegativeNumber()
+		{
+			m_Parser.Parse("test -1");
+			List<Query> queries = m_Parser.Flush();
+
+			Assert.AreEqual(1, queries.Count);
+			Query query = queries[0];
+			TestHelper.CheckQuery(query, "test", 1);
+			TestHelper.CheckArgument(query.Arguments[0], null, "-1");
 		}
 	}
 }
