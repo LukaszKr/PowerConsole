@@ -139,6 +139,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 							if(m_ParseMode == EQueryParseMode.NegativeNumber)
 							{
 								argumentValue = ParserConst.OPTION+token.Value;
+								m_ParseMode = EQueryParseMode.Argument;
 							}
 							else
 							{

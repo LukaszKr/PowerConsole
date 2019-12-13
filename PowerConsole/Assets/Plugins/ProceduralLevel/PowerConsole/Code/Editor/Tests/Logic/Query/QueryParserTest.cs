@@ -119,5 +119,23 @@ namespace ProceduralLevel.PowerConsole.Editor.Test.Logic.Queries
 			TestHelper.CheckQuery(query, "test", 1);
 			TestHelper.CheckArgument(query.Arguments[0], null, "-1");
 		}
+
+		[Test]
+		public void NegativeNumberOrder()
+		{
+			m_Parser.Parse("test -1 1");
+			List<Query> queries = m_Parser.Flush();
+			Assert.AreEqual(1, queries.Count);
+
+			Query query = queries[0];
+			TestHelper.CheckArguments(query, "-1", "1");
+
+			m_Parser.Parse("test 1 -1");
+			queries = m_Parser.Flush();
+			Assert.AreEqual(1, queries.Count);
+
+			query = queries[0];
+			TestHelper.CheckArguments(query, "1", "-1");
+		}
 	}
 }

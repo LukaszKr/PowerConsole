@@ -3,7 +3,7 @@ using ProceduralLevel.PowerConsole.Logic;
 
 namespace ProceduralLevel.PowerConsole.Editor.Test.Logic.Console
 {
-    [Category("PowerConsole")]
+	[Category("PowerConsole")]
     public class ConsoleExecutionTest
 	{
 		private const int TEST_INT = 123;

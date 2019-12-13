@@ -5,7 +5,7 @@ using System;
 
 namespace ProceduralLevel.PowerConsole.Editor.Test
 {
-    public static class TestHelper
+	public static class TestHelper
 	{
 		public static void CheckQuery(Query query, string name, int argCount, bool isOption = false)
 		{
@@ -18,6 +18,17 @@ namespace ProceduralLevel.PowerConsole.Editor.Test
 		{
 			Assert.AreEqual(name, param.Name);
 			Assert.AreEqual(value, param.Value);
+		}
+
+		public static void CheckArguments(Query query, params string[] args)
+		{
+			int length = args.Length;
+			Assert.AreEqual(query.Arguments.Count, length);
+			for(int x = 0; x < length; ++x)
+			{
+				string str = args[x];
+				CheckArgument(query.Arguments[x], null, args[x]);
+			}
 		}
 
 		public static void CheckParameter(CommandParameter param, string name, Type type, object defaultValue)
