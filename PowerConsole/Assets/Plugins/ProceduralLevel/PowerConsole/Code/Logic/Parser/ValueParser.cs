@@ -13,16 +13,28 @@ namespace ProceduralLevel.PowerConsole.Logic
 		{
 			m_Parsers = new Dictionary<Type, ValueParserDelegate>();
 
-			AddParser<bool>(BoolParser);
-			AddParser<byte>(ByteParser);
-			AddParser<short>(ShortParser);
-			AddParser<ushort>(UShortParser);
-			AddParser<int>(IntParser);
-			AddParser<uint>(UIntParser);
-			AddParser<long>(LongParser);
-			AddParser<float>(FloatParser);
-			AddParser<double>(DoubleParser);
-			AddParser<string>(StringParser);
+			AddParser<bool>(WrapValueParser(BoolParser));
+			AddParser<byte>(WrapValueParser(ByteParser));
+			AddParser<short>(WrapValueParser(ShortParser));
+			AddParser<ushort>(WrapValueParser(UShortParser));
+			AddParser<int>(WrapValueParser(IntParser));
+			AddParser<uint>(WrapValueParser(UIntParser));
+			AddParser<long>(WrapValueParser(LongParser));
+			AddParser<float>(WrapValueParser(FloatParser));
+			AddParser<double>(WrapValueParser(DoubleParser));
+			AddParser<string>(WrapValueParser(StringParser));
+		}
+
+		private static ValueParserDelegate WrapValueParser(ValueParserDelegate parser)
+		{
+			return (str) =>
+			{
+				if(str == "-")
+				{
+					str += "0";
+				}
+				return parser(str);
+			};
 		}
 
 		public void AddParser<T>(ValueParserDelegate parser)

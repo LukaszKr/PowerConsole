@@ -99,6 +99,15 @@ namespace ProceduralLevel.PowerConsole.Logic
 								return query;
 							}
 						}
+						else if(query != null)
+						{
+							argument = new Argument()
+							{
+								Value = token.Value,
+								Offset = token.Column
+							};
+							query.Arguments.Add(argument);
+						}
 						break;
 					case ParserConst.SEPARATOR:
 						if(query != null)
@@ -163,7 +172,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 			}
 			if(query != null)
 			{
-				if((token.IsSeparator && token.Value[0] == ParserConst.SPACE) || m_ParseMode == EQueryParseMode.NegativeNumber)
+				if((token.IsSeparator && token.Value[0] == ParserConst.SPACE))
 				{
 					query.Arguments.Add(new Argument() 
 					{ 

@@ -31,6 +31,15 @@
 			return string.Empty;
 		}
 
-		protected abstract long Parse(string value);
+		private long Parse(string value)
+		{
+			if(value == "-")
+			{
+				value += "0";
+			}
+			return OnParse(value);
+		}
+
+		protected abstract long OnParse(string value);
 	}
 }

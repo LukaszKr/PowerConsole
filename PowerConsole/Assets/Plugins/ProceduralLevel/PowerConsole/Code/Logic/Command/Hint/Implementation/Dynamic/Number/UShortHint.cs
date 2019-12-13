@@ -6,7 +6,7 @@
 		{
 		}
 
-		protected override long Parse(string value)
+		protected override long OnParse(string value)
 		{
 			ushort parsed;
 			ushort.TryParse(value, out parsed);

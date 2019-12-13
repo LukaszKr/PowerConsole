@@ -26,7 +26,6 @@ namespace ProceduralLevel.PowerConsole.Editor.Test
 			Assert.AreEqual(query.Arguments.Count, length);
 			for(int x = 0; x < length; ++x)
 			{
-				string str = args[x];
 				CheckArgument(query.Arguments[x], null, args[x]);
 			}
 		}

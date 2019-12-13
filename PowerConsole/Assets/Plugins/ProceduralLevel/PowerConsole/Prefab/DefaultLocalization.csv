@@ -13,7 +13,7 @@
 "CmdListName","list"
 "CmdListDesc","List all commands and options"
 "CmdClearName","clear"
-"CmdClearDesc","Remove all messages fro console"
+"CmdClearDesc","Remove all messages from console"
 "CmdPrintName","print"
 "CmdPrintDesc","Print a message to console"
 "CmdMacroName","macro"

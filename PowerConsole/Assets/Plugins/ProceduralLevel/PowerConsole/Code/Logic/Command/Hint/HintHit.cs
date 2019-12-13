@@ -17,20 +17,30 @@ namespace ProceduralLevel.PowerConsole.Logic
 		public HintHit(string userInput, AHintIterator iterator, string hint)
 		{
 			Hint = hint;
+			Argument argument = iterator.Argument;
 
-			int hitIndex = hint.IndexOf(iterator.Argument.Value, StringComparison.OrdinalIgnoreCase);
+			int hitIndex = hint.IndexOf(argument.Value, StringComparison.OrdinalIgnoreCase);
+			if(hitIndex >= 0)
+			{
+				Value = argument.Value;
+				SufixOffset = 0;
+			}
+			else
+			{
+				Value = string.Empty;
+				SufixOffset = argument.Value.Length;
+			}
 			hitIndex = Math.Max(0, hitIndex);
 
-			int argumentOffset = Math.Min(iterator.Argument.Offset, userInput.Length);
+			int argumentOffset = Math.Min(argument.Offset, userInput.Length);
 
 			Prefix = userInput.Substring(0, argumentOffset);
 			HitPrefix = hint.Substring(0, hitIndex);
-			Value = iterator.Argument.Value;
 
 			int hitSufixOffset = Math.Min(hint.Length, hitIndex+Value.Length);
 			HitSufix = hint.Substring(hitSufixOffset);
 
-			SufixOffset = Prefix.Length+Value.Length;
+			SufixOffset += Prefix.Length+Value.Length;
 			Sufix = userInput.Substring(Math.Min(userInput.Length, SufixOffset));
 			SufixOffset += HitPrefix.Length+HitSufix.Length;
 
