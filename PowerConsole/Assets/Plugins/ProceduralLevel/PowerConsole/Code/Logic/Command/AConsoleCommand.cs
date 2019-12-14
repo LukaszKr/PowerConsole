@@ -55,14 +55,13 @@ namespace ProceduralLevel.PowerConsole.Logic
 			Method = Factory.CreateCommandMethod(GetCommandMethod());
 		}
 
-		public Message Execute(object[] values)
+		public object Execute(object[] values)
 		{
 			if(!IsValid)
 			{
 				return new Message(EMessageType.Error, "Command is marked as invalid for current state");
 			}
-			object rawResult = Method.Command.Invoke(this, values);
-			return rawResult as Message;
+			return Method.Command.Invoke(this, values);
 		}
 
 		#region Options

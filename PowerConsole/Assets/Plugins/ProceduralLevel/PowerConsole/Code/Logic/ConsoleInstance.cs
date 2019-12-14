@@ -1,5 +1,6 @@
 ﻿using ProceduralLevel.Common.Event;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace ProceduralLevel.PowerConsole.Logic
@@ -32,7 +33,6 @@ namespace ProceduralLevel.PowerConsole.Logic
 
 		private List<AConsoleCommand> m_DefaultOptions;
 
-
 		public ConsoleInstance(LocalizationManager localizationProvider, IPersistence persistence)
 		{
 			Localization = localizationProvider;
@@ -53,7 +53,8 @@ namespace ProceduralLevel.PowerConsole.Logic
 
 			m_DefaultOptions = new List<AConsoleCommand>()
 			{
-				new RepeatOption(this)
+				new RepeatOption(this),
+				new DelayOption(this)
 			};
 
 			for(int x = 0; x < m_Modules.Count; x++)
@@ -64,6 +65,36 @@ namespace ProceduralLevel.PowerConsole.Logic
 			}
 
 			InputModule.SetInput("", 0);
+		}
+
+		public IEnumerator Update()
+		{
+			if(m_CurrentEnumerator != null)
+			{
+				object current = m_CurrentEnumerator.Current;
+				if(current != null && current.GetType() == typeof(Message))
+				{
+					OnMessage.Invoke(current as Message);
+					m_CurrentEnumerator = null;
+				}
+				else if(current == null)
+				{
+					m_CurrentEnumerator = null;
+				}
+			}
+			if(m_CurrentQueries.Count == 0 && m_PendingBatches.Count > 0)
+			{
+				m_CurrentQueries = m_PendingBatches.Dequeue();
+			}
+			while(m_CurrentEnumerator == null && m_CurrentQueries.Count > 0)
+			{
+				m_CurrentEnumerator = ProcessNextQuery();
+				if(m_CurrentEnumerator != null)
+				{
+					return m_CurrentEnumerator;
+				}
+			}
+			return null;
 		}
 
 		public void SetupDefault()
@@ -98,8 +129,11 @@ namespace ProceduralLevel.PowerConsole.Logic
 		#endregion
 
 		#region Execution
-		public List<Query> ExecutionStack = new List<Query>();
+		private readonly Queue<Stack<Query>> m_PendingBatches = new Queue<Stack<Query>>();
+		private Stack<Query> m_CurrentQueries = new Stack<Query>(); //just to avoid null checks
 
+		private IEnumerator m_CurrentEnumerator = null;
+		
 		public void Execute(string strQuery, bool recordHistory = true)
 		{
 			if(recordHistory)
@@ -107,21 +141,26 @@ namespace ProceduralLevel.PowerConsole.Logic
 				HistoryModule.Add(strQuery);
 			}
 			List<Query> queries = ParseQuery(strQuery);
-			Execute(queries);
+			HandleQueries(queries);
 		}
 
-		public void Execute(List<Query> queries)
+		private void HandleQueries(List<Query> queries)
 		{
+			bool processingOptions = false;
+			Stack<Query> batch = new Stack<Query>();
 			for(int x = 0; x < queries.Count; x++)
 			{
 				Query query = queries[x];
-				if(!query.IsOption && (x == queries.Count-1 || !queries[x+1].IsOption))
+				if(processingOptions &&	!query.IsOption)
 				{
-					ExecuteStack(ExecutionStack.Count > 1);
+					m_PendingBatches.Enqueue(batch);
+					batch = new Stack<Query>();
 				}
-				if(query.IsOption)
+				processingOptions = query.IsOption;
+
+				if(processingOptions)
 				{
-					if(ExecutionStack.Count == 0)
+					if(batch.Count == 0)
 					{
 						OnMessage.Invoke(new Message(EMessageType.Error, Localization.Get(ELocKey.LogicOptionWithoutCommand)));
 						return;
@@ -129,7 +168,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 					else
 					{
 						AConsoleCommand option = query.GetCommand(this);
-						AConsoleCommand command = ExecutionStack[0].GetCommand(this);
+						AConsoleCommand command = batch.Peek().GetCommand(this);
 						if(command == null)
 						{
 							OnMessage.Invoke(new Message(EMessageType.Error, Localization.Get(ELocKey.LogicCommandNotFound, query.Name.Value)));
@@ -142,27 +181,18 @@ namespace ProceduralLevel.PowerConsole.Logic
 						}
 					}
 				}
-				ExecutionStack.Add(query);
+				batch.Push(query);
 			}
-			ExecuteStack(ExecutionStack.Count > 1);
-			ExecutionStack.Clear();
-		}
-
-		private void ExecuteStack(bool hasOptions)
-		{
-			int count = ExecutionStack.Count-1;
-			for(int stackIndex = count; stackIndex >= (hasOptions? 1: 0); stackIndex--)
+			if(batch.Count > 0)
 			{
-				int lastIndex = ExecutionStack.Count-1;
-				Query executedQuery = ExecutionStack[lastIndex];
-				ExecutionStack.RemoveAt(lastIndex);
-				Execute(executedQuery);
+				m_PendingBatches.Enqueue(batch);
 			}
 		}
 
-		public void Execute(Query query)
+		private IEnumerator ProcessNextQuery()
 		{
-			if(PrintExecutedCommand)
+			Query query = m_CurrentQueries.Pop();
+			if(PrintExecutedCommand && !query.IsOption)
 			{
 				OnMessage.Invoke(new Message(EMessageType.Execution, query.RawQuery));
 			}
@@ -170,7 +200,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 			if(command == null)
 			{
 				OnMessage.Invoke(new Message(EMessageType.Error, Localization.Get(ELocKey.LogicCommandNotFound, query.Name.Value)));
-				return;
+				return null;
 			}
 			CommandMethod method = command.Method;
 			if(MapQuery(method, query) && ParseQueryValues(query))
@@ -178,14 +208,35 @@ namespace ProceduralLevel.PowerConsole.Logic
 				if(Locked && command.ObeyLock)
 				{
 					OnMessage.Invoke(new Message(EMessageType.Warning, Localization.Get(ELocKey.LogicConsoleLocked)));
-					return;
+					return null;
 				}
 
 				object[] parsed = query.GetParsedValues();
-				Message result = command.Execute(parsed);
-				if(result != null)
+				object result = command.Execute(parsed);
+
+				m_CurrentEnumerator = result as IEnumerator;
+				if(m_CurrentEnumerator != null)
 				{
-					OnMessage.Invoke(result);
+					return m_CurrentEnumerator;
+				}
+
+				Message message = result as Message;
+				if(message != null)
+				{
+					OnMessage.Invoke(message);
+				}
+			}
+			return null;
+		}
+
+		public void RepeatCurrentQueries(int nTimes)
+		{
+			Queue<Query> originalQueries = new Queue<Query>(m_CurrentQueries);
+			for(int x = 0; x < nTimes; ++x)
+			{
+				foreach(Query query in originalQueries)
+				{
+					m_CurrentQueries.Push(query);
 				}
 			}
 		}

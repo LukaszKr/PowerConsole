@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace ProceduralLevel.PowerConsole.Logic
+﻿namespace ProceduralLevel.PowerConsole.Logic
 {
 	public class RepeatOption: AConsoleCommand
 	{
@@ -11,14 +9,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 
 		public Message Command(int count)
 		{
-			List<Query> queries = Console.ExecutionStack;
-			for(int repeatIndex = 0; repeatIndex < count; repeatIndex++)
-			{
-				for(int queryIndex = queries.Count-1; queryIndex >= 0; queryIndex--)
-				{
-					Console.Execute(queries[queryIndex]);
-				}
-			}
+			Console.RepeatCurrentQueries(count-1);
 			return null;
 		}
 	}

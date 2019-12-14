@@ -41,5 +41,8 @@
 		ResMacroList,
 
 		ResClearHistory,
+
+		OptDelayName,
+		OptDelayDesc,
 	}
 }

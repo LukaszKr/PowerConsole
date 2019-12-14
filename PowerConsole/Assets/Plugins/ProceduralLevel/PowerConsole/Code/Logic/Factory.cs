@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Reflection;
 
 namespace ProceduralLevel.PowerConsole.Logic
@@ -13,6 +14,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 			console.AddCommand(new ListCommand(console));
 
 			console.AddCommand(new RepeatOption(console));
+			console.AddCommand(new DelayOption(console));
 		}
 
 		public static CommandMethod CreateCommandMethod(MethodInfo info)
@@ -21,7 +23,8 @@ namespace ProceduralLevel.PowerConsole.Logic
 			{
 				throw new ArgumentNullException();
 			}
-			if(info.ReturnType != typeof(Message))
+			
+			if(info.ReturnType != typeof(Message) && info.ReturnType != typeof(IEnumerator))
 			{
 				throw new IncorrectReturnTypeException(info, info.ReturnType);
 			}

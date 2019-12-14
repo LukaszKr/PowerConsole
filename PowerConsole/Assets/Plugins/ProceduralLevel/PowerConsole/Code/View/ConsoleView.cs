@@ -1,6 +1,7 @@
 ﻿using ProceduralLevel.PowerConsole.Logic;
 using ProceduralLevel.UnityCommon.Ext;
 using System;
+using System.Collections;
 using UnityEngine;
 
 namespace ProceduralLevel.PowerConsole.View
@@ -45,6 +46,12 @@ namespace ProceduralLevel.PowerConsole.View
 			//after recompiling, restart the console
 			TryInitialize();
 			UserInput.Update();
+
+			IEnumerator enumerator = Console.Update();
+			if(enumerator != null)
+			{
+				StartCoroutine(enumerator);
+			}
 
 			if(!Active)
 			{

@@ -33,3 +33,5 @@
 "ResMacroSaved","Macro was successfully saved"
 "ResMacroList","Following macros are active currently:"
 "ResClearHistory","Execution history was successfully cleared"
+"OptDelayName","delay"
+"OptDelayDesc","Delay query by [seconds]"

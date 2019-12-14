@@ -136,6 +136,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 								Value = token.Value
 							};
 							query = new Query(commandName, m_ParseMode == EQueryParseMode.Option);
+							m_ParseMode = EQueryParseMode.Argument;
 						}
 						else
 						{

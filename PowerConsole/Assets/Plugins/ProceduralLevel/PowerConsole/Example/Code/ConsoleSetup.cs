@@ -10,6 +10,7 @@ public class ConsoleSetup: MonoBehaviour
 	public void Start()
 	{
 		ConsoleView.Console.AddCommand(new SpawnCommand(Manager, ConsoleView.Console, "spawn", "Spawn a prefab"));
+		ConsoleView.Console.AddCommand(new AsyncPrintCommand(ConsoleView.Console));
 
 		ConsoleMessagesPanel messages = ConsoleView.Messages;
 		messages.AddMessage(new Message(EMessageType.Info, 
