@@ -58,6 +58,14 @@ namespace ProceduralLevel.PowerConsole.View
 				}
 			}
 			HandleMouse(size);
+			if(m_ScrollPosition < 0 || m_ScrollPosition+m_TotalHeight < size.y)
+			{
+				m_ScrollPosition = 0;
+			}
+			else if(m_ScrollPosition-m_TotalHeight > size.y)
+			{
+				m_ScrollPosition = m_TotalHeight-size.y;
+			}
 
 			if(m_TotalHeight > size.y)
 			{
