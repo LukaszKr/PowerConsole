@@ -38,6 +38,8 @@ namespace ProceduralLevel.PowerConsole.View
 		public void Awake()
 		{
 			TryInitialize();
+
+			gameObject.AddComponent<MacroPlayerHelper>();
 		}
 
 		public void OnGUI()

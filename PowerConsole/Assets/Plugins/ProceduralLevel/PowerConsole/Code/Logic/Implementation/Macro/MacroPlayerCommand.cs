@@ -1,4 +1,7 @@
-﻿namespace ProceduralLevel.PowerConsole.Logic
+﻿using System.Collections;
+using UnityEngine;
+
+namespace ProceduralLevel.PowerConsole.Logic
 {
 	public class MacroPlayerCommand: AConsoleCommand
 	{
@@ -9,12 +12,10 @@
 			m_Macro = macro;
 		}
 
-		public Message Command()
+		public Message Command(float delay = -1)
 		{
-			for(int x = 0; x < m_Macro.Queries.Count; x++)
-			{
-				Console.Execute(m_Macro.Queries[x], false);
-			}
+			if (delay < 0) MacroPlayerHelper.PlayMacro(Console, m_Macro);
+			else MacroPlayerHelper.Instance.PlayMacroWithDelay(Console, m_Macro, delay);
 			return null;
 		}
 	}
