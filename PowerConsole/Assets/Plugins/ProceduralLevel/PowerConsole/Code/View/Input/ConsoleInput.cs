@@ -7,7 +7,7 @@ namespace ProceduralLevel.PowerConsole.View
 {
 	public class ConsoleInput
 	{
-		private KeyCode[] m_Toggle = new KeyCode[] { KeyCode.F1 };
+		private KeyCode[] m_Toggle = new KeyCode[] { KeyCode.BackQuote };
 		private KeyCode[] m_Execute = new KeyCode[] { KeyCode.Return };
 		private KeyCode[] m_NextHint = new KeyCode[] { KeyCode.Tab };
 		private KeyCode[] m_NextHistory = new KeyCode[] { KeyCode.UpArrow };
