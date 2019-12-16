@@ -4,6 +4,5 @@
 	{
 		NamedArgumentNoName,
 		QuoteMismatch,
-		OptionWithoutCommand,
 	}
 }

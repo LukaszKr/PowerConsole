@@ -60,6 +60,7 @@ namespace ProceduralLevel.PowerConsole.Editor.Test
 			console.OnMessage.RemoveAllListeners();
 			console.OnMessage.AddListener(onMessage);
 			console.Execute(query);
+			console.Update();
 			console.OnMessage.RemoveListener(onMessage);
 			Assert.AreEqual(expected.Length, current);
 		}

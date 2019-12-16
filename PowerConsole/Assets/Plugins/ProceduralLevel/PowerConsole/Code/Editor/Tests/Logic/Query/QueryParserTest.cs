@@ -137,5 +137,18 @@ namespace ProceduralLevel.PowerConsole.Editor.Test.Logic.Queries
 			query = queries[0];
 			TestHelper.CheckArguments(query, "1", "-1");
 		}
+
+		[Test]
+		public void DashInsideString()
+		{
+			m_Parser.Parse("test arg-with-dash");
+
+			List<Query> queries = m_Parser.Flush();
+			Assert.AreEqual(1, queries.Count);
+
+			Query query = queries[0];
+			TestHelper.CheckArguments(query, "arg-with-dash");
+
+		}
 	}
 }

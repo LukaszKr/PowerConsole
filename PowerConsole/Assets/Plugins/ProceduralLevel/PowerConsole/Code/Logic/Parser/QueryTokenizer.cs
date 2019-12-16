@@ -6,7 +6,7 @@ namespace ProceduralLevel.PowerConsole.Logic
 	{
 		private readonly static char[] QUERY_DEFAULT = new char[]
 		{
-			ParserConst.QUOTE, ParserConst.OPTION,
+			ParserConst.QUOTE,
 			ParserConst.SEPARATOR, ParserConst.SPACE, ParserConst.ASSIGN,
 		};
 

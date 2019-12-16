@@ -13,11 +13,5 @@ namespace ProceduralLevel.PowerConsole.Editor.Test.Logic.Queries
 		{
 			TestHelper.CheckException(m_Parser, "test =value", EQueryError.NamedArgumentNoName);
 		}
-
-		[Test]
-		public void OptionRequiresACommand()
-		{
-			TestHelper.CheckException(m_Parser, "-option 123", EQueryError.OptionWithoutCommand);
-		}
 	}
 }
